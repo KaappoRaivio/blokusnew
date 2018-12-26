@@ -142,7 +142,6 @@ public class Board implements Serializable {
             isConnected = true;
         }
 
-        System.out.println(fits + " " + isConnected);
 
         return fits && isConnected;
 

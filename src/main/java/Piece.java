@@ -53,7 +53,6 @@ public class Piece implements java.io.Serializable {
 
 
     public void placeOnBoard (int posX, int posY) {
-        System.out.println("asdasdasd" + onBoard + this.posX + this.posY);
         if (onBoard) {
             throw new RuntimeException("Piece " + this.toString() + " is already on board at coordnates " + this.posX + ", " + this.posY + "!");
         }
