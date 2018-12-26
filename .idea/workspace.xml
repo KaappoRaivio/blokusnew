@@ -1,49 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="ce25beff-fdbc-46a7-a774-9d3d5b134b5f" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/BasePiece.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/Board.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/Factory.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/Main.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/Move.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/MyPieceManager.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/Orientation.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/Piece.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/PieceID.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/PieceManager.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/Position.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/Span.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/boards/1.39470137E12.ser" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/boards/3.95050418E11.ser" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/boards/4.32201925E11.ser" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/boards/4.41268896E11.ser" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/boards/Fri Dec 14 13:54:56 CET 2018.ser" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/boards/Fri Dec 14 13:55:24 CET 2018.ser" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/boards/Fri Dec 14 14:26:31 CET 2018.ser" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/pieces/piece1.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/pieces/piece10.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/pieces/piece11.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/pieces/piece12.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/pieces/piece13.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/pieces/piece14.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/pieces/piece15.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/pieces/piece16.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/pieces/piece17.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/pieces/piece18.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/pieces/piece19.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/pieces/piece2.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/pieces/piece20.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/pieces/piece21.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/pieces/piece3.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/pieces/piece4.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/pieces/piece5.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/pieces/piece6.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/pieces/piece7.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/pieces/piece8.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/pieces/piece9.txt" afterDir="false" />
-    </list>
+    <list default="true" id="ce25beff-fdbc-46a7-a774-9d3d5b134b5f" name="Default Changelist" comment="" />
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/.gradle/" />
     <ignored path="$PROJECT_DIR$/build/" />
@@ -54,7 +12,7 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="DarkyenusTimeTracker">
-    <option name="totalTimeSeconds" value="96127" />
+    <option name="totalTimeSeconds" value="96251" />
     <option name="gitIntegration" value="true" />
     <option name="naggedAbout" value="1" />
   </component>
@@ -231,7 +189,6 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="27" width="1920" height="1019" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.25773746" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
