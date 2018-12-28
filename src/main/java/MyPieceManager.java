@@ -10,8 +10,6 @@ public class MyPieceManager implements PieceManager, Serializable {
     private List< List<PieceID> > piecesNotOnBoard = new ArrayList<>();
     private int amountOfPlayers;
 
-//    private boolean[] piecesOnBoard;
-
     public MyPieceManager (int amountOfPlayers) {
         for (int i = 0; i < amountOfPlayers; i++) {
             piecesNotOnBoard.add(new ArrayList<>());
