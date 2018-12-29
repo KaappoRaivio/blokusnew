@@ -1,3 +1,4 @@
+package blokus;
 
 import java.io.*;
 import java.util.*;
@@ -19,7 +20,7 @@ public class Board implements Serializable {
 
     private PieceManager pieceManager;
 
-    Board (int dimX, int dimY, PieceManager pieceManager) {
+    public Board(int dimX, int dimY, PieceManager pieceManager) {
         this.dimX = dimX;
         this.dimY = dimY;
         this.amountOfPlayers = pieceManager.getAmountOfPlayers();
@@ -47,7 +48,7 @@ public class Board implements Serializable {
         Piece piece = pieceManager.getCachedPiece(pieceID, color).rotate(orientation, flip);
 
         if (pieceManager.isOnBoard(pieceID, color)) {
-            throw new RuntimeException("Piece " + piece + "already on board");
+            throw new RuntimeException("blokus.Piece " + piece + "already on board");
         }
 
         if (fits(baseX, baseY, piece)) {
@@ -73,7 +74,7 @@ public class Board implements Serializable {
         }
     }
 
-    private boolean fits (int baseX, int baseY, Piece piece) {
+    public boolean fits (int baseX, int baseY, Piece piece) {
         char[][] mesh = piece.getMesh();
 
         if (piece.isOnBoard()) {
@@ -145,6 +146,10 @@ public class Board implements Serializable {
 
         return fits && isConnected;
 
+    }
+
+    public boolean fits (Move move) {
+        return fits(move.getX(), move.getY(), pieceManager.getCachedPiece(move.getPieceID(), move.getColor()).rotate(move.getOrientation(), move.isFlip()));
     }
 
     private void addToPiecesOnBoard (Piece piece) {
@@ -345,10 +350,10 @@ public class Board implements Serializable {
     }
 
 
-    public List<Move> getAllFittingMovesParallel(int color) {
+    public List<Move> getAllFittingMovesParallel(int color, int numberOfCores) {
 
         List<Move> result = new ArrayList<>();
-        List<Span> spans = splitBoardInto(Main.NUMBER_OF_CORES);
+        List<Span> spans = splitBoardInto(numberOfCores);
         List<WorkerThread> threads = new ArrayList<>();
 
         for (Span span : spans) {
@@ -420,6 +425,14 @@ public class Board implements Serializable {
 
     public int getAmountOfPlayers() {
         return amountOfPlayers;
+    }
+
+    public PieceManager getPieceManager() {
+        return pieceManager;
+    }
+
+    public void setPieceManager(PieceManager pieceManager) {
+        this.pieceManager = pieceManager;
     }
 
     public class WorkerThread extends Thread {

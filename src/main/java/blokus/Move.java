@@ -1,9 +1,9 @@
-import java.util.Optional;
+package blokus;
 
 public class Move implements java.io.Serializable {
     @Override
     public String toString() {
-        return "Move{" +
+        return "blokus.Move{" +
                 "x=" + x +
                 ", y=" + y +
                 ", pieceID=" + pieceID +

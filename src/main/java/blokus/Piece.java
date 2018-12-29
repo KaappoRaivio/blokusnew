@@ -1,3 +1,4 @@
+package blokus;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
@@ -6,27 +7,27 @@ import java.util.List;
 
 public class Piece implements java.io.Serializable {
     private static final List<String> paths = Arrays.asList(
-            "pieces/piece1.txt",
-            "pieces/piece2.txt",
-            "pieces/piece3.txt",
-            "pieces/piece4.txt",
-            "pieces/piece5.txt",
-            "pieces/piece6.txt",
-            "pieces/piece7.txt",
-            "pieces/piece8.txt",
-            "pieces/piece9.txt",
-            "pieces/piece10.txt",
-            "pieces/piece11.txt",
-            "pieces/piece12.txt",
-            "pieces/piece13.txt",
-            "pieces/piece14.txt",
-            "pieces/piece15.txt",
-            "pieces/piece16.txt",
-            "pieces/piece17.txt",
-            "pieces/piece18.txt",
-            "pieces/piece19.txt",
-            "pieces/piece20.txt",
-            "pieces/piece21.txt"
+            "../pieces/piece1.txt",
+            "../pieces/piece2.txt",
+            "../pieces/piece3.txt",
+            "../pieces/piece4.txt",
+            "../pieces/piece5.txt",
+            "../pieces/piece6.txt",
+            "../pieces/piece7.txt",
+            "../pieces/piece8.txt",
+            "../pieces/piece9.txt",
+            "../pieces/piece10.txt",
+            "../pieces/piece11.txt",
+            "../pieces/piece12.txt",
+            "../pieces/piece13.txt",
+            "../pieces/piece14.txt",
+            "../pieces/piece15.txt",
+            "../pieces/piece16.txt",
+            "../pieces/piece17.txt",
+            "../pieces/piece18.txt",
+            "../pieces/piece19.txt",
+            "../pieces/piece20.txt",
+            "../pieces/piece21.txt"
     );
 
 
@@ -54,7 +55,7 @@ public class Piece implements java.io.Serializable {
 
     public void placeOnBoard (int posX, int posY) {
         if (onBoard) {
-            throw new RuntimeException("Piece " + this.toString() + " is already on board at coordnates " + this.posX + ", " + this.posY + "!");
+            throw new RuntimeException("blokus.Piece " + this.toString() + " is already on board at coordnates " + this.posX + ", " + this.posY + "!");
         }
 
         onBoard = true;
@@ -102,7 +103,7 @@ public class Piece implements java.io.Serializable {
 
         String text;
         try {
-            text = new String(this.getClass().getResourceAsStream(paths.get(pieceID.ordinal())).readAllBytes(), StandardCharsets.UTF_8);
+            text = new String(this.getClass().getResourceAsStream(paths.get(pieceID.getOrdinal())).readAllBytes(), StandardCharsets.UTF_8);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -193,14 +194,14 @@ public class Piece implements java.io.Serializable {
                     }
                 }
                 break;
-            case RIGHT:
+            case LEFT:
                 for (int y = 0; y < this.mesh.length; y++) {
                     for (int x = 0; x < this.mesh[y].length; x++) {
                         newlist[4 - x][y] = this.mesh[y][x];
                     }
                 }
                 break;
-            case LEFT:
+            case RIGHT:
                 for (int y = 0; y < this.mesh.length; y++) {
                     for (int x = 0; x < this.mesh[y].length; x++) {
                         newlist[x][4 - y] = this.mesh[y][x];
@@ -244,7 +245,6 @@ public class Piece implements java.io.Serializable {
 
     public static List<PieceID> getAllPieces (int pieceColor) {
         return Arrays.asList(
-                PieceID.PIECE_0,
                 PieceID.PIECE_1,
                 PieceID.PIECE_2,
                 PieceID.PIECE_3,
@@ -264,7 +264,8 @@ public class Piece implements java.io.Serializable {
                 PieceID.PIECE_17,
                 PieceID.PIECE_18,
                 PieceID.PIECE_19,
-                PieceID.PIECE_20
+                PieceID.PIECE_20,
+                PieceID.PIECE_21
         );
     }
 

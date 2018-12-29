@@ -1,3 +1,4 @@
+package blokus;
 
 import java.util.Iterator;
 import java.util.Spliterator;
@@ -24,7 +25,7 @@ public class Span implements Iterable<Position> {
 
     @Override
     public String toString() {
-        return "Span(" +
+        return "blokus.Span(" +
                 "start=" + start +
                 ", end=" + end +
                 ')';

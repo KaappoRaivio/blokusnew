@@ -1,29 +1,25 @@
+import blokus.*;
 import listener.Key;
 import listener.KeyListener;
+import uis.TtyUITest;
 
 public class Main {
     public static final int NUMBER_OF_CORES = Runtime.getRuntime().availableProcessors();
 
     public static void main (String[] args) {
         Board board = new Board(14, 14, new MyPieceManager(2));
+        TtyUITest ttyUITest = new TtyUITest(board, 0);
+        ttyUITest.updateTurn(0);
+        ttyUITest.update();
+        var move = ttyUITest.getMove();
+//        board.putOnBoard(new Move(0, 0, PieceID.PIECE_19, 0, Orientation.LEFT, false));
+        board.putOnBoard(move);
+        ttyUITest.updateBoard(board.deepCopy());
+        ttyUITest.updateMoveCounter();
+        ttyUITest.updateTurn(1);
+        ttyUITest.update();
 
-
-        board.putOnBoard(0, 0, PieceID.PIECE_13, 0, Orientation.UP, true);
-        board.putOnBoard(3, 1, PieceID.PIECE_14, 0, Orientation.LEFT, false);
-        System.out.println(board);
-
-        KeyListener keyListener = new KeyListener();
-        Thread thread = new Thread(keyListener);
-        thread.start();
-
-        System.out.println("as");
-
-        while (true) {
-            Key key = keyListener.getKey();
-            System.out.println(key);
-
-        }
-
+//        Piece.getAllPieces(0).forEach((a) -> System.out.println(new Piece(a, 0) + " " + a));
     }
 
 }

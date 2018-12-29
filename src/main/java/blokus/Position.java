@@ -1,3 +1,5 @@
+package blokus;
+
 public class Position {
     public final int x;
     public final int y;
@@ -9,7 +11,7 @@ public class Position {
 
     @Override
     public String toString() {
-        return "Position(" +
+        return "blokus.Position(" +
                 "x=" + x +
                 ", y=" + y +
                 ')';

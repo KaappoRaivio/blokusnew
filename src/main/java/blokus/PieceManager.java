@@ -1,3 +1,5 @@
+package blokus;
+
 import java.util.List;
 
 public interface PieceManager {

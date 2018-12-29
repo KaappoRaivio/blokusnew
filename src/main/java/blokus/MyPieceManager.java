@@ -1,6 +1,6 @@
-import javax.management.relation.RoleUnresolved;
+package blokus;
+
 import java.io.Serializable;
-import java.lang.reflect.ParameterizedType;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,7 +19,7 @@ public class MyPieceManager implements PieceManager, Serializable {
             List<PieceID> pieceIDs = Piece.getAllPieces(i);
             for (PieceID pieceID : pieceIDs) {
                 try {
-                    cachedPieces.get(i).add((new Piece(pieceID, i)));
+                    cachedPieces.get(i).add(pieceID.getOrdinal(), (new Piece(pieceID, i)));
                 } catch (Exception e) {
                     throw new RuntimeException(e);
                 }
@@ -49,7 +49,7 @@ public class MyPieceManager implements PieceManager, Serializable {
     @Override
     public Piece getCachedPiece(PieceID pieceID, int color) {
         try {
-            return cachedPieces.get(color).get(pieceID.ordinal());
+            return cachedPieces.get(color).get(pieceID.getOrdinal());
         } catch (IndexOutOfBoundsException e) {
             throw new RuntimeException("Invalid color " + color + " or pieceID " + pieceID + "!");
         }
@@ -58,7 +58,7 @@ public class MyPieceManager implements PieceManager, Serializable {
     @Override
     public void placeOnBoard(PieceID pieceID, int color) {
         if (isOnBoard(pieceID, color)) {
-            throw new RuntimeException("Piece is already on board!");
+            throw new RuntimeException("blokus.Piece is already on board!");
         }
 
         piecesNotOnBoard.get(color).remove(pieceID);
