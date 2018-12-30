@@ -36,7 +36,7 @@ public enum PieceID {
 
     @Override
     public String toString() {
-        return super.toString().substring(6) + " " + term;
+        return /*super.toString().substring(6) + " " +*/ term;
     }
 
     public static PieceID fromStandardNotation (String notation) {

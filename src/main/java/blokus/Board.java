@@ -202,6 +202,20 @@ public class Board implements Serializable {
         }
     }
 
+    public boolean hasMoves (int color) {
+        return getAllFittingMoves(color).size() != 0;
+    }
+
+    public boolean canPlay () {
+        for (int i = 0; i < getAmountOfPlayers(); i++) {
+            if (!hasMoves(i)) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
     private static char getMatchingChar (int color) {
         if (color == -1) {
             return Piece.TRANSPARENT;
