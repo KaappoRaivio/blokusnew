@@ -180,10 +180,11 @@ public class Piece implements java.io.Serializable {
         moveUp();
     }
 
-    public Piece rotate (Orientation orietation, boolean flip) {
+    public Piece rotate (Orientation orientation, boolean flip) {
         char[][] newlist = new char[5][5];
 
-        switch (orietation) {
+
+        switch (orientation) {
             case UP:
                 newlist = this.mesh;
                 break;
@@ -221,7 +222,7 @@ public class Piece implements java.io.Serializable {
         } else {
             afterFlip = newlist;
         }
-        Piece piece = new Piece(afterFlip, this.color, this.getID(), this.getOrientation(), this.isFlipped(), this.isOnBoard());
+        Piece piece = new Piece(afterFlip, this.color, this.getID(), orientation, flip, this.isOnBoard());
         piece.moveLeft();
         piece.moveUp();
 

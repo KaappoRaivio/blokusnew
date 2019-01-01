@@ -5,7 +5,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 public enum PieceID {
-
     PIECE_1 ("I1", 0),
     PIECE_2 ("I2", 1),
     PIECE_3 ("V3", 2),
@@ -53,52 +52,6 @@ public enum PieceID {
 
 
     public static PieceID fromStandardNotation (String notation) {
-//        switch (notation) {
-//            case "I1":
-//                return PIECE_1;
-//            case "I2":
-//                return PIECE_2;
-//            case "V3":
-//                return PIECE_3;
-//            case "I3":
-//                return PIECE_4;
-//            case "O":
-//                return PIECE_5;
-//            case "T4":
-//                return PIECE_6;
-//            case "I4":
-//                return PIECE_7;
-//            case "L4":
-//                return PIECE_8;
-//            case "Z4":
-//                return PIECE_9;
-//            case "L5":
-//                return PIECE_10;
-//            case "T5":
-//                return PIECE_11;
-//            case "V5":
-//                return PIECE_12;
-//            case "N":
-//                return PIECE_13;
-//            case "Z5":
-//                return PIECE_14;
-//            case "I5":
-//                return PIECE_15;
-//            case "P":
-//                return PIECE_16;
-//            case "W":
-//                return PIECE_17;
-//            case "U":
-//                return PIECE_18;
-//            case "F":
-//                return PIECE_19;
-//            case "X":
-//                return PIECE_20;
-//            case "Y":
-//                return PIECE_21;
-//            default:
-//                throw new RuntimeException("Unknown string " + notation);
-//        }
         if (dict.containsKey(notation)) {
             return dict.get(notation);
         } else {

@@ -6,8 +6,8 @@ import java.util.Scanner;
 
 public class Player implements CapableOfPlaying, Serializable {
 
-    private int color;
-    private Board board;
+    protected int color;
+    protected Board board;
     private int turn = -1;
     private int moveCount;
     private Board errorBoard;
@@ -74,5 +74,10 @@ public class Player implements CapableOfPlaying, Serializable {
         this.turn = turn;
         this.moveCount = moveCount;
         this.board = board;
+    }
+
+    @Override
+    public int getColor() {
+        return color;
     }
 }

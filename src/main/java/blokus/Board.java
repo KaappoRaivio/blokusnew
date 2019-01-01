@@ -70,6 +70,7 @@ public class Board implements Serializable {
         try {
             return board[baseY + offsetY][baseX + offsetX];
         } catch (ArrayIndexOutOfBoundsException e) {
+//            System.out.println(baseX + " " + offsetX + " " + baseY + " " + offsetY + " " + "Edge!");
             return EDGE;
         }
     }
@@ -85,6 +86,10 @@ public class Board implements Serializable {
         boolean fits = true;
         boolean touchesCorner = false;
 
+        if (!(mesh.length == 5 && mesh[0].length == 5)) {
+            System.out.println("Length: " + mesh.length + " " + mesh[0].length);
+        }
+
         for (int y = 0; y < mesh.length; y++) {
             for (int x = 0; x < mesh[y].length; x++) {
                 char current = mesh[y][x];
@@ -96,15 +101,16 @@ public class Board implements Serializable {
                 int absY = baseY + y;
 
                 if (safeOffset(absX, absY, 0, 0) != NO_PIECE) {
-                    fits = false;
-                    break;
+//                    fits = false;
+//                    break;
+                    return false;
                 }
 
                 if (!touchesCorner &&
-                        absX == 0 && absY == 0 ||
+                        (absX == 0 && absY == 0 ||
                         absX == 0 && absY == dimY - 1 ||
                         absX == dimX - 1 && absY == 0 ||
-                        absX == dimX - 1 && absY == dimY - 1) {
+                        absX == dimX - 1 && absY == dimY - 1)) {
 
                     touchesCorner = true;
                 }
@@ -133,8 +139,9 @@ public class Board implements Serializable {
                     bottom == piece.getColor() ||
                     left == piece.getColor() ||
                     right == piece.getColor()) {
-                        fits = false;
-                        break;
+//                        fits = false;
+//                        break;
+                        return false;
                 }
             }
         }
@@ -169,7 +176,12 @@ public class Board implements Serializable {
 
                 switch (current) {
                     case Piece.OPAQUE:
-                        this.board[baseY + y][baseX + x] = piece.getColor();
+                        System.out.println(baseY + " " + y + " " + baseX + " " + x);
+                        try {
+                            board[baseY + y][baseX + x] = piece.getColor();
+                        } catch (ArrayIndexOutOfBoundsException e) {
+                            e.printStackTrace();
+                        }
                         break;
                     case Piece.TRANSPARENT:
                         break;
