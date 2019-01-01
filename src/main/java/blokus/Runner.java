@@ -31,6 +31,10 @@ public class Runner {
         boolean[] lost = new boolean[board.getAmountOfPlayers()];
 
         while (true) {
+            if (!board.hasMoves(turn)) {
+                lost[turn] = true;
+            }
+
             if (lost[turn]) {
                 turn = (turn + 1) % board.getAmountOfPlayers();
                 moveCount += 1;
@@ -45,9 +49,6 @@ public class Runner {
 
 
 
-            if (!board.hasMoves(turn)) {
-                lost[turn] = true;
-            }
 
             Move move = current.getMove();
             if (!board.fits(move)) {
