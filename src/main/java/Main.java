@@ -8,7 +8,7 @@ public class Main {
     public static final int NUMBER_OF_CORES = Runtime.getRuntime().availableProcessors();
 
     public static void main (String[] args) {
-        Board board = new Board(14, 14, new MyPieceManager(2));
+        Board board = new Board(14, 14, new MyPieceManager(2), false, 4);
 //        Move move = new Move(7, 10, PieceID.fromStandardNotation("I5"), 0, Orientation.UP, false);
 //        System.out.println(board.fits(move));
 //        board.putOnBoard(move);

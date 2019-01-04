@@ -27,7 +27,6 @@ public class Runner {
     }
 
     public void play () {
-        boolean play = true;
         int moveCount = 0;
         int turn = 0;
 
@@ -61,6 +60,7 @@ public class Runner {
 
             Move move = current.getMove();
             if (!board.fits(move)) {
+                System.out.println("Move " + move + " doesn't fit!");
                 continue;
             }
 
@@ -69,6 +69,8 @@ public class Runner {
             turn = (turn + 1) % board.getAmountOfPlayers();
             moveCount += 1;
         }
+
+
 
         List<Integer> finalScores = new ArrayList<>();
 

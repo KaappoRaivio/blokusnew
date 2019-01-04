@@ -19,18 +19,27 @@ public class Board implements Serializable {
 
 
     private PieceManager pieceManager;
+    private boolean parallel;
+    private int amountOfThreads;
 
     public Board(int dimX, int dimY, PieceManager pieceManager) {
+        this(dimX, dimY, pieceManager, false, 0);
+    }
+
+    public Board(int dimX, int dimY, PieceManager pieceManager, boolean parallel, int amountOfThreads) {
         this.dimX = dimX;
         this.dimY = dimY;
         this.amountOfPlayers = pieceManager.getAmountOfPlayers();
 
         this.pieceManager = pieceManager;
 
+
         board = new int[dimY][dimX];
         errorBoard = new int[dimY][dimX];
 
-
+        this.parallel = parallel;
+        this.amountOfThreads = amountOfThreads;
+        
         initializeBoards();
 
     }
@@ -337,12 +346,14 @@ public class Board implements Serializable {
     }
 
     private List<Span> splitBoardInto (int amountOfChunks) {
+        int surfaceArea = dimX * dimY;
+
 
         int[] lengths = new int[amountOfChunks];
-        int remainder = 400 % amountOfChunks;
+        int remainder = surfaceArea % amountOfChunks;
 
         for (int i = 0; i < amountOfChunks; i++) {
-            lengths[i] = 400 / amountOfChunks;
+            lengths[i] = surfaceArea / amountOfChunks;
         }
 
         for (int i = 0; i < remainder; i++) {
@@ -397,24 +408,28 @@ public class Board implements Serializable {
     }
 
     public List<Move> getAllFittingMoves (int color) {
-//        return getAllFittingMovesParallel(color, 4);
-        List<PieceID> pieces = getPiecesNotOnBoard(color);
-        List<Move> moves = new ArrayList<>();
+        if (parallel) {
+            return getAllFittingMovesParallel(0, amountOfThreads);
+        } else {
+            List<PieceID> pieces = getPiecesNotOnBoard(color);
+            List<Move> moves = new ArrayList<>();
 
-        for (int y = 0; y < dimY; y++) {
-            for (int x = 0; x < dimX; x++) {
-                for (PieceID pieceID : pieces) {
-                    Piece notRotated = pieceManager.getCachedPiece(pieceID, color);
-                    for (Piece piece : notRotated.getAllOrientations()) {
-                        if (fits(x, y, piece)) {
-                            moves.add(new Move(x, y, piece.getID(), piece.getColor(), piece.getOrientation(), piece.isFlipped()));
+            for (int y = 0; y < dimY; y++) {
+                for (int x = 0; x < dimX; x++) {
+                    for (PieceID pieceID : pieces) {
+                        Piece notRotated = pieceManager.getCachedPiece(pieceID, color);
+                        for (Piece piece : notRotated.getAllOrientations()) {
+                            if (fits(x, y, piece)) {
+                                moves.add(new Move(x, y, piece.getID(), piece.getColor(), piece.getOrientation(), piece.isFlipped()));
+                            }
                         }
                     }
                 }
             }
+
+            return moves;
         }
 
-        return moves;
     }
 
     public Board deepCopy () {
@@ -479,6 +494,7 @@ public class Board implements Serializable {
             for (Position position : span) {
                 for (PieceID pieceID : pieces) {
                     Piece notRotated = pieceManager.getCachedPiece(pieceID, color);
+
                     for (Piece piece : notRotated.getAllOrientations()) {
                         if (board.fits(position.x, position.y, piece)) {
                             moves.add(new Move(position.x, position.y, piece.getID(), piece.getColor(), piece.getOrientation(), piece.isFlipped()));
