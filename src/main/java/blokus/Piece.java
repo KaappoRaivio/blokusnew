@@ -40,9 +40,10 @@ public class Piece implements java.io.Serializable {
     private int posX = -1;
     private int posY = -1;
     private boolean onBoard = false;
-    private PieceID id;
-    private Orientation orientation;
-    private boolean flipped;
+    private final PieceID id;
+    private final Orientation orientation;
+    private final boolean flipped;
+    private final int amountOfSquares;
 
     public int getPosX() {
         return posX;
@@ -85,6 +86,7 @@ public class Piece implements java.io.Serializable {
     }
 
     private void initializeMesh () {
+
         for (int y = 0; y < mesh.length; y++) {
             for (int x = 0; x < mesh[y].length; x++) {
                 this.mesh[x][y] = Piece.TRANSPARENT;
@@ -110,20 +112,32 @@ public class Piece implements java.io.Serializable {
 
         String[] lines = text.split("\n");
 
+        int counter = 0;
+
         for (int y = 0; y < lines.length; y++) {
             for (int x = 0; x < lines[y].length(); x++) {
                 char current = lines[y].charAt(x);
+
+                if (current == Piece.OPAQUE) {
+                    counter++;
+                }
+
                 this.mesh[x][y] = current == Piece.TRANSPARENT || current == Piece.OPAQUE ? current : Piece.TRANSPARENT;
             }
         }
 
+        this.amountOfSquares = counter;
         this.id = pieceID;
         this.orientation = Orientation.UP;
         this.flipped = false;
 
     }
 
-    private Piece (char[][] mesh, int color, PieceID pieceID, Orientation orientation, boolean flipped, boolean isOnBoard) {
+    public int getAmountOfSquares () {
+        return amountOfSquares;
+    }
+
+    private Piece (char[][] mesh, int color, PieceID pieceID, Orientation orientation, boolean flipped, boolean isOnBoard, int amountOfSquares) {
         if (isValid(color)) {
             this.color = color;
         } else {
@@ -138,6 +152,7 @@ public class Piece implements java.io.Serializable {
         this.orientation = orientation;
         this.flipped = flipped;
         this.onBoard = isOnBoard;
+        this.amountOfSquares = amountOfSquares;
     }
 
     private void moveLeft () {
@@ -222,7 +237,7 @@ public class Piece implements java.io.Serializable {
         } else {
             afterFlip = newlist;
         }
-        Piece piece = new Piece(afterFlip, this.color, this.getID(), orientation, flip, this.isOnBoard());
+        Piece piece = new Piece(afterFlip, this.color, this.getID(), orientation, flip, this.isOnBoard(), this.getAmountOfSquares());
         piece.moveLeft();
         piece.moveUp();
 

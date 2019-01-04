@@ -6,7 +6,10 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
 public class Runner {
     private Board board;
@@ -35,10 +38,16 @@ public class Runner {
                 lost[turn] = true;
             }
 
+            if (!canPlay(lost)) {
+                break;
+            }
+
             if (lost[turn]) {
                 turn = (turn + 1) % board.getAmountOfPlayers();
                 moveCount += 1;
+                updateAllPlayerValues(board, turn, moveCount);
                 continue;
+
             }
 
             updateAllPlayerValues(board, turn, moveCount);
@@ -60,6 +69,36 @@ public class Runner {
             turn = (turn + 1) % board.getAmountOfPlayers();
             moveCount += 1;
         }
+
+        List<Integer> finalScores = new ArrayList<>();
+
+        for (int color = 0; color < board.getAmountOfPlayers(); color++) {
+            int total = 0;
+            for (PieceID pieceID : board.getPieceManager().getPiecesNotOnBoard(color)) {
+                Piece piece = new Piece(pieceID, color);
+
+                total += piece.getAmountOfSquares();
+            }
+
+            finalScores.add(total);
+        }
+
+        int winner = finalScores.indexOf(Collections.min(finalScores));
+
+        System.out.println("Color " + winner + " won with " + finalScores.get(winner) + " points!");
+
+
+
+    }
+
+    private boolean canPlay (boolean[] lost) {
+        for (boolean b : lost) {
+            if (!b) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     public void updateAllPlayerValues (Board board, int turn, int moveCount) {

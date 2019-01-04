@@ -7,7 +7,7 @@ import java.util.*;
 public class Board implements Serializable {
 
     private static final int NO_PIECE = -1;
-    private static final int EDGE = -1;
+    private static final int EDGE = -2;
 
 
     private int[][] board;
@@ -175,15 +175,10 @@ public class Board implements Serializable {
                 char current = mesh[y][x];
 
                 switch (current) {
-                    case Piece.OPAQUE:
-                        System.out.println(baseY + " " + y + " " + baseX + " " + x);
-                        try {
-                            board[baseY + y][baseX + x] = piece.getColor();
-                        } catch (ArrayIndexOutOfBoundsException e) {
-                            e.printStackTrace();
-                        }
-                        break;
                     case Piece.TRANSPARENT:
+                        break;
+                    case Piece.OPAQUE:
+                        board[baseY + y][baseX + x] = piece.getColor();
                         break;
                     default:
                         throw new RuntimeException("Invalid piece " + piece.toString() + ", " + current);
@@ -402,6 +397,7 @@ public class Board implements Serializable {
     }
 
     public List<Move> getAllFittingMoves (int color) {
+//        return getAllFittingMovesParallel(color, 4);
         List<PieceID> pieces = getPiecesNotOnBoard(color);
         List<Move> moves = new ArrayList<>();
 

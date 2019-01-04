@@ -18,8 +18,9 @@ public class TwoPlayerAi extends Player {
     public Move getMove() {
         List<Move> moves = board.getAllFittingMoves(color);
 
-        Move move = moves.get(new Random().nextInt(moves.size()));
-        System.out.println(move.toString());
+//        Move move = moves.get(new Random().nextInt(moves.size()));
+        Move move = moves.get(0);
+        System.out.println("Color " + color + ", move: " + move.toString());
         return move;
     }
 
