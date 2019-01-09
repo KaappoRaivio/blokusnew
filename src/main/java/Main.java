@@ -1,8 +1,6 @@
-import ais.TwoPlayerAi;
+import ais.DumbTwoPlayerAi;
 import blokus.*;
 import uis.TtyUITest;
-
-import java.util.stream.Collectors;
 
 public class Main {
     public static final int NUMBER_OF_CORES = Runtime.getRuntime().availableProcessors();
@@ -17,7 +15,7 @@ public class Main {
 //        board.putOnBoard(move);
 //        System.out.println(board);
 
-        Player[] players = {new TwoPlayerAi(board.deepCopy(), 0, "Blue ai"), new TwoPlayerAi(board.deepCopy(), 1, "Red ai")};
+        Player[] players = {new DumbTwoPlayerAi(board.deepCopy(), 0, "Blue ai"), new DumbTwoPlayerAi(board.deepCopy(), 1, "Red ai")};
 
         Runner runner = new Runner(board.deepCopy(), players, new TtyUITest(board.deepCopy()));
         runner.play();
@@ -33,7 +31,7 @@ public class Main {
 //        }
 
 
-//        CapableOfPlaying[] players = {new Player(board, 0, "Player 0"), new TwoPlayerAi(board, 1, "Player 1")};
+//        CapableOfPlaying[] players = {new Player(board, 0, "Player 0"), new DumbTwoPlayerAi(board, 1, "Player 1")};
 //
 //        Runner runner = new Runner(board, players, new TtyUITest(board));
 //        runner.play();

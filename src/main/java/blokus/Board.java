@@ -22,6 +22,8 @@ public class Board implements Serializable {
     private boolean parallel;
     private int amountOfThreads;
 
+    private List<Board> moveHistory = new ArrayList<>();
+
     public Board(int dimX, int dimY, PieceManager pieceManager) {
         this(dimX, dimY, pieceManager, false, 0);
     }
@@ -41,6 +43,22 @@ public class Board implements Serializable {
         this.amountOfThreads = amountOfThreads;
         
         initializeBoards();
+
+    }
+
+    private void saveUndoState () {
+        moveHistory.add(deepCopy());
+    }
+
+    public Board undo (int depth) {
+        if (moveHistory.size() - 1 -depth >= 0) {
+            Board oldBoard = moveHistory.get(moveHistory.size() - 1 - depth);
+            moveHistory.remove(moveHistory.size() - 1 - depth);
+            return oldBoard;
+
+        } else {
+            throw new RuntimeException("Can't undo this far! " + depth + moveHistory.size());
+        }
 
     }
 
@@ -178,6 +196,7 @@ public class Board implements Serializable {
 
     private void dummyPut (int baseX, int baseY, Piece piece) {
         char[][] mesh = piece.getMesh();
+        saveUndoState();
 
         for (int y = 0; y < mesh.length; y++) {
             for (int x = 0; x < mesh[y].length; x++) {
@@ -382,7 +401,7 @@ public class Board implements Serializable {
     }
 
 
-    public List<Move> getAllFittingMovesParallel(int color, int numberOfCores) {
+    private List<Move> getAllFittingMovesParallel(int color, int numberOfCores) {
 
         List<Move> result = new ArrayList<>();
         List<Span> spans = splitBoardInto(numberOfCores);
@@ -409,7 +428,7 @@ public class Board implements Serializable {
 
     public List<Move> getAllFittingMoves (int color) {
         if (parallel) {
-            return getAllFittingMovesParallel(0, amountOfThreads);
+            return getAllFittingMovesParallel(color, amountOfThreads);
         } else {
             List<PieceID> pieces = getPiecesNotOnBoard(color);
             List<Move> moves = new ArrayList<>();
