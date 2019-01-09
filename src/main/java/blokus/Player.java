@@ -8,10 +8,10 @@ public class Player implements CapableOfPlaying, Serializable {
 
     protected int color;
     protected Board board;
-    private int turn = -1;
-    private int moveCount;
+    protected int turn = -1;
+    protected int moveCount;
     private Board errorBoard;
-    private String id;
+    protected String id;
 
     public Player (Board board, int color, String id) {
         this.board = board;
