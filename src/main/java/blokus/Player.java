@@ -36,11 +36,11 @@ public class Player implements CapableOfPlaying, Serializable {
             System.out.print("Your move [<x> <y> <piece> <orientation> <flip>]: ");
             Scanner scanner = new Scanner(System.in);
             String input = scanner.nextLine();
-            input = input.replaceAll("( )+", " ");
+            input = input.replaceAll("( )+", " "); // Remove multiple spaces
             String[] splitted = input.split(" ");
 
             if (splitted.length != 5) {
-                System.out.println("Invalid format!" + splitted.length);
+                System.out.println("Invalid format! " + splitted.length);
                 continue;
             }
 
