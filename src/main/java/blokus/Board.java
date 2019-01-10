@@ -59,10 +59,10 @@ public class Board implements Serializable {
 
     public void undo (int depth) {
         if (moveHistory.size() - 1 - depth >= 0) {
-            int[][] oldBoard = moveHistory.get(moveHistory.size() - depth);
+            int[][] oldBoard = moveHistory.get(moveHistory.size() - depth - 1);
             moveHistory.remove(moveHistory.size() - 1 - depth);
             this.board = oldBoard;
-            pieceManager.undo(depth);
+            pieceManager.undo(depth + 1);
 
         } else {
             throw new RuntimeException("Can't undo this far! " + depth + moveHistory.size());
@@ -80,13 +80,13 @@ public class Board implements Serializable {
     }
 
     public boolean putOnBoard(int baseX, int baseY, PieceID pieceID, int color, Orientation orientation, boolean flip) {
-        Piece piece = pieceManager.getCachedPiece(pieceID, color).rotate(orientation, flip);
-
         if (pieceManager.isOnBoard(pieceID, color)) {
-            throw new RuntimeException("blokus.Piece " + piece + "already on board");
+            throw new RuntimeException("blokus.Piece " + pieceID + "already on board");
         }
 
-        if (fits(baseX, baseY, piece)) {
+        Piece piece = pieceManager.getCachedPiece(pieceID, color).rotate(orientation, flip);
+
+        if (fits(baseX, baseY, pieceID, color, orientation, flip)) {
             dummyPut(baseX, baseY, piece);
             addToPiecesOnBoard(piece);
             piece.placeOnBoard(baseX, baseY);
@@ -105,17 +105,18 @@ public class Board implements Serializable {
         try {
             return board[baseY + offsetY][baseX + offsetX];
         } catch (ArrayIndexOutOfBoundsException e) {
-//            System.out.println(baseX + " " + offsetX + " " + baseY + " " + offsetY + " " + "Edge!");
             return EDGE;
         }
     }
 
-    public boolean fits (int baseX, int baseY, Piece piece) {
-        char[][] mesh = piece.getMesh();
-
-        if (piece.isOnBoard()) {
+    public boolean fits (int baseX, int baseY, PieceID pieceID, int color, Orientation orientation, boolean flip) {
+        if (pieceManager.isOnBoard(pieceID, color)) {
             return false;
         }
+
+
+        Piece piece = pieceManager.getCachedPiece(pieceID, color).rotate(orientation, flip);
+        char[][] mesh = piece.getMesh();
 
         boolean isConnected = false;
         boolean fits = true;
@@ -191,7 +192,7 @@ public class Board implements Serializable {
     }
 
     public boolean fits (Move move) {
-        return fits(move.getX(), move.getY(), pieceManager.getCachedPiece(move.getPieceID(), move.getColor()).rotate(move.getOrientation(), move.isFlip()));
+        return fits(move.getX(), move.getY(), move.getPieceID(), move.getColor(), move.getOrientation(), move.isFlip());
     }
 
     private void addToPiecesOnBoard (Piece piece) {
@@ -444,10 +445,12 @@ public class Board implements Serializable {
             for (int y = 0; y < dimY; y++) {
                 for (int x = 0; x < dimX; x++) {
                     for (PieceID pieceID : pieces) {
-                        Piece notRotated = pieceManager.getCachedPiece(pieceID, color);
-                        for (Piece piece : notRotated.getAllOrientations()) {
-                            if (fits(x, y, piece)) {
-                                moves.add(new Move(x, y, piece.getID(), piece.getColor(), piece.getOrientation(), piece.isFlipped()));
+                        for (Orientation orientation : Orientation.values()) {
+                            if (fits(x, y, pieceID, color, orientation, false)) {
+                                moves.add(new Move(x, y, pieceID, color, orientation, false));
+                            }
+                            if (fits(x, y, pieceID, color, orientation, true)) {
+                                moves.add(new Move(x, y, pieceID, color, orientation, true));
                             }
                         }
                     }
@@ -520,11 +523,15 @@ public class Board implements Serializable {
 
             for (Position position : span) {
                 for (PieceID pieceID : pieces) {
-                    Piece notRotated = pieceManager.getCachedPiece(pieceID, color);
+//                    Piece notRotated = pieceManager.getCachedPiece(pieceID, color);
 
-                    for (Piece piece : notRotated.getAllOrientations()) {
-                        if (board.fits(position.x, position.y, piece)) {
-                            moves.add(new Move(position.x, position.y, piece.getID(), piece.getColor(), piece.getOrientation(), piece.isFlipped()));
+                    for (Orientation orientation : Orientation.values()) {
+                        if (board.fits(position.x, position.y, pieceID, color, orientation, false)) {
+                            moves.add(new Move(position.x, position.y, pieceID, color, orientation, false));
+                        }
+
+                        if (board.fits(position.x, position.y, pieceID, color, orientation, true)) {
+                            moves.add(new Move(position.x, position.y, pieceID, color, orientation, true));
                         }
                     }
                 }

@@ -36,9 +36,37 @@ public class TwoPlayerAi extends Player {
         if (turn == color) { // max
             float value = -1;
             for (Move move : position.getAllFittingMoves(turn)) {
+//                Board newBoard = position.deepCopy();
+                position.putOnBoard(move);
+                value = max(value, decisionTree(position, depth - 1, 1 - turn));
+                position.undo(0);
+            }
+
+            return value;
+        } else { // min
+            float value = 1;
+            for (Move move : position.getAllFittingMoves(turn)) {
+//                Board newBoard = position.deepCopy();
+                position.putOnBoard(move);
+                value = min(value, decisionTree(position, depth - 1, 1 - turn));
+                position.undo(0);
+            }
+
+            return value;
+        }
+    }
+
+    private float decisionTreeBad(Board position, int depth,  int turn) {
+        if (depth == 0 || !position.canPlay()) {
+            return evaluate(position);
+        }
+
+        if (turn == color) { // max
+            float value = -1;
+            for (Move move : position.getAllFittingMoves(turn)) {
                 Board newBoard = position.deepCopy();
                 newBoard.putOnBoard(move);
-                value = max(value, decisionTree(newBoard, depth - 1, 1 - turn));
+                value = max(value, decisionTreeBad(newBoard, depth - 1, 1 - turn));
             }
 
             return value;
@@ -47,14 +75,16 @@ public class TwoPlayerAi extends Player {
             for (Move move : position.getAllFittingMoves(turn)) {
                 Board newBoard = position.deepCopy();
                 newBoard.putOnBoard(move);
-                value = min(value, decisionTree(newBoard, depth - 1, 1 - turn));
+                value = min(value, decisionTreeBad(newBoard, depth - 1, 1 - turn));
             }
 
             return value;
         }
     }
 
-
+    private float decisionTreeBad (Board position, int depth) {
+        return decisionTreeBad(position, depth, color);
+    }
 
     private float decisionTree(Board position, int depth) {
         return decisionTree(position, depth, color);
@@ -70,13 +100,13 @@ public class TwoPlayerAi extends Player {
         System.out.println(timeit(new Runnable() {
             @Override
             public void run() {
-                System.out.println(twoPlayerAi.decisionTree(twoPlayerAi.getBoard(), 2));
+                System.out.println(twoPlayerAi.decisionTree(twoPlayerAi.getBoard(), 1));
             }
         }));
     }
 
 
-    public static long timeit (Runnable runnable) {
+    private static long timeit (Runnable runnable) {
         long alku = System.currentTimeMillis();
         runnable.run();
         long loppu = System.currentTimeMillis();
