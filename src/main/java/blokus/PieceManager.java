@@ -11,5 +11,6 @@ public interface PieceManager {
     public boolean isOnBoard (PieceID pieceID, int color);
     public boolean isColorOnBoard (int color);
     public int getAmountOfPlayers ();
+    public void undo (int depth);
 
 }

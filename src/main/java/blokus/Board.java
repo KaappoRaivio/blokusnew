@@ -22,7 +22,7 @@ public class Board implements Serializable {
     private boolean parallel;
     private int amountOfThreads;
 
-    private List<Board> moveHistory = new ArrayList<>();
+    private List<int[][]> moveHistory = new ArrayList<>();
 
     public Board(int dimX, int dimY, PieceManager pieceManager) {
         this(dimX, dimY, pieceManager, false, 0);
@@ -47,14 +47,22 @@ public class Board implements Serializable {
     }
 
     private void saveUndoState () {
-        moveHistory.add(deepCopy());
+        int[][] oldBoard = new int[dimY][dimX];
+
+        for (int y = 0; y < dimY; y++) {
+            if (dimX >= 0) System.arraycopy(board[y], 0, oldBoard[y], 0, dimX);
+        }
+
+        moveHistory.add(oldBoard);
+
     }
 
-    public Board undo (int depth) {
-        if (moveHistory.size() - 1 -depth >= 0) {
-            Board oldBoard = moveHistory.get(moveHistory.size() - 1 - depth);
+    public void undo (int depth) {
+        if (moveHistory.size() - 1 - depth >= 0) {
+            int[][] oldBoard = moveHistory.get(moveHistory.size() - depth);
             moveHistory.remove(moveHistory.size() - 1 - depth);
-            return oldBoard;
+            this.board = oldBoard;
+            pieceManager.undo(depth);
 
         } else {
             throw new RuntimeException("Can't undo this far! " + depth + moveHistory.size());

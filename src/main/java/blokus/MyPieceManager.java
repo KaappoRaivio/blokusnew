@@ -3,11 +3,15 @@ package blokus;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Stack;
 
 public class MyPieceManager implements PieceManager, Serializable {
     private List< List<Piece> > cachedPieces = new ArrayList<>();
     private List< List<PieceID> > piecesOnBoard = new ArrayList<>();
     private List< List<PieceID> > piecesNotOnBoard = new ArrayList<>();
+
+    private Stack<Integer> colorHistory = new Stack<>();
+
     private int amountOfPlayers;
 
     public MyPieceManager (int amountOfPlayers) {
@@ -58,11 +62,22 @@ public class MyPieceManager implements PieceManager, Serializable {
     @Override
     public void placeOnBoard(PieceID pieceID, int color) {
         if (isOnBoard(pieceID, color)) {
-            throw new RuntimeException("blokus.Piece is already on board!");
+            throw new RuntimeException("blokus.Piece " + pieceID + " is already on board!");
         }
 
+        colorHistory.push(color);
         piecesNotOnBoard.get(color).remove(pieceID);
         piecesOnBoard.get(color).add(pieceID);
+    }
+
+
+    private void takeOffBoard (PieceID pieceID, int color) {
+        if (!isOnBoard(pieceID, color)) {
+            throw new RuntimeException("blokus.Piece " + pieceID + " is not on board!");
+        }
+
+        piecesOnBoard.get(color).remove(pieceID);
+        piecesNotOnBoard.get(color).add(pieceID);
     }
 
     @Override
@@ -79,4 +94,16 @@ public class MyPieceManager implements PieceManager, Serializable {
     public int getAmountOfPlayers() {
         return amountOfPlayers;
     }
+
+    @Override
+    public void undo(int depth) {
+        if (depth > 0) {
+            int colorToUndo = colorHistory.pop();
+            PieceID pieceID = piecesOnBoard.get(colorToUndo).get(piecesOnBoard.get(colorToUndo).size() - 1);
+            takeOffBoard(pieceID, colorToUndo);
+            undo(depth - 1);
+        }
+    }
+
+
 }
