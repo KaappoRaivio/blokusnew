@@ -109,8 +109,12 @@ public class Board implements Serializable {
         }
     }
 
-    public boolean fits (int baseX, int baseY, PieceID pieceID, int color, Orientation orientation, boolean flip) {
-        if (pieceManager.isOnBoard(pieceID, color)) {
+    public boolean fits(int baseX, int baseY, PieceID pieceID, int color, Orientation orientation, boolean flip) {
+        return fits(baseX, baseY, pieceID, color, orientation, flip, true);
+    }
+
+    public boolean fits (int baseX, int baseY, PieceID pieceID, int color, Orientation orientation, boolean flip, boolean noDupe) {
+        if (pieceManager.isOnBoard(pieceID, color) && noDupe) {
             return false;
         }
 
@@ -442,9 +446,9 @@ public class Board implements Serializable {
             List<PieceID> pieces = getPiecesNotOnBoard(color);
             List<Move> moves = new ArrayList<>();
 
-            for (int y = 0; y < dimY; y++) {
-                for (int x = 0; x < dimX; x++) {
-                    for (PieceID pieceID : pieces) {
+            for (PieceID pieceID : pieces) {
+                for (int y = 0; y < dimY; y++) {
+                    for (int x = 0; x < dimX; x++) {
                         for (Orientation orientation : Orientation.values()) {
                             if (fits(x, y, pieceID, color, orientation, false)) {
                                 moves.add(new Move(x, y, pieceID, color, orientation, false));
@@ -543,6 +547,35 @@ public class Board implements Serializable {
         }
 
 
+    }
+
+    public List<Move> getFirstNFittingMoves (int n, int color) {
+        List<PieceID> pieces = getPiecesNotOnBoard(color);
+        pieces.sort(new Comparator<PieceID>() {
+            @Override
+            public int compare(PieceID pieceID, PieceID t1) {
+                return t1.getAmountOfSquares() - pieceID.getAmountOfSquares();
+            }
+        });
+        pieces = pieces.subList(0, n);
+        List<Move> moves = new ArrayList<>();
+
+        for (PieceID pieceID : pieces) {
+            for (int y = 0; y < dimY; y++) {
+                for (int x = 0; x < dimX; x++) {
+                    for (Orientation orientation : Orientation.values()) {
+                        if (fits(x, y, pieceID, color, orientation, false)) {
+                            moves.add(new Move(x, y, pieceID, color, orientation, false));
+                        }
+                        if (fits(x, y, pieceID, color, orientation, true)) {
+                            moves.add(new Move(x, y, pieceID, color, orientation, true));
+                        }
+                    }
+                }
+            }
+        }
+
+        return moves;
     }
 
 }
