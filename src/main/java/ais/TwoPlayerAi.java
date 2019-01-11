@@ -3,9 +3,7 @@ package ais;
 import blokus.*;
 
 import javax.print.attribute.standard.RequestingUserName;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 import static java.lang.Math.max;
 import static java.lang.Math.min;
@@ -20,17 +18,30 @@ public class TwoPlayerAi extends Player {
     public Move getMove() {
         List<Move> moves = board.getAllFittingMoves(color);
 
+        Map<Float, Move> moveScores = new HashMap<>();
+        for (Move move : moves) {
+            board.putOnBoard(move);
+            float score = decisionTree(board, 1);
+            board.undo(0);
+            moveScores.put(score, move);
+        }
+        float maxScore = -1.0f;
+
+        for (float f : moveScores.keySet()) {
+            maxScore = max(maxScore, f);
+        }
+
 //        Move move = moves.get(new Random().nextInt(moves.size()));
-        Move move = moves.get(0);
-        System.out.println("Color " + color + ", move: " + move.toString());
-        return move;
+//        Move move = moves.get(0);
+//        System.out.println("Color " + color + ", move: " + move.toString());
+        return moveScores.get(maxScore);
     }
 
     public Board getBoard () {
         return board;
     }
 
-    private float decisionTree(Board position, int depth,  int turn) {
+    private float decisionTree (Board position, int depth,  int turn) {
         if (depth == 0 || !position.canPlay()) {
 //            System.out.println(evaluate(position));
             return evaluate(position);
@@ -131,17 +142,13 @@ public class TwoPlayerAi extends Player {
     private float evaluate (Board position) {
 //        System.out.println((float) howManySquaresOnBoard(position, color) / 89.0f);
 
-        float[] parameters = new float[]{(float) howManySquaresOnBoard(position, color) / 89.0f, (float) howManyCornersFree(position, color) / 89.0f};
+        float[] parameters = new float[]{(float) howManySquaresOnBoard(position, color) / 89.0f - (float) howManySquaresOnBoard(position, 1 - color) / 89.0f, (float) howManyCornersFree(position, color) / 10.0f - (float) howManyCornersFree(position, 1 - color) / 10.0f};
 
         float average = 0.0f;
 
         for (float f : parameters) {
             average += f;
         }
-
-//        System.out.println(position);
-//        Arrays.stream(new float[][]{parameters}).forEach((a) -> System.out.print(a[0] + " "));
-
 
         return average / parameters.length;
     }

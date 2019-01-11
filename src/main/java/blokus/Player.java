@@ -58,11 +58,11 @@ public class Player implements CapableOfPlaying, Serializable {
                 errorBoard.putOnBoard(move);
                 System.out.print("Like this? [Y/n]");
                 Arrays.stream(errorBoard.toString().split("\n")).forEach((row) -> System.out.println("\t" + row));
-                errorBoard = board.deepCopy();
 
                 String in = scanner.nextLine().toLowerCase();
 
                 if (in.equals("") || in.equals("y")) {
+                    errorBoard = board.deepCopy();
                     return move;
                 }
             } catch (Exception ignored) {}
