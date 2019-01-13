@@ -2,6 +2,7 @@ package blokus;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -33,6 +34,7 @@ public class Piece implements java.io.Serializable {
 
     public static final char OPAQUE = '#';
     public static final char TRANSPARENT = '.';
+    public static final char CORNER = '$';
 
     private char[][] mesh = new char[5][5];
     private int color;
@@ -44,6 +46,9 @@ public class Piece implements java.io.Serializable {
     private final Orientation orientation;
     private final boolean flipped;
     private final int amountOfSquares;
+    private List<Position> squares = new ArrayList<>();
+    private int dimX;
+    private int dimY;
 
     public int getPosX() {
         return posX;
@@ -94,6 +99,10 @@ public class Piece implements java.io.Serializable {
         }
     }
 
+    public List<Position> getSquares() {
+        return squares;
+    }
+
     public Piece (PieceID pieceID, int color) {
         if (isValid(color)) {
             this.color = color;
@@ -111,18 +120,30 @@ public class Piece implements java.io.Serializable {
         }
 
         String[] lines = text.split("\n");
+        dimY = lines.length;
+        dimX = lines[0].length();
 
         int counter = 0;
 
-        for (int y = 0; y < lines.length; y++) {
-            for (int x = 0; x < lines[y].length(); x++) {
+        for (int y = 0; y < dimY; y++) {
+            for (int x = 0; x < dimX; x++) {
                 char current = lines[y].charAt(x);
 
-                if (current == Piece.OPAQUE) {
-                    counter++;
-                }
+                switch (current) {
+                    case Piece.TRANSPARENT:
+                        mesh[x][y] = Piece.TRANSPARENT;
+                        break;
+                    case Piece.OPAQUE:
+                        counter++;
+                        squares.add(new Position(x, y));
+                        mesh[x][y] = Piece.OPAQUE;
+                        break;
+                    default:
+                        System.out.println("Invalid data in " + pieceID + " at " + x + ", " + y + "!" );
+                        mesh[x][y] = Piece.TRANSPARENT;
+                        break;
 
-                this.mesh[x][y] = current == Piece.TRANSPARENT || current == Piece.OPAQUE ? current : Piece.TRANSPARENT;
+                }
             }
         }
 
@@ -131,6 +152,18 @@ public class Piece implements java.io.Serializable {
         this.orientation = Orientation.UP;
         this.flipped = false;
 
+    }
+
+    private void refreshSquares () {
+        squares = new ArrayList<>();
+
+        for (int x = 0; x < dimX; x++) {
+            for (int y = 0; y < dimY; y++) {
+                if (mesh[x][y] == OPAQUE) {
+                    squares.add(new Position(x, y));
+                }
+            }
+        }
     }
 
     public int getAmountOfSquares () {
@@ -147,6 +180,7 @@ public class Piece implements java.io.Serializable {
         initializeMesh();
 
         this.mesh = mesh;
+        refreshSquares();
 
         this.id = pieceID;
         this.orientation = orientation;
@@ -246,16 +280,13 @@ public class Piece implements java.io.Serializable {
     }
 
     public List<Piece> getAllOrientations () {
-        return Arrays.asList(
-                rotate(Orientation.UP, false),
-                rotate(Orientation.RIGHT, false),
-                rotate(Orientation.DOWN, false),
-                rotate(Orientation.LEFT, false),
-                rotate(Orientation.UP, true),
-                rotate(Orientation.RIGHT, true),
-                rotate(Orientation.DOWN, true),
-                rotate(Orientation.LEFT, true)
-        );
+        List<Piece> pieces = new ArrayList<>();
+
+        for (PieceID.OrientationAndFlip orientationAndFlip : id.getAllOrientations()) {
+            pieces.add(rotate(orientationAndFlip.getOrientation(), orientationAndFlip.isFlip()));
+        }
+
+        return pieces;
     }
 
 

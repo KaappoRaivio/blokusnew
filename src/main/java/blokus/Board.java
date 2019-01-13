@@ -65,7 +65,7 @@ public class Board implements Serializable {
             pieceManager.undo(depth + 1);
 
         } else {
-            throw new RuntimeException("Can't undo this far! " + depth + moveHistory.size());
+            throw new RuntimeException("Can't undo this far! " + depth + " " + moveHistory.size());
         }
 
     }
@@ -440,31 +440,108 @@ public class Board implements Serializable {
     }
 
     public List<Move> getAllFittingMoves (int color) {
-        if (parallel) {
-            return getAllFittingMovesParallel(color, amountOfThreads);
-        } else {
-            List<PieceID> pieces = getPiecesNotOnBoard(color);
             List<Move> moves = new ArrayList<>();
+            List<PieceID> pieces = getPiecesNotOnBoard(color);
 
-            for (PieceID pieceID : pieces) {
-                for (int y = 0; y < dimY; y++) {
-                    for (int x = 0; x < dimX; x++) {
-                        for (Orientation orientation : Orientation.values()) {
-                            if (fits(x, y, pieceID, color, orientation, false)) {
-                                moves.add(new Move(x, y, pieceID, color, orientation, false));
-                            }
-                            if (fits(x, y, pieceID, color, orientation, true)) {
-                                moves.add(new Move(x, y, pieceID, color, orientation, true));
-                            }
+
+            for (Position boardPosition : this.getEligibleCorners(color)) {
+                moves.addAll(getAllFittingMoves(color, boardPosition.x, boardPosition.y));
+            }
+
+
+            return moves;
+    }
+
+    private List<Move> getAllFittingMoves (int color, int x, int y) {
+        List<Move> moves = new ArrayList<>();
+        List<PieceID> pieces = getPiecesNotOnBoard(color);
+
+        for (PieceID pieceID : pieces) {
+            moves.addAll(getAllFittingMoves(color, x, y, pieceID));
+        }
+
+        return moves;
+    }
+
+    public List<Move> getAllFittingMovesBad (int color) {
+        var moves = new ArrayList<Move>();
+        var pieces = getPiecesNotOnBoard(color);
+
+        for (var pieceID : pieces) {
+            for (PieceID.OrientationAndFlip orientationAndFlip : pieceID.getAllOrientations()) {
+                for (int x = 0; x < dimX; x++) {
+                    for (int y = 0; y < dimY; y++) {
+                        if (fits(new Move(x, y, pieceID, color, orientationAndFlip.getOrientation(), orientationAndFlip.isFlip()))) {
+                            moves.add(new Move(x, y, pieceID, color, orientationAndFlip.getOrientation(), orientationAndFlip.isFlip()));
                         }
                     }
                 }
             }
-
-            return moves;
         }
 
+        return moves;
     }
+
+
+    public List<Move> getAllFittingMoves (int color, int x, int y, PieceID pieceID) {
+        List<Move> moves = new ArrayList<>();
+        Piece piece = pieceManager.getCachedPiece(pieceID, color);
+
+        for (PieceID.OrientationAndFlip orientationAndFlip: pieceID.getAllOrientations()) {
+            for (Position position : piece.getSquares()) {
+                int baseX = x - position.x;
+                int baseY = y - position.y;
+
+                Move move = new Move(baseX, baseY, pieceID, color, orientationAndFlip.getOrientation(), orientationAndFlip.isFlip());
+
+                if (fits(move)) {
+                    moves.add(move);
+                }
+            }
+        }
+
+        return moves;
+    }
+
+    private boolean isCorner (int x, int y) {
+        return (x == 0 || x == dimX - 1) && (y == 0 || y == dimY - 1);
+    }
+
+    private boolean isEligibleCorner (int color, int x, int y) {
+        if (!isColorOnBoard(color) && isCorner(x, y)) {
+            return true;
+        }
+
+        int topRight = safeOffset(x, y, 1, -1);
+        int bottomRight = safeOffset(x, y, 1, 1);
+        int topLeft = safeOffset(x, y, -1, -1);
+        int bottomLeft = safeOffset(x, y, -1, 1);
+
+        int left = safeOffset(x, y, -1 ,0);
+        int right = safeOffset(x, y, 1 ,0);
+        int top = safeOffset(x, y, 0 ,-1);
+        int bottom = safeOffset(x, y, 0 ,1);
+
+        boolean edges = left != color && right != color && top != color && bottom != color;
+        boolean corners = topRight == color || bottomRight == color || topLeft == color || bottomLeft == color;
+
+        return edges && corners;
+    }
+
+    private List<Position> getEligibleCorners (int color) {
+        List<Position> corners = new ArrayList<>();
+
+        for (int y = 0; y < dimY; y++) {
+            for (int x = 0; x < dimX; x++) {
+                if (isEligibleCorner(color, x, y)) {
+                    corners.add(new Position(x, y));
+                }
+            }
+        }
+
+        return corners;
+    }
+
 
     public Board deepCopy () {
         Board newBoard;

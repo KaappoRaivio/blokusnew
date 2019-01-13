@@ -1,8 +1,6 @@
 package blokus;
 
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 public enum PieceID {
     PIECE_1 ("I1", 0, 1, 4, new OrientationGroup(true, false, false, false, false, false, false, false)),
@@ -66,6 +64,39 @@ public enum PieceID {
         return /*super.toString().substring(6) + " " +*/ term;
     }
 
+    public List<OrientationAndFlip> getAllOrientations () {
+        List<OrientationAndFlip> orientations = new ArrayList<>();
+
+        for (Orientation orientation : Orientation.values()) {
+            if (relevantOrientations.isRelevant(orientation, true)) {
+                orientations.add(new OrientationAndFlip(orientation, true));
+            }
+
+            if (relevantOrientations.isRelevant(orientation, false)) {
+                orientations.add(new OrientationAndFlip(orientation, false));
+            }
+        }
+
+        return orientations;
+    }
+
+    public static class OrientationAndFlip {
+        private Orientation orientation;
+        private boolean flip;
+
+        public Orientation getOrientation() {
+            return orientation;
+        }
+
+        public boolean isFlip() {
+            return flip;
+        }
+
+        public OrientationAndFlip(Orientation orientation, boolean flip) {
+            this.orientation = orientation;
+            this.flip = flip;
+        }
+    }
 
     public static PieceID fromStandardNotation (String notation) {
         if (dict.containsKey(notation)) {
@@ -73,7 +104,6 @@ public enum PieceID {
         } else {
             throw new RuntimeException("Unknown string " + notation);
         }
-
 
     }
 }
