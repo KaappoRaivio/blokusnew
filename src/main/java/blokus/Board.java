@@ -444,6 +444,7 @@ public class Board implements Serializable {
             List<PieceID> pieces = getPiecesNotOnBoard(color);
 
 
+
             for (Position boardPosition : this.getEligibleCorners(color)) {
                 moves.addAll(getAllFittingMoves(color, boardPosition.x, boardPosition.y));
             }
@@ -627,32 +628,21 @@ public class Board implements Serializable {
     }
 
     public List<Move> getFirstNFittingMoves (int n, int color) {
-        List<PieceID> pieces = getPiecesNotOnBoard(color);
-        pieces.sort(new Comparator<PieceID>() {
+        List<Move> moves = getAllFittingMoves(color);
+        moves.sort(new Comparator<Move>() {
             @Override
-            public int compare(PieceID pieceID, PieceID t1) {
-                return t1.getAmountOfSquares() - pieceID.getAmountOfSquares();
+            public int compare(Move move, Move t1) {
+                return t1.getPieceID().getAmountOfSquares() - move.getPieceID().getAmountOfSquares();
             }
         });
-        pieces = pieces.subList(0, n);
-        List<Move> moves = new ArrayList<>();
 
-        for (PieceID pieceID : pieces) {
-            for (int y = 0; y < dimY; y++) {
-                for (int x = 0; x < dimX; x++) {
-                    for (Orientation orientation : Orientation.values()) {
-                        if (fits(x, y, pieceID, color, orientation, false)) {
-                            moves.add(new Move(x, y, pieceID, color, orientation, false));
-                        }
-                        if (fits(x, y, pieceID, color, orientation, true)) {
-                            moves.add(new Move(x, y, pieceID, color, orientation, true));
-                        }
-                    }
-                }
-            }
+        try {
+            return moves.subList(0, n);
+        } catch (IndexOutOfBoundsException e) {
+            return moves;
         }
 
-        return moves;
+
     }
 
 }

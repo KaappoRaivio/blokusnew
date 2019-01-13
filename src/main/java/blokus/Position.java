@@ -1,6 +1,8 @@
 package blokus;
 
-public class Position {
+import java.io.Serializable;
+
+public class Position implements Serializable {
     public final int x;
     public final int y;
 
