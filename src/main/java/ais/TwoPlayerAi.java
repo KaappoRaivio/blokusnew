@@ -21,7 +21,7 @@ public class TwoPlayerAi extends Player {
         Map<Float, Move> moveScores = new HashMap<>();
         for (Move move : moves) {
             board.putOnBoard(move);
-            float score = decisionTree(board, 1);
+            float score = decisionTree(board, 3);
             board.undo(0);
             moveScores.put(score, move);
         }
