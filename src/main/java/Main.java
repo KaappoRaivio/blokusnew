@@ -1,10 +1,6 @@
-import ais.DumbTwoPlayerAi;
-import ais.TwoPlayerAi;
+import ais.twoplayerai.TwoPlayerAi;
 import blokus.*;
 import uis.TtyUITest;
-import uis.UI;
-
-import java.util.List;
 
 public class Main {
     public static final int NUMBER_OF_CORES = Runtime.getRuntime().availableProcessors();
@@ -15,7 +11,13 @@ public class Main {
         CapableOfPlaying[] players = new CapableOfPlaying[]{new Player(board.deepCopy(), 0, null), new TwoPlayerAi(board.deepCopy(), 1, null)};
 
         Runner runner = new Runner(board, players, new TtyUITest(board.deepCopy()));
-        runner.play();
+
+        try {
+            runner.play();
+        } catch (Exception e) {
+            runner.getBoard().save();
+            throw e;
+        }
 
 
 

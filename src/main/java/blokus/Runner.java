@@ -140,4 +140,8 @@ public class Runner {
 
         return path;
     }
+
+    public Board getBoard() {
+        return board;
+    }
 }

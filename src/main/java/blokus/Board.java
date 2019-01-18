@@ -647,4 +647,3 @@ public class Board implements Serializable {
 
 }
 
-class NotImplementedError extends Exception {}
