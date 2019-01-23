@@ -1,5 +1,7 @@
 package blokus;
 
+import misc.MoveAndScore;
+
 import java.io.Serializable;
 import java.util.Arrays;
 import java.util.Scanner;
@@ -27,7 +29,7 @@ public class Player implements CapableOfPlaying, Serializable {
     }
 
     @Override
-    public Move getMove () {
+    public MoveAndScore getMove () {
         if (turn != color) {
             throw new RuntimeException("It's wrong turn! (should be " + color + ", is actually " + turn + ")");
         }
@@ -63,7 +65,7 @@ public class Player implements CapableOfPlaying, Serializable {
                 String in = scanner.nextLine().toLowerCase();
 
                 if (in.equals("") || in.equals("y")) {
-                    return move;
+                    return new MoveAndScore(move);
                 }
             } catch (Exception ignored) {}
         }

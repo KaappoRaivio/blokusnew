@@ -1,12 +1,11 @@
 package ais;
 
 import blokus.Board;
-import blokus.CapableOfPlaying;
 import blokus.Move;
 import blokus.Player;
+import misc.MoveAndScore;
 
 import java.util.List;
-import java.util.Random;
 
 public class DumbTwoPlayerAi extends Player {
 
@@ -15,13 +14,13 @@ public class DumbTwoPlayerAi extends Player {
     }
 
     @Override
-    public Move getMove() {
+    public MoveAndScore getMove() {
         List<Move> moves = board.getAllFittingMoves(color);
 
 //        Move move = moves.get(new Random().nextInt(moves.size()));
         Move move = moves.get(0);
         System.out.println("Color " + color + ", move: " + move.toString());
-        return move;
+        return new MoveAndScore(move);
     }
 
 //    @Override

@@ -196,6 +196,7 @@ public class Board implements Serializable {
     }
 
     public boolean fits (Move move) {
+//        System.out.println(move.getX() + " " + move.getY() + " " + move.getPieceID() + " " + move.getColor() + " " + move.getOrientation() + " " + move.isFlip());
         return fits(move.getX(), move.getY(), move.getPieceID(), move.getColor(), move.getOrientation(), move.isFlip());
     }
 
@@ -282,19 +283,27 @@ public class Board implements Serializable {
     public String toString () {
         StringBuilder builder = new StringBuilder();
 
-        for (int i = 0; i < dimY; i++) {
-            int[] row = board[i];
+        builder.append("\n  ");
+        for (int x = 0; x < dimX; x++) {
+            builder.append(getStringFromX(x)).append(" ");
+        }
+
+        for (int y = 0; y < dimY; y++) {
+            int[] row = board[y];
             builder.append("\n");
+            builder.append(getStringFromY(y)).append(" ");
             for (int index = 0; index < row.length - 1; index++) {
-                if (errorBoard[i][index] != NO_PIECE) {
+                if (errorBoard[y][index] != NO_PIECE) {
                     builder.append('E');
                 } else {
                     builder.append(getMatchingChar(row[index]));
                 }
                 builder.append(" ");
             }
+//            builder.append(" ").append(getStringFromY(y));
 
-            if (errorBoard[i][row.length - 1] != NO_PIECE) {
+
+            if (errorBoard[y][row.length - 1] != NO_PIECE) {
                 builder.append('E');
             } else {
                 builder.append(getMatchingChar(row[row.length - 1]));
@@ -304,6 +313,18 @@ public class Board implements Serializable {
 
         return builder.toString();
     }
+
+    private String getStringFromX (int x) {
+//        return String.valueOf((char)( 65 + x));
+        return String.valueOf(x % 10);
+    }
+
+    private String getStringFromY (int y) {
+//        return String.valueOf((char)( 65 + y));
+        return String.valueOf(y % 10);
+    }
+
+
 
     public String save (String name) {
         String path = System.getProperty("user.dir") + "/src/main/resources/boards/" + name + ".ser";

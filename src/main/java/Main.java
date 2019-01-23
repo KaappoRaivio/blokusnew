@@ -7,8 +7,10 @@ public class Main {
 
     public static void main (String[] args) {
         Board board = new Board(14, 14, new MyPieceManager(2), false, 4);
+//        Board board = Board.fromFile("/home/kaappo/git/blokus/src/main/resources/boards/1.16234178E12.ser", false);
 
-        CapableOfPlaying[] players = new CapableOfPlaying[]{new Player(board.deepCopy(), 0, null), new TwoPlayerAi(board.deepCopy(), 1, null)};
+        CapableOfPlaying[] players = new CapableOfPlaying[]{new Player(board.deepCopy(), 0, null), new TwoPlayerAi(board.deepCopy(), 1, null, 2)};
+//        CapableOfPlaying[] players = new CapableOfPlaying[]{new TwoPlayerAi(board.deepCopy(), 0, null, 2), new TwoPlayerAi(board.deepCopy(), 1, null, 2)};
 
         Runner runner = new Runner(board, players, new TtyUITest(board.deepCopy()));
 

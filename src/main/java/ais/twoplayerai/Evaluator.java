@@ -10,9 +10,11 @@ import static java.lang.Math.min;
 
 class Evaluator {
     private int color;
+    private int depth;
 
-    Evaluator(int color) {
+    Evaluator(int color, int depth) {
         this.color = color;
+        this.depth = depth;
     }
 
     private int howManySquaresOnBoard (Board position, int color) {
