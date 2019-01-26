@@ -19,8 +19,6 @@ public class Board implements Serializable {
 
 
     private PieceManager pieceManager;
-    private boolean parallel;
-    private int amountOfThreads;
 
     private List<int[][]> moveHistory = new ArrayList<>();
 
@@ -39,9 +37,6 @@ public class Board implements Serializable {
         board = new int[dimY][dimX];
         errorBoard = new int[dimY][dimX];
 
-        this.parallel = parallel;
-        this.amountOfThreads = amountOfThreads;
-        
         initializeBoards();
 
     }

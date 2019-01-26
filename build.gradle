@@ -9,9 +9,12 @@ sourceCompatibility = 10
 
 repositories {
     mavenCentral()
+
 }
 
 dependencies {
+    compile 'com.googlecode.lanterna:lanterna:3.0.1'
+
     implementation group: 'com.1stleg', name: 'jnativehook', version: '2.0.2'
     compile group: 'org.openjfx', name: 'javafx-base', version: '11.0.2'
     compile 'org.apache.commons:commons-lang3:3.8.1'
