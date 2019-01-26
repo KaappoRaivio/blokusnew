@@ -1,20 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="ce25beff-fdbc-46a7-a774-9d3d5b134b5f" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/misc/MoveAndScore.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ais/DumbTwoPlayerAi.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ais/DumbTwoPlayerAi.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ais/twoplayerai/Evaluator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ais/twoplayerai/Evaluator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ais/twoplayerai/TwoPlayerAi.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ais/twoplayerai/TwoPlayerAi.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ais/twoplayerai/WorkerThread.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ais/twoplayerai/WorkerThread.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/blokus/Board.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/blokus/Board.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/blokus/CapableOfPlaying.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/blokus/CapableOfPlaying.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/blokus/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/blokus/Player.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/blokus/Runner.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/blokus/Runner.java" afterDir="false" />
-    </list>
+    <list default="true" id="ce25beff-fdbc-46a7-a774-9d3d5b134b5f" name="Default Changelist" comment="" />
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/.gradle/" />
     <ignored path="$PROJECT_DIR$/build/" />
@@ -25,7 +12,7 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="DarkyenusTimeTracker">
-    <option name="totalTimeSeconds" value="173189" />
+    <option name="totalTimeSeconds" value="173227" />
     <option name="gitIntegration" value="true" />
     <option name="naggedAbout" value="1" />
   </component>
@@ -489,7 +476,7 @@
       <window_info id="Favorites" order="6" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32750583" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.38694638" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.38694638" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
