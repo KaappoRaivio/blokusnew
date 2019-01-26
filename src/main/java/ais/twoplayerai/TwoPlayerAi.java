@@ -4,6 +4,8 @@ import blokus.*;
 import misc.MoveAndScore;
 import misc.OnedSpan;
 import misc.Splitter;
+import uis.TtyUITest;
+import uis.UI;
 
 import java.util.*;
 
@@ -16,14 +18,14 @@ public class TwoPlayerAi extends Player {
     private Evaluator evaluator;
     private int depth;
 
-    public TwoPlayerAi(Board initialPosition, int color, String id, int depth) {
-        super(initialPosition, color, id);
+    public TwoPlayerAi(Board initialPosition, int color, String id, UI ui, int depth) {
+        super(initialPosition, color, id, ui);
         this.evaluator = new Evaluator(color, depth);
         this.depth = depth;
     }
 
     @Override
-    public MoveAndScore getMove() {
+    public Move getMove() {
         List<Move> moves = board.getAllFittingMoves(color);
 
         List<MoveAndScore> moveScores = new ArrayList<>();
@@ -67,7 +69,7 @@ public class TwoPlayerAi extends Player {
                     return moveAndScore.getScore() - t1.getScore() > 0 ? 1 : 0;
                 }
             }
-        });
+        }).getMove();
 
     }
 
@@ -107,7 +109,7 @@ public class TwoPlayerAi extends Player {
 
 
 
-        TwoPlayerAi twoPlayerAi = new TwoPlayerAi(board, 0, "asd", 3);
+        TwoPlayerAi twoPlayerAi = new TwoPlayerAi(board, 0, "asd", new TtyUITest(board.deepCopy()), 2);
 
         System.out.println(timeit(new Runnable() {
             @Override

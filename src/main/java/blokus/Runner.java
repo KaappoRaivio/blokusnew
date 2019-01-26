@@ -58,7 +58,7 @@ public class Runner {
 
 
 
-            Move move = current.getMove().getMove();
+            Move move = current.getMove();
             if (!board.fits(move)) {
                 System.out.println("Move " + move + " doesn't fit!");
                 continue;

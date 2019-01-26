@@ -114,6 +114,8 @@ public class Board implements Serializable {
     }
 
     public boolean fits (int baseX, int baseY, PieceID pieceID, int color, Orientation orientation, boolean flip, boolean noDupe) {
+
+
         if (pieceManager.isOnBoard(pieceID, color) && noDupe) {
             return false;
         }
@@ -121,6 +123,10 @@ public class Board implements Serializable {
 
         Piece piece = pieceManager.getCachedPiece(pieceID, color).rotate(orientation, flip);
         char[][] mesh = piece.getMesh();
+
+//        Board asd = deepCopy();
+//        asd.errorPut(baseX, baseY, piece);
+//        System.out.println(asd);
 
         boolean isConnected = false;
         boolean fits = true;
@@ -239,7 +245,11 @@ public class Board implements Serializable {
 
                 switch (current) {
                     case Piece.OPAQUE:
-                        errorBoard[baseY + y][baseX + x] = piece.getColor();
+                        try {
+                            errorBoard[baseY + y][baseX + x] = piece.getColor();
+                        } catch (ArrayIndexOutOfBoundsException e) {
+//                            e.printStackTrace();
+                        }
                         break;
                     case Piece.TRANSPARENT:
                         break;
@@ -300,7 +310,6 @@ public class Board implements Serializable {
                 }
                 builder.append(" ");
             }
-//            builder.append(" ").append(getStringFromY(y));
 
 
             if (errorBoard[y][row.length - 1] != NO_PIECE) {
@@ -309,6 +318,13 @@ public class Board implements Serializable {
                 builder.append(getMatchingChar(row[row.length - 1]));
             }
 
+            builder.append(" ").append(getStringFromY(y));
+        }
+
+        builder.append("\n  ");
+
+        for (int x = 0; x < dimX; x++) {
+            builder.append(getStringFromX(x)).append(" ");
         }
 
         return builder.toString();
@@ -462,7 +478,6 @@ public class Board implements Serializable {
 
     public List<Move> getAllFittingMoves (int color) {
             List<Move> moves = new ArrayList<>();
-            List<PieceID> pieces = getPiecesNotOnBoard(color);
 
 
 
@@ -515,6 +530,8 @@ public class Board implements Serializable {
                 int baseY = y - position.y;
 
                 Move move = new Move(baseX, baseY, pieceID, color, orientationAndFlip.getOrientation(), orientationAndFlip.isFlip());
+
+
 
                 if (fits(move)) {
                     moves.add(move);
