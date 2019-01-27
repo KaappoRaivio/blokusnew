@@ -1,5 +1,7 @@
 package blokus;
 
+import java.util.Arrays;
+
 public class Move implements java.io.Serializable {
     @Override
     public String toString() {
@@ -51,5 +53,26 @@ public class Move implements java.io.Serializable {
 
     public boolean isFlip() {
         return flip;
+    }
+
+    public static Move parseMove (String input, int color) throws Exception {
+        input = input.replaceAll("( )+", " "); // Remove multiple spaces
+        String[] splitted = input.split(" ");
+
+        if (splitted.length != 5) {
+            throw new Exception("Invalid format!");
+        }
+
+        int x = Integer.parseInt(splitted[0]);
+        int y = Integer.parseInt(splitted[1]);
+
+        PieceID pieceID = PieceID.fromStandardNotation(splitted[2]);
+
+        Orientation orientation = Orientation.fromString(splitted[3]);
+        boolean flip = Boolean.parseBoolean(splitted[4]);
+
+        return new Move(x, y, pieceID, color, orientation, flip);
+
+
     }
 }

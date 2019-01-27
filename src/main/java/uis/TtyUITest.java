@@ -56,24 +56,8 @@ public class TtyUITest implements UI {
             System.out.print("Your move [<x> <y> <piece> <orientation> <flip>]: ");
             Scanner scanner = new Scanner(System.in);
             String input = scanner.nextLine();
-            input = input.replaceAll("( )+", " "); // Remove multiple spaces
-            String[] splitted = input.split(" ");
-
-            if (splitted.length != 5) {
-                System.out.println("Invalid format! " + splitted.length);
-                continue;
-            }
-
             try {
-                int x = Integer.parseInt(splitted[0]);
-                int y = Integer.parseInt(splitted[1]);
-
-                PieceID pieceID = PieceID.fromStandardNotation(splitted[2]);
-
-                Orientation orientation = Orientation.fromString(splitted[3]);
-                boolean flip = Boolean.parseBoolean(splitted[4]);
-
-                Move move = new Move(x, y, pieceID, color, orientation, flip);
+                Move move = Move.parseMove(input, color);
 
                 errorBoard = board.deepCopy();
                 errorBoard.putOnBoard(move);
@@ -87,5 +71,36 @@ public class TtyUITest implements UI {
                 }
             } catch (Exception ignored) {}
         }
+//            input = input.replaceAll("( )+", " "); // Remove multiple spaces
+//            String[] splitted = input.split(" ");
+//
+//            if (splitted.length != 5) {
+//                System.out.println("Invalid format! " + splitted.length);
+//                continue;
+//            }
+//
+//            try {
+//                int x = Integer.parseInt(splitted[0]);
+//                int y = Integer.parseInt(splitted[1]);
+//
+//                PieceID pieceID = PieceID.fromStandardNotation(splitted[2]);
+//
+//                Orientation orientation = Orientation.fromString(splitted[3]);
+//                boolean flip = Boolean.parseBoolean(splitted[4]);
+//
+//                Move move = new Move(x, y, pieceID, color, orientation, flip);
+//
+//                errorBoard = board.deepCopy();
+//                errorBoard.putOnBoard(move);
+//                System.out.print("Like this? [Y/n]");
+//                Arrays.stream(errorBoard.toString().split("\n")).forEach((row) -> System.out.println("\t" + row));
+//
+//                String in = scanner.nextLine().toLowerCase();
+//
+//                if (in.equals("") || in.equals("y")) {
+//                    return move;
+//                }
+//            } catch (Exception ignored) {}
+
     }
 }
