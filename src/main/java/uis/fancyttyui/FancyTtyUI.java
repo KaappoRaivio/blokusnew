@@ -8,6 +8,8 @@ import blokus.NotImplementedError;
 import uis.UI;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 
@@ -18,6 +20,8 @@ public class FancyTtyUI implements UI {
     private int moveCount = 0;
 
     private char[][] buffer;
+    private LayerManager layerManager;
+    private List<Layer> layers = new ArrayList<>();
 
     public FancyTtyUI(Board board) {
         this.board = board;
@@ -31,6 +35,7 @@ public class FancyTtyUI implements UI {
         this.moveCount = moveCount;
 
         this.buffer = new char[terminal.getDimY()][terminal.getDimX()];
+
     }
 
     @Override

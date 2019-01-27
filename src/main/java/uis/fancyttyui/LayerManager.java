@@ -7,8 +7,8 @@ import java.util.List;
 public class LayerManager {
     private List<Layer> layers = new ArrayList<>();
 
-    public LayerManager (Layer... layers) {
-        this.layers.addAll(Arrays.asList(layers));
+    public LayerManager (List<Layer> layers) {
+        this.layers = layers;
     }
 
     public char[][] compose (int dimX, int dimY) {
@@ -47,6 +47,10 @@ public class LayerManager {
                 } catch (ArrayIndexOutOfBoundsException ignored) {}
             }
         }
+    }
+
+    public void addLayer (Layer layer) {
+        layers.add(layer);
     }
 
 
