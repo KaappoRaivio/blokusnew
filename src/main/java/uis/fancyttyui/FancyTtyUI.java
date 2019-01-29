@@ -28,6 +28,11 @@ public class FancyTtyUI implements UI {
         this.terminal = new Terminal();
     }
 
+    private void initializeLayerList () {
+        layers = new ArrayList<>();
+//        layers.add(new Layer(board.getDimX(), board.getDimY(), ))
+    }
+
     @Override
     public void updateValues (Board board, int turn, int moveCount) {
         this.board = board;

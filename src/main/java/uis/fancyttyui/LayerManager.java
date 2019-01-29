@@ -36,6 +36,10 @@ public class LayerManager {
                 startX = 0;
                 startY = 0;
                 break;
+            case POSITION:
+                startX = layer.getPosX();
+                startY = layer.getPosY();
+                break;
             default:
                 throw new RuntimeException("Fatal error!");
         }
