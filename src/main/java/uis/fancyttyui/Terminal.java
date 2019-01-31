@@ -19,6 +19,15 @@ public class Terminal implements Screen {
         }
 
         this.buffer = new char[getDimY()][getDimX()];
+        initializeBuffer();
+    }
+
+    private void initializeBuffer () {
+        for (int y = 0; y < buffer.length; y++) {
+            for (int x = 0; x < buffer[y].length; x++) {
+                buffer[y][x] = ' ';
+            }
+        }
     }
 
     @Override
@@ -43,6 +52,11 @@ public class Terminal implements Screen {
     @Override
     public void setPixel(int x, int y, char newChar) {
         buffer[y][x] = newChar;
+    }
+
+    @Override
+    public char getPixel(int x, int y) {
+        return buffer[y][x];
     }
 
     @Override

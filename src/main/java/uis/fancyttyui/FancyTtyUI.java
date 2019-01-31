@@ -20,18 +20,13 @@ public class FancyTtyUI implements UI {
     private int moveCount = 0;
 
     private char[][] buffer;
-    private LayerManager layerManager;
-    private List<Layer> layers = new ArrayList<>();
+
 
     public FancyTtyUI(Board board) {
         this.board = board;
         this.terminal = new Terminal();
     }
 
-    private void initializeLayerList () {
-        layers = new ArrayList<>();
-//        layers.add(new Layer(board.getDimX(), board.getDimY(), ))
-    }
 
     @Override
     public void updateValues (Board board, int turn, int moveCount) {
@@ -45,9 +40,7 @@ public class FancyTtyUI implements UI {
 
     @Override
     public void commit () {
-        terminal.updateBuffer(convertFromIntBoard(board.getBoard()));
-
-
+        terminal.updateBuffer(misc.ConvertToList.convertToList(board.toString(), "\n", "", ' '));
         terminal.commit();
     }
 
@@ -56,19 +49,6 @@ public class FancyTtyUI implements UI {
 //
 //
 //    }
-
-    private static char[][] convertFromIntBoard (int[][] oldBoard) {
-        char[][] newBoard = new char[oldBoard.length][oldBoard[0].length];
-
-        for (int y = 0; y < oldBoard.length; y++) {
-            for (int x = 0; x < oldBoard[y].length; x++) {
-                newBoard[y][x] = getMatchingChar(oldBoard[y][x]);
-                System.out.println(getMatchingChar(oldBoard[y][x]));
-            }
-        }
-
-        return newBoard;
-    }
 
     private static char getMatchingChar (int integer) {
         switch (integer) {

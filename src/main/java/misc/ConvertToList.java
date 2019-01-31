@@ -58,7 +58,7 @@ public class ConvertToList {
     }
 
     public static void main (String[] arghs) {
-        Arrays.stream(convertToList(new Board(14, 14, new MyPieceManager(2)).toString(), "\n", "", '$')).forEach((row) -> System.out.println(Arrays.toString(row)));
-        
+        Arrays.stream(convertToList(new Board(14, 14, new MyPieceManager(2)).toString(), "\n", " ", '$')).forEach((row) -> System.out.println(Arrays.toString(row)));
+
     }
 }
