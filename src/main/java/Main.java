@@ -15,7 +15,7 @@ public class Main {
         UI ui = new FancyTtyUI(board.deepCopy());
 
 
-        CapableOfPlaying[] players = new CapableOfPlaying[]{new Player(board.deepCopy(), 0, null, ui), new TwoPlayerAi(board.deepCopy(), 1, null, ui,3)};
+        CapableOfPlaying[] players = new CapableOfPlaying[]{new Player(board.deepCopy(), 0, null, ui), new TwoPlayerAi(board.deepCopy(), 1, null, ui,2)};
 
         Runner runner = new Runner(board, players, ui);
 

@@ -27,7 +27,7 @@ public class PieceSprite extends Sprite {
     }
 
     public Move getCurrentMove () {
-        return new Move(super.getPosX() / 2, super.getPosY() / 2, getCurrentPieceID(), color, orientation, flip);
+        return new Move((super.getPosX() - 1) / 2, (super.getPosY() - 1), getCurrentPieceID(), color, orientation, flip);
     }
 
     private PieceID getCurrentPieceID() {

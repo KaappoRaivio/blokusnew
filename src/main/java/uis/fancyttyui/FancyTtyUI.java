@@ -5,6 +5,7 @@ import blokus.DefaultPallet;
 import blokus.Move;
 
 
+import blokus.PiecePallet;
 import listener.KeyEventListener;
 import listener.KeyListener;
 import org.jnativehook.keyboard.NativeKeyEvent;
@@ -55,7 +56,7 @@ public class FancyTtyUI implements UI {
     @Override
     public Move getMove (int color) {
         KeyListener keyListener = new KeyListener();
-        PieceSprite sprite = new PieceSprite(turn, new DefaultPallet(), board);
+        PieceSprite sprite = new PieceSprite(turn, new PiecePallet(), board);
         screen.addSprite(sprite);
         sprite.draw(1, 1);
         screen.commit();
@@ -67,6 +68,7 @@ public class FancyTtyUI implements UI {
         keyListener.addKeyEventListener(new KeyEventListener() {
             @Override
             public void reportKey(NativeKeyEvent event) {
+
                 switch (event.getKeyCode()) {
                     case NativeKeyEvent.VC_LEFT:
                         sprite.jump(-2, 0);
@@ -100,11 +102,13 @@ public class FancyTtyUI implements UI {
                             wait[0] = false;
                             lock.notifyAll();
                         }
+                        break;
                 }
-
                 screen.commit();
             }
+
         });
+
         keyListener.run();
         synchronized (lock) {
             while (wait[0]) {
@@ -115,10 +119,10 @@ public class FancyTtyUI implements UI {
                 }
             }
         }
-        System.out.println("Perkele!");
         keyListener.close();
         Move move = sprite.getCurrentMove();
         sprite.unDraw();
+        screen.commit();
 
         return move;
 

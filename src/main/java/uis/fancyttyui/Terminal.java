@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Terminal implements Screen {
+    private final Object lock = new Object();
     public static final char TRANSPARENT = ' ';
     public static final TextColor.RGB foregroundColor = new TextColor.RGB(255, 255, 255);
     public static final TextColor.RGB backgroundColor = new TextColor.RGB(0, 0, 0);
@@ -29,6 +30,7 @@ public class Terminal implements Screen {
 
         this.buffer = new Texel[getDimY()][getDimX()];
 
+
         initializeBuffer();
     }
 
@@ -44,6 +46,11 @@ public class Terminal implements Screen {
 
     public void addSprite (Sprite sprite) {
         sprites.add(sprite);
+    }
+
+    @Override
+    public void removeAllSprites() {
+        sprites = new ArrayList<>();
     }
 
     private void drawSpritesToTerminal () {
@@ -76,28 +83,30 @@ public class Terminal implements Screen {
 
     @Override
     public void commit() {
-        for (int y = 0; y < buffer.length; y++) {
-            for (int x = 0; x < buffer[y].length; x++) {
-                Texel current = buffer[y][x];
+        synchronized (lock) {
+            for (int y = 0; y < buffer.length; y++) {
+                for (int x = 0; x < buffer[y].length; x++) {
+                    Texel current = buffer[y][x];
 
 
-                try {
-                    terminal.setCursorPosition(x, y);
-                    terminal.setForegroundColor(current.getForegroundColor());
-                    terminal.setBackgroundColor(current.getBackgroundColor());
-                    terminal.putCharacter(current.getValue());
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
+                    try {
+                        terminal.setCursorPosition(x, y);
+                        terminal.setForegroundColor(current.getForegroundColor());
+                        terminal.setBackgroundColor(current.getBackgroundColor());
+                        terminal.putCharacter(current.getValue());
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
                 }
             }
-        }
 
-        drawSpritesToTerminal();
+            drawSpritesToTerminal();
 
-        try {
-            terminal.flush();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
+            try {
+                terminal.flush();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
         }
     }
 
@@ -106,7 +115,7 @@ public class Terminal implements Screen {
         buffer[y][x] = newTexel;
     }
 
-    @Override
+d    @Override
     public Texel getPixel(int x, int y) {
         return buffer[y][x];
     }

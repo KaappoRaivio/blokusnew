@@ -14,6 +14,9 @@ import java.util.stream.Collectors;
 
 public class Sprite {
 
+
+    private final Object lock = new Object();
+
     private static int spriteID = 0;
 
     protected Texel[][] mesh;
@@ -70,7 +73,7 @@ public class Sprite {
     
 
     public void jump (int deltaX, int deltaY) {
-        synchronized (this) {
+        synchronized (lock) {
             this.posX = this.posX + deltaX;
             this.posY = this.posY + deltaY;
         }
@@ -154,11 +157,15 @@ public class Sprite {
     }
 
     public int getPosX() {
-        return posX;
+        synchronized (lock) {
+            return posX;
+        }
     }
 
     public int getPosY() {
-        return posY;
+        synchronized (lock) {
+            return posY;
+        }
     }
 
     public int getDimX() {

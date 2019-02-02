@@ -12,6 +12,7 @@ public interface Screen {
     void updateBuffer (Texel[][] buffer);
     void close ();
     void addSprite (Sprite sprite);
+    void removeAllSprites ();
 
     int getDimX ();
     int getDimY ();

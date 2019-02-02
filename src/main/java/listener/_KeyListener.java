@@ -41,20 +41,26 @@ class _KeyListener implements NativeKeyListener {
         }
     }
 
+
+    @Override
     public void nativeKeyPressed(NativeKeyEvent e) {
         broadcastKeyEvent(e);
+
 
         if (verbose) {
 		    System.out.println("Key pressed: " + NativeKeyEvent.getKeyText(e.getKeyCode()) + " " +  e.getKeyCode());
         }
 	}
 
+    @Override
 	public void nativeKeyReleased(NativeKeyEvent e) {
         if (verbose) {
 		    System.out.println("Key released: " + NativeKeyEvent.getKeyText(e.getKeyCode()) + " " +  e.getKeyCode());
         }
     }
 
+
+    @Override
 	public void nativeKeyTyped(NativeKeyEvent e) {
         if (verbose) {
 		    System.out.println("Key typed: " + NativeKeyEvent.getKeyText(e.getKeyCode()) + " " +  e.getKeyCode());
