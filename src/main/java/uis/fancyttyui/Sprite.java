@@ -91,22 +91,19 @@ public class Sprite {
     public static void main (String[] args) {
         Screen screen = new Terminal();
 
-//        Board board = new Board(14, 14, new MyPieceManager(2));
         Board board = Board.fromFile("/home/kaappo/git/blokus/src/main/resources/boards/Sat Feb 02 20:04:00 EET 2019.ser", false);
         Sprite boardSprite = new Sprite(board.texelize(new DefaultPallet()), '$');
         screen.addSprite(boardSprite);
         boardSprite.draw(0, 0);
 
-//        Sprite sprite = Sprite.fromString(new Piece(PieceID.PIECE_19, 0).bareToString(), "\n", "", ' ');
         PieceSprite sprite = new PieceSprite(1, new DefaultPallet(), board);
         screen.addSprite(sprite);
         sprite.draw(1, 1);
 
+        screen.commit();
+
 
         KeyListener keyListener = new KeyListener();
-
-//        System.exit(0);
-        screen.commit();
         keyListener.addKeyEventListener(new KeyEventListener() {
             @Override
             public void reportKey(NativeKeyEvent event) {
@@ -147,44 +144,9 @@ public class Sprite {
         try {
             keyListener.wait();
         } catch (InterruptedException e) {
-            e.printStackTrace();
+
         }
-
-//        while (true) {
-//            try {
-//                Thread.sleep(10);
-//            } catch (InterruptedException e) {
-//                e.printStackTrace();
-//            }
-//
-//            switch (keyListener.getKey()) {
-//                case NO_KEY:
-//                    break;
-//                case LEFT:
-//                    sprite.jump(-2, 0);
-//                    break;
-//                case RIGHT:
-//                    sprite.jump(2, 0);
-//                    break;
-//                case DOWN:
-//                    sprite.jump(0, 1);
-//                    break;
-//                case UP:
-//                    sprite.jump(0, -1);
-//                    break;
-//                case ENTER:
-//                    break;
-//                case CTRL:
-//                    break;
-//                case SHIFT:
-//                    break;
-//            }
-//
-//            screen.commit();
-////            System.out.println(keyListener.getKey());
-//        }
-//
-
+            System.out.println("asdasd");
     }
 
     public boolean isDrawn() {

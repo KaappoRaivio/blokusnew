@@ -1,30 +1,36 @@
 package uis.fancyttyui;
 
 import blokus.Board;
+import blokus.DefaultPallet;
 import blokus.Move;
 
 
-import blokus.NotImplementedError;
+import listener.KeyEventListener;
+import listener.KeyListener;
+import org.jnativehook.keyboard.NativeKeyEvent;
 import uis.UI;
-
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
 
 
 public class FancyTtyUI implements UI {
-    private Terminal terminal;
+    private Screen screen;
     private Board board;
     private int turn = 0;
     private int moveCount = 0;
 
-    private char[][] buffer;
+    private Sprite boardSprite;
+
+    private final Object lock = new Object();
+
 
 
     public FancyTtyUI(Board board) {
         this.board = board;
-        this.terminal = new Terminal();
+        this.screen = new Terminal();
+
+        boardSprite = new Sprite(board.texelize(new DefaultPallet()), Terminal.TRANSPARENT);
+        screen.addSprite(boardSprite);
+        boardSprite.draw(0, 0);
+
     }
 
 
@@ -34,41 +40,88 @@ public class FancyTtyUI implements UI {
         this.turn = turn;
         this.moveCount = moveCount;
 
-        this.buffer = new char[terminal.getDimY()][terminal.getDimX()];
-
+        boardSprite = new Sprite(board.texelize(new DefaultPallet()), Terminal.TRANSPARENT);
+        screen.addSprite(boardSprite);
+        boardSprite.draw(0, 0);
     }
 
     @Override
     public void commit () {
-        terminal.updateBuffer(misc.ConvertToList.convertToList(board.toString(), "\n", "", ' '));
-        terminal.commit();
+
+        screen.commit();
     }
 
-//    private static char[][] prepareBoard (Board board) {
-//        String[] rows = board.toString().split("\n");
-//
-//
-//    }
-
-    private static char getMatchingChar (int integer) {
-        switch (integer) {
-            case 0:
-                return '0';
-            case 1:
-                return '1';
-            default:
-                return '.';
-        }
-    }
 
     @Override
     public Move getMove (int color) {
-//        throw new RuntimeException(new NotImplementedError());
-        while (true) {
-            String inStr = new Scanner(System.in).nextLine();
-            try {
-                return Move.parseMove(inStr, color);
-            } catch (Exception ignored) {}
+        KeyListener keyListener = new KeyListener();
+        PieceSprite sprite = new PieceSprite(turn, new DefaultPallet(), board);
+        screen.addSprite(sprite);
+        sprite.draw(1, 1);
+        screen.commit();
+
+
+
+        final boolean[] wait = {true};
+
+        keyListener.addKeyEventListener(new KeyEventListener() {
+            @Override
+            public void reportKey(NativeKeyEvent event) {
+                switch (event.getKeyCode()) {
+                    case NativeKeyEvent.VC_LEFT:
+                        sprite.jump(-2, 0);
+                        break;
+                    case NativeKeyEvent.VC_RIGHT:
+                        sprite.jump(2, 0);
+                        break;
+                    case NativeKeyEvent.VC_DOWN:
+                        sprite.jump(0, 1);
+                        break;
+                    case NativeKeyEvent.VC_UP:
+                        sprite.jump(0, -1);
+                        break;
+                    case NativeKeyEvent.VC_A:
+                        sprite.rotateAntiClockwise();
+                        break;
+                    case NativeKeyEvent.VC_D:
+                        sprite.rotateClockwise();
+                        break;
+                    case NativeKeyEvent.VC_F:
+                        sprite.flip();
+                        break;
+                    case NativeKeyEvent.VC_W:
+                        sprite.changePieceIDPointer(1);
+                        break;
+                    case NativeKeyEvent.VC_S:
+                        sprite.changePieceIDPointer(-1);
+                        break;
+                    case NativeKeyEvent.VC_ENTER:
+                        synchronized (lock) {
+                            wait[0] = false;
+                            lock.notifyAll();
+                        }
+                }
+
+                screen.commit();
+            }
+        });
+        keyListener.run();
+        synchronized (lock) {
+            while (wait[0]) {
+                try {
+                    lock.wait();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
         }
+        System.out.println("Perkele!");
+        keyListener.close();
+        Move move = sprite.getCurrentMove();
+        sprite.unDraw();
+
+        return move;
+
+
     }
 }

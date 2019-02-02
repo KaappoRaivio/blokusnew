@@ -1,9 +1,6 @@
 package uis.fancyttyui;
 
-import blokus.Board;
-import blokus.Orientation;
-import blokus.Piece;
-import blokus.PieceID;
+import blokus.*;
 import uis.Texel;
 
 import java.util.List;
@@ -27,6 +24,10 @@ public class PieceSprite extends Sprite {
 
         allPieceIDs = currentPosition.getPieceManager().getPiecesNotOnBoard(color);
         pieceIDPointer = allPieceIDs.size() - 1;
+    }
+
+    public Move getCurrentMove () {
+        return new Move(super.getPosX() / 2, super.getPosY() / 2, getCurrentPieceID(), color, orientation, flip);
     }
 
     private PieceID getCurrentPieceID() {

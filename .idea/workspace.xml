@@ -2,24 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ce25beff-fdbc-46a7-a774-9d3d5b134b5f" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/blokus/DefaultPallet.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/listener/KeyEventListener.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/uis/Texel.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/uis/fancyttyui/ColorPallet.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/uis/fancyttyui/PieceSprite.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/4.10/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.10/fileHashes/fileHashes.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/4.10/taskHistory/taskHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.10/taskHistory/taskHistory.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/4.10/taskHistory/taskHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.10/taskHistory/taskHistory.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/blokus/Board.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/blokus/Board.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/blokus/Piece.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/blokus/Piece.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/listener/KeyListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/listener/KeyListener.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/listener/_KeyListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/listener/_KeyListener.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/misc/ConvertToList.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/misc/ConvertToList.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/uis/fancyttyui/Screen.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/uis/fancyttyui/Screen.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/uis/fancyttyui/FancyTtyUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/uis/fancyttyui/FancyTtyUI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/uis/fancyttyui/PieceSprite.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/uis/fancyttyui/PieceSprite.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/uis/fancyttyui/Sprite.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/uis/fancyttyui/Sprite.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/uis/fancyttyui/Terminal.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/uis/fancyttyui/Terminal.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/.gradle/" />
@@ -31,7 +19,7 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="DarkyenusTimeTracker">
-    <option name="totalTimeSeconds" value="214564" />
+    <option name="totalTimeSeconds" value="217593" />
     <option name="gitIntegration" value="true" />
     <option name="naggedAbout" value="1" />
   </component>
@@ -100,8 +88,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/uis/fancyttyui/PieceSprite.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="308">
-              <caret line="29" column="5" lean-forward="true" selection-start-line="29" selection-start-column="5" selection-end-line="29" selection-end-column="5" />
+            <state relative-caret-position="105">
+              <caret line="7" column="33" lean-forward="true" selection-start-line="7" selection-start-column="33" selection-end-line="7" selection-end-column="33" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -109,23 +97,75 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/main/java/uis/fancyttyui/Sprite.java">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/Main.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="172">
-              <caret line="116" column="49" lean-forward="true" selection-start-line="116" selection-start-column="49" selection-end-line="116" selection-end-column="49" />
+            <state relative-caret-position="75">
+              <caret line="11" column="45" selection-start-line="11" selection-start-column="45" selection-end-line="11" selection-end-column="45" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/java/uis/fancyttyui/FancyTtyUI.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="142">
+              <caret line="60" column="24" selection-start-line="60" selection-start-column="24" selection-end-line="60" selection-end-column="24" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#5465#5466#0" expanded="true" />
-                <element signature="e#5493#5494#0" expanded="true" />
-                <element signature="e#5521#5522#0" expanded="true" />
-                <element signature="e#5548#5549#0" expanded="true" />
-                <element signature="e#5576#5577#0" expanded="true" />
-                <element signature="e#5603#5604#0" expanded="true" />
-                <element signature="e#5631#5632#0" expanded="true" />
-                <element signature="e#5658#5659#0" expanded="true" />
-                <element signature="e#5686#5687#0" expanded="true" />
-                <element signature="e#5713#5714#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/listener/KeyListener.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="337">
+              <caret line="38" selection-start-line="38" selection-end-line="38" />
+              <folding>
+                <element signature="e#459#460#0" expanded="true" />
+                <element signature="e#507#508#0" expanded="true" />
+                <element signature="e#1143#1144#0" expanded="true" />
+                <element signature="e#1165#1166#0" expanded="true" />
+                <element signature="method#disableOut#0;class#KeyListener#0" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/listener/_KeyListener.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="150">
+              <caret line="21" column="29" selection-start-line="21" selection-start-column="29" selection-end-line="21" selection-end-column="29" />
+              <folding>
+                <element signature="e#641#642#0" expanded="true" />
+                <element signature="e#677#678#0" expanded="true" />
+                <element signature="e#752#753#0" expanded="true" />
+                <element signature="e#807#808#0" expanded="true" />
+                <element signature="e#854#855#0" expanded="true" />
+                <element signature="e#886#887#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/uis/fancyttyui/Terminal.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="165">
+              <caret line="23" selection-start-line="23" selection-end-line="23" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#1287#1288#0" expanded="true" />
+                <element signature="e#1322#1323#0" expanded="true" />
+                <element signature="e#3299#3300#0" expanded="true" />
+                <element signature="e#3338#3339#0" expanded="true" />
+                <element signature="e#3395#3396#0" expanded="true" />
+                <element signature="e#3430#3431#0" expanded="true" />
+                <element signature="e#4355#4356#0" expanded="true" />
+                <element signature="e#4386#4387#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -227,11 +267,8 @@
         <option value="$PROJECT_DIR$/src/main/java/uis/fancyttyui/LayerManager.java" />
         <option value="$PROJECT_DIR$/src/main/java/uis/fancyttyui/Layer.java" />
         <option value="$PROJECT_DIR$/src/main/java/misc/Colors.java" />
-        <option value="$PROJECT_DIR$/src/main/java/uis/fancyttyui/FancyTtyUI.java" />
         <option value="$PROJECT_DIR$/src/main/java/listener/KeyEventListener.java" />
-        <option value="$PROJECT_DIR$/src/main/java/listener/KeyListener.java" />
         <option value="$PROJECT_DIR$/src/main/java/blokus/Piece.java" />
-        <option value="$PROJECT_DIR$/src/main/java/listener/_KeyListener.java" />
         <option value="$PROJECT_DIR$/src/main/java/blokus/ColorPallette.java" />
         <option value="$PROJECT_DIR$/src/main/java/blokus/ColorPallet.java" />
         <option value="$PROJECT_DIR$/src/main/java/misc/FancyStringConverter.java" />
@@ -239,12 +276,15 @@
         <option value="$PROJECT_DIR$/src/main/java/uis/fancyttyui/Screen.java" />
         <option value="$PROJECT_DIR$/src/main/java/uis/fancyttyui/Terminal.java" />
         <option value="$PROJECT_DIR$/src/main/java/misc/ConvertToList.java" />
-        <option value="$PROJECT_DIR$/src/main/java/Main.java" />
         <option value="$PROJECT_DIR$/src/main/java/uis/fancyttyui/ColorPallet.java" />
         <option value="$PROJECT_DIR$/src/main/java/blokus/DefaultPallet.java" />
         <option value="$PROJECT_DIR$/src/main/java/blokus/Board.java" />
         <option value="$PROJECT_DIR$/src/main/java/uis/fancyttyui/PieceSprite.java" />
+        <option value="$PROJECT_DIR$/src/main/java/listener/_KeyListener.java" />
+        <option value="$PROJECT_DIR$/src/main/java/listener/KeyListener.java" />
+        <option value="$PROJECT_DIR$/src/main/java/Main.java" />
         <option value="$PROJECT_DIR$/src/main/java/uis/fancyttyui/Sprite.java" />
+        <option value="$PROJECT_DIR$/src/main/java/uis/fancyttyui/FancyTtyUI.java" />
       </list>
     </option>
   </component>
@@ -389,7 +429,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Application.Sprite">
+  <component name="RunManager" selected="Application.Main">
     <configuration name="ConvertToList" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="misc.ConvertToList" />
       <module name="Blokus.Blokus.main" />
@@ -587,25 +627,6 @@
     </layout-to-restore>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/java/misc/OnedSpan.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="645">
-          <caret line="55" column="27" selection-start-line="55" selection-start-column="27" selection-end-line="55" selection-end-column="27" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#388#389#0" expanded="true" />
-            <element signature="e#446#447#0" expanded="true" />
-            <element signature="e#1064#1065#0" expanded="true" />
-            <element signature="e#1140#1141#0" expanded="true" />
-            <element signature="e#1187#1188#0" expanded="true" />
-            <element signature="e#1251#1252#0" expanded="true" />
-            <element signature="e#1308#1309#0" expanded="true" />
-            <element signature="e#1335#1336#0" expanded="true" />
-            <element signature="e#1361#1362#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/gradlew">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
@@ -749,16 +770,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/uis/fancyttyui/FancyTtyUI.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="322">
-          <caret line="28" selection-start-line="28" selection-end-line="28" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/listener/Key.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="30">
@@ -770,31 +781,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="45">
           <caret line="5" column="41" selection-start-line="5" selection-start-column="41" selection-end-line="5" selection-end-column="41" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/listener/_KeyListener.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="277">
-          <caret line="35" column="40" selection-start-line="35" selection-start-column="40" selection-end-line="35" selection-end-column="40" />
-          <folding>
-            <element signature="e#516#517#0" expanded="true" />
-            <element signature="e#552#553#0" expanded="true" />
-            <element signature="e#756#757#0" expanded="true" />
-            <element signature="e#794#795#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/listener/KeyListener.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="24" column="63" selection-start-line="24" selection-start-column="63" selection-end-line="24" selection-end-column="63" />
-          <folding>
-            <element signature="e#459#460#0" expanded="true" />
-            <element signature="e#507#508#0" expanded="true" />
-            <element signature="method#disableOut#0;class#KeyListener#0" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -842,20 +828,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/uis/fancyttyui/Terminal.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="292">
-          <caret line="157" column="49" selection-start-line="157" selection-start-column="49" selection-end-line="157" selection-end-column="49" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#1322#1323#0" expanded="true" />
-            <element signature="e#3338#3339#0" expanded="true" />
-            <element signature="e#3430#3431#0" expanded="true" />
-            <element signature="e#4386#4387#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/misc/ConvertToList.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="270">
@@ -873,13 +845,6 @@
           <folding>
             <element signature="e#2694#2695#0" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/Main.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="18" column="34" lean-forward="true" selection-start-line="18" selection-start-column="34" selection-end-line="18" selection-end-column="34" />
         </state>
       </provider>
     </entry>
@@ -953,10 +918,46 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/listener/_KeyListener.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="150">
+          <caret line="21" column="29" selection-start-line="21" selection-start-column="29" selection-end-line="21" selection-end-column="29" />
+          <folding>
+            <element signature="e#641#642#0" expanded="true" />
+            <element signature="e#677#678#0" expanded="true" />
+            <element signature="e#752#753#0" expanded="true" />
+            <element signature="e#807#808#0" expanded="true" />
+            <element signature="e#854#855#0" expanded="true" />
+            <element signature="e#886#887#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/listener/KeyListener.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="337">
+          <caret line="38" selection-start-line="38" selection-end-line="38" />
+          <folding>
+            <element signature="e#459#460#0" expanded="true" />
+            <element signature="e#507#508#0" expanded="true" />
+            <element signature="e#1143#1144#0" expanded="true" />
+            <element signature="e#1165#1166#0" expanded="true" />
+            <element signature="method#disableOut#0;class#KeyListener#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jrt:///usr/lib/jvm/java-1.11.0-openjdk-amd64!/java.base/java/lang/Object.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="165">
+          <caret line="40" selection-start-line="40" selection-end-line="40" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/uis/fancyttyui/PieceSprite.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="308">
-          <caret line="29" column="5" lean-forward="true" selection-start-line="29" selection-start-column="5" selection-end-line="29" selection-end-column="5" />
+        <state relative-caret-position="105">
+          <caret line="7" column="33" lean-forward="true" selection-start-line="7" selection-start-column="33" selection-end-line="7" selection-end-column="33" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -965,8 +966,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/uis/fancyttyui/Sprite.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="172">
-          <caret line="116" column="49" lean-forward="true" selection-start-line="116" selection-start-column="49" selection-end-line="116" selection-end-column="49" />
+        <state relative-caret-position="157">
+          <caret line="14" column="13" selection-start-line="14" selection-start-column="13" selection-end-line="14" selection-end-column="13" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#5465#5466#0" expanded="true" />
@@ -979,6 +980,41 @@
             <element signature="e#5658#5659#0" expanded="true" />
             <element signature="e#5686#5687#0" expanded="true" />
             <element signature="e#5713#5714#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/Main.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="75">
+          <caret line="11" column="45" selection-start-line="11" selection-start-column="45" selection-end-line="11" selection-end-column="45" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/uis/fancyttyui/Terminal.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="165">
+          <caret line="23" selection-start-line="23" selection-end-line="23" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#1287#1288#0" expanded="true" />
+            <element signature="e#1322#1323#0" expanded="true" />
+            <element signature="e#3299#3300#0" expanded="true" />
+            <element signature="e#3338#3339#0" expanded="true" />
+            <element signature="e#3395#3396#0" expanded="true" />
+            <element signature="e#3430#3431#0" expanded="true" />
+            <element signature="e#4355#4356#0" expanded="true" />
+            <element signature="e#4386#4387#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/uis/fancyttyui/FancyTtyUI.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="142">
+          <caret line="60" column="24" selection-start-line="60" selection-start-column="24" selection-end-line="60" selection-end-column="24" />
+          <folding>
+            <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>

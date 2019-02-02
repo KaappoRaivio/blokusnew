@@ -44,6 +44,10 @@ public class KeyListener implements Runnable {
         wrapper.addKeyEventListener(keyEventListener);
     }
 
+    public void clearAllListeners () {
+        wrapper.clearAllKeyListeners();
+    }
+
     public Key getKey () {
         synchronized (KeyListener.class) {
             if (key == null) {

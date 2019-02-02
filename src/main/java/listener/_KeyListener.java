@@ -26,6 +26,10 @@ class _KeyListener implements NativeKeyListener {
         keyEventListeners.add(keyEventListener);
     }
 
+    public void clearAllKeyListeners () {
+        keyEventListeners = new ArrayList<>();
+    }
+
     private _KeyListener (KeyListener wrapper, boolean verbose) {
         this.wrapper = wrapper;
         this.verbose = verbose;
@@ -38,41 +42,6 @@ class _KeyListener implements NativeKeyListener {
     }
 
     public void nativeKeyPressed(NativeKeyEvent e) {
-//        System.out.println(NativeKeyEvent.getKeyText(e.getKeyCode()).toLowerCase());
-//        Key key;
-//        switch (NativeKeyEvent.getKeyText(e.getKeyCode()).toLowerCase()) {
-//            case "up":
-//                key = Key.UP;
-//                break;
-//            case "down":
-//                key = Key.DOWN;
-//                break;
-//            case "left":
-//                key = Key.LEFT;
-//                break;
-//            case "right":
-//                key = Key.RIGHT;
-//                break;
-//            case "enter":
-//                key = Key.ENTER;
-//                break;
-//            case "left control":
-//                key = Key.CTRL;
-//                break;
-//            case "right control":
-//                key = Key.CTRL;
-//                break;
-//            case "left shift":
-//                key = Key.SHIFT;
-//                break;
-//            case "right shift":
-//                key = Key.SHIFT;
-//                break;
-//            default:
-//                key = Key.NO_KEY;
-//        }
-
-//        wrapper.updateKey(key);
         broadcastKeyEvent(e);
 
         if (verbose) {
