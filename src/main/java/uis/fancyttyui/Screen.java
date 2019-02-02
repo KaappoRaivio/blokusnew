@@ -1,14 +1,17 @@
 package uis.fancyttyui;
 
 
+import uis.Texel;
+
 import java.io.IOException;
 
 public interface Screen {
     void commit ();
-    void setPixel (int x, int y, char newChar);
-    char getPixel (int x, int y);
-    void updateBuffer (char[][] buffer);
+    void setPixel (int x, int y, Texel newTexel);
+    Texel getPixel (int x, int y);
+    void updateBuffer (Texel[][] buffer);
     void close ();
+    void addSprite (Sprite sprite);
 
     int getDimX ();
     int getDimY ();

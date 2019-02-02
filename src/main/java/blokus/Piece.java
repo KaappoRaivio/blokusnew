@@ -332,6 +332,18 @@ public class Piece implements java.io.Serializable {
         return builder.toString();
     }
 
+    public String bareToString () {
+        StringBuilder builder = new StringBuilder();
+        for (int y = 0; y < this.mesh.length; y++) {
+            for (int x = 0; x < this.mesh[y].length; x++) {
+                builder.append(this.mesh[x][y] == Piece.TRANSPARENT ? " " : this.mesh[x][y]);
+            }
+            builder.append("\n");
+        }
+
+        return builder.toString();
+    }
+
     public boolean isOnBoard() {
         return onBoard;
     }

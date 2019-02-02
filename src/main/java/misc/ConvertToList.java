@@ -2,11 +2,12 @@ package misc;
 
 import blokus.Board;
 import blokus.MyPieceManager;
+import uis.Texel;
 
 import java.util.*;
 
 public class ConvertToList {
-    public static char[][] convertToList (String original, String verticalDelimiter, String horizontalDelimiter, char transparentChar) {
+    public static Texel[][] convertToList (String original, String verticalDelimiter, String horizontalDelimiter, char transparentChar) {
         int dimX, dimY;
 
         String[] split = original.split(verticalDelimiter);
@@ -30,25 +31,25 @@ public class ConvertToList {
         return normalizeArray(notNormalized, transparentChar);
     }
 
-    private static char[][] normalizeArray (List<List<Character>> notNormalized, char transparentChar) {
-        char[][] normalizedArray = new char[notNormalized.size()][getLongestRowLen(notNormalized)];
+    private static Texel[][] normalizeArray (List<List<Character>> notNormalized, char transparentChar) {
+        Texel[][] normalizedArray = new Texel[notNormalized.size()][getLongestRowLen(notNormalized)];
 
         for (int y = 0; y < normalizedArray.length; y++) {
             for (int x = 0; x < normalizedArray[y].length; x++) {
-                normalizedArray[y][x] = transparentChar;
+                normalizedArray[y][x] = new Texel(transparentChar);
             }
         }
 
         for (int y = 0; y < notNormalized.size(); y++) {
             for (int x = 0; x < notNormalized.get(y).size(); x++) {
-                normalizedArray[y][x] = notNormalized.get(y).get(x);
+                normalizedArray[y][x] = new Texel(notNormalized.get(y).get(x));
             }
         }
 
         return normalizedArray;
     }
 
-    private static int getLongestRowLen (List<List<Character>> notNormalized) {
+    public static int getLongestRowLen (List<List<Character>> notNormalized) {
         return Collections.max(notNormalized, new Comparator<List<Character>> () {
             @Override
             public int compare(List<Character> characters, List<Character> t1) {

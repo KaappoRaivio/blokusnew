@@ -1,5 +1,9 @@
 package blokus;
 
+import uis.Texel;
+import uis.fancyttyui.ColorPallet;
+import uis.fancyttyui.Terminal;
+
 import java.io.*;
 import java.util.*;
 
@@ -373,14 +377,14 @@ public class Board implements Serializable {
     }
 
     public String save () {
-        return save(String.valueOf(System.currentTimeMillis() * new Random().nextFloat()));
+        return save(new Date().toString());
     }
 
     public static Board fromFile (String path, boolean relative) {
         String absolutePath;
 
         if (relative) {
-            absolutePath = System.getProperty("user.dir") + "/src/main/resources/boards/" + new Date().toString() + ".ser";
+            absolutePath = System.getProperty("user.dir") + "/src/main/resources/boards/" + path;
         } else {
             absolutePath = path;
         }
@@ -674,8 +678,62 @@ public class Board implements Serializable {
         } catch (IndexOutOfBoundsException e) {
             return moves;
         }
+    }
 
+    public Texel[][] texelize (ColorPallet pallet) {
+        Texel[][] newBuffer = new Texel[getDimY() + 2][getDimX() * 2 + 2];
 
+        for (int y = 0; y < newBuffer.length; y++) {
+            for (int x = 0; x < newBuffer[y].length; x++) {
+                newBuffer[y][x] = new Texel(Terminal.TRANSPARENT);
+            }
+        }
+
+        for (int y = 0; y < getDimY(); y++) {
+            for (int x = 0; x < getDimX() * 2; x += 2) {
+                newBuffer[y + 1][x + 2] = newBuffer[y + 1][x + 1] = pallet.getTexel(board[y][x / 2]);
+            }
+        }
+
+        if (pallet.drawCoordinates()) {
+            for (int x = 1; x < getDimX() + 1; x++) {
+                newBuffer[newBuffer.length - 1][2 * x - 1] = newBuffer[0][2 * x - 1] = new Texel(pallet.getCoordinateForegroundColor(), pallet.getCoordinateBackgroundColor(), Character.forDigit((x - 1) % 10, 10));
+            }
+
+            for (int y = 1; y < getDimY() + 1; y++) {
+                newBuffer[y][newBuffer[0].length - 1] = newBuffer[y][0] = new Texel(pallet.getCoordinateForegroundColor(), pallet.getCoordinateBackgroundColor(), Character.forDigit((y - 1) % 10, 10));
+            }
+        }
+
+//        for (int y = 0; y < dimY; y++) {
+//            int[] row = board[y];
+//
+//            for (int index = 0; index < row.length - 1; index++) {
+//                if (errorBoard[y][index] != NO_PIECE) {
+//                    builder.append('E');
+//                } else {
+//                    builder.append(getMatchingChar(row[index]));
+//                }
+//                builder.append(" ");
+//            }
+//
+//
+//            if (errorBoard[y][row.length - 1] != NO_PIECE) {
+//                builder.append('E');
+//            } else {
+//                builder.append(getMatchingChar(row[row.length - 1]));
+//            }
+//
+//            builder.append(" ").append(getStringFromY(y));
+//        }
+//
+//        builder.append("\n  ");
+//
+//        for (int x = 0; x < dimX; x++) {
+//            builder.append(getStringFromX(x)).append(" ");
+//        }
+
+        return newBuffer;
     }
 
 }

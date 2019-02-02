@@ -2,6 +2,7 @@ package listener;
 
 import org.jnativehook.GlobalScreen;
 import org.jnativehook.NativeHookException;
+import uis.fancyttyui.Sprite;
 
 import java.io.FileDescriptor;
 import java.io.FileOutputStream;
@@ -12,8 +13,11 @@ import java.util.logging.Logger;
 
 public class KeyListener implements Runnable {
     private static volatile Key key;
+    private _KeyListener wrapper;
 
-    public KeyListener () {}
+    public KeyListener() {
+        wrapper = new _KeyListener(this);
+    }
 
     public void run () {
         disableOut();
@@ -30,8 +34,14 @@ public class KeyListener implements Runnable {
 
 		enableOut();
 
-		GlobalScreen.addNativeKeyListener(new _KeyListener(this));
 
+		GlobalScreen.addNativeKeyListener(wrapper);
+
+    }
+
+    public void addKeyEventListener (KeyEventListener keyEventListener) {
+        System.out.println(wrapper);
+        wrapper.addKeyEventListener(keyEventListener);
     }
 
     public Key getKey () {

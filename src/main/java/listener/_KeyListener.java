@@ -8,58 +8,72 @@ import org.jnativehook.keyboard.NativeKeyListener;
 import java.io.FileDescriptor;
 import java.io.FileOutputStream;
 import java.io.PrintStream;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 class _KeyListener implements NativeKeyListener {
     private KeyListener wrapper;
     private boolean verbose;
+    private List<KeyEventListener> keyEventListeners = new ArrayList<>();
 
     public _KeyListener(KeyListener wrapper) {
         this(wrapper, false);
     }
 
-    _KeyListener (KeyListener wrapper, boolean verbose) {
+    public void addKeyEventListener (KeyEventListener keyEventListener) {
+        keyEventListeners.add(keyEventListener);
+    }
+
+    private _KeyListener (KeyListener wrapper, boolean verbose) {
         this.wrapper = wrapper;
         this.verbose = verbose;
     }
 
-    public void nativeKeyPressed(NativeKeyEvent e) {
-        System.out.println("asdasdasd" + NativeKeyEvent.getKeyText(e.getKeyCode()).toLowerCase());
-        Key key;
-        switch (NativeKeyEvent.getKeyText(e.getKeyCode()).toLowerCase()) {
-            case "up":
-                key = Key.UP;
-                break;
-            case "down":
-                key = Key.DOWN;
-                break;
-            case "left":
-                key = Key.LEFT;
-                break;
-            case "right":
-                key = Key.RIGHT;
-                break;
-            case "enter":
-                key = Key.ENTER;
-                break;
-            case "left control":
-                key = Key.CTRL;
-                break;
-            case "right control":
-                key = Key.CTRL;
-                break;
-            case "left shift":
-                key = Key.SHIFT;
-                break;
-            case "right shift":
-                key = Key.SHIFT;
-                break;
-            default:
-                key = Key.NO_KEY;
+    private void broadcastKeyEvent (NativeKeyEvent e) {
+        for (KeyEventListener keyEventListener : keyEventListeners) {
+            keyEventListener.reportKey(e);
         }
+    }
 
-        wrapper.updateKey(key);
+    public void nativeKeyPressed(NativeKeyEvent e) {
+//        System.out.println(NativeKeyEvent.getKeyText(e.getKeyCode()).toLowerCase());
+//        Key key;
+//        switch (NativeKeyEvent.getKeyText(e.getKeyCode()).toLowerCase()) {
+//            case "up":
+//                key = Key.UP;
+//                break;
+//            case "down":
+//                key = Key.DOWN;
+//                break;
+//            case "left":
+//                key = Key.LEFT;
+//                break;
+//            case "right":
+//                key = Key.RIGHT;
+//                break;
+//            case "enter":
+//                key = Key.ENTER;
+//                break;
+//            case "left control":
+//                key = Key.CTRL;
+//                break;
+//            case "right control":
+//                key = Key.CTRL;
+//                break;
+//            case "left shift":
+//                key = Key.SHIFT;
+//                break;
+//            case "right shift":
+//                key = Key.SHIFT;
+//                break;
+//            default:
+//                key = Key.NO_KEY;
+//        }
+
+//        wrapper.updateKey(key);
+        broadcastKeyEvent(e);
 
         if (verbose) {
 		    System.out.println("Key pressed: " + NativeKeyEvent.getKeyText(e.getKeyCode()) + " " +  e.getKeyCode());

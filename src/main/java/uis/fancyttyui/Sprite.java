@@ -1,129 +1,219 @@
 package uis.fancyttyui;
 
+import blokus.*;
+import com.googlecode.lanterna.TextColor;
+import listener.KeyEventListener;
+import listener.KeyListener;
+import misc.ConvertToList;
+import org.apache.commons.lang3.ArrayUtils;
+import org.jnativehook.keyboard.NativeKeyEvent;
+import uis.Texel;
+
+import java.util.*;
+import java.util.stream.Collectors;
+
 public class Sprite {
 
     private static int spriteID = 0;
 
-    private char[][] mesh;
-    private char[][] underlying;
+    protected Texel[][] mesh;
 
-    private int posX = -1;
-    private int posY = -1;
-    private boolean drawn;
+    private volatile int posX = -1;  // These are "volatile"
+    private volatile int posY = -1;  // to ensure
+    private volatile boolean drawn;  // multi-thread safety.
 
     private int dimX;
     private int dimY;
-    private Screen screen;
 
+    private int ID;
 
-    private Sprite (char[][] mesh, int dimX, int dimY, Screen screen) {
-        if (!(mesh.length == dimY && mesh[0].length == dimX)) {
-            throw new RuntimeException("Invalid dimensions!");
-        }
+    private char transparent;
 
+    public int getID() {
+        return ID;
+    }
+
+    public Sprite(Texel[][] mesh, char transparent) {
         this.mesh = mesh;
-        this.underlying = new char[dimY][dimX];
 
-        this.dimX = dimX;
-        this.dimY = dimY;
-        this.screen = screen;
+        this.dimX = mesh[0].length;
+        this.dimY = mesh.length;
+
+        this.ID = Sprite.spriteID++;
+        this.transparent = transparent;
     }
 
-    public static Sprite fromString (String string, Screen screen) {
-        int dimY = string.split("\n").length;
-        int dimX = string.split("\n")[0].length();
-
-        return new Sprite(misc.ConvertToList.convertToList(string, "\n", "", '$'), dimX, dimY, screen);
+    public char getTransparent() {
+        return transparent;
     }
 
-    public void draw(int posX, int posY) {
-        draw(posX, posY, true);
+    public static Sprite fromString (String string, String verticalDelimiter, String horizontalDelimiter, char transparent) {
+        Texel[][] mesh = misc.ConvertToList.convertToList(string, verticalDelimiter, horizontalDelimiter, transparent);
+
+        return new Sprite(mesh, transparent);
     }
 
-    public void draw (int posX, int posY, boolean commit) {
-        if (drawn) {
-            throw new RuntimeException("Cannot draw twice!");
-        }
-
-        for (int y = posY; y < posY + dimY; y++) {
-            for (int x = posX; x < posX + dimX; x++) {
-                try {
-                    underlying[y - posY][x - posX] = screen.getPixel(x, y);
-                    screen.setPixel(x, y, mesh[y - posY][x - posX]);
-                } catch (ArrayIndexOutOfBoundsException e) {
-                    System.out.println("Trying to draw ouside the screen at " + x + ", " + y + "!");
-                }
-            }
-        }
-
+    public void draw (int posX, int posY) {
         this.posX = posX;
         this.posY = posY;
-        drawn = true;
-
-        if (commit) {
-            screen.commit();
-        }
+        this.drawn = true;
     }
 
-    public void unDraw() {
-        unDraw(true);
-    }
 
-    public void unDraw (boolean commit) {
-        if (!drawn || posX == -1 || posY == -1) {
-            throw new RuntimeException("Cannot undraw twice!");
-        }
 
-        for (int y = posY; y < posY + dimY; y++) {
-            for (int x = posX; x < posX + dimX; x++) {
-                try {
-                    screen.setPixel(x, y, underlying[y - posY][x - posX]);
-                } catch (ArrayIndexOutOfBoundsException e) {
-                    System.out.println("Trying to undraw ouside the screen at " + x + ", " + y + "!");
-                }
-            }
-        }
-
+    public void unDraw () {
         drawn = false;
         posX = -1;
         posY = -1;
-        
-        if (commit) {
-            screen.commit();
-        }
     }
     
     
 
     public void jump (int deltaX, int deltaY) {
-        int oldX = posX;
-        int oldY = posY;
-
-        unDraw(false);
-        draw(oldX + deltaX, oldY + deltaY);
-        screen.commit();
+        synchronized (this) {
+            this.posX = this.posX + deltaX;
+            this.posY = this.posY + deltaY;
+        }
     }
 
-    public void setScreen(Screen screen) {
-        this.screen = screen;
+    @Override
+    public String toString() {
+        return "Sprite{" +
+                "mesh=" + Arrays.toString(mesh) +
+                ", posX=" + posX +
+                ", posY=" + posY +
+                ", drawn=" + drawn +
+                ", dimX=" + dimX +
+                ", dimY=" + dimY +
+                '}';
     }
 
     public static void main (String[] args) {
         Screen screen = new Terminal();
-        Sprite sprite = Sprite.fromString(".....\n..a..\n..b..\n.....", screen);
-        sprite.draw(0, 0);
+
+//        Board board = new Board(14, 14, new MyPieceManager(2));
+        Board board = Board.fromFile("/home/kaappo/git/blokus/src/main/resources/boards/Sat Feb 02 20:04:00 EET 2019.ser", false);
+        Sprite boardSprite = new Sprite(board.texelize(new DefaultPallet()), '$');
+        screen.addSprite(boardSprite);
+        boardSprite.draw(0, 0);
+
+//        Sprite sprite = Sprite.fromString(new Piece(PieceID.PIECE_19, 0).bareToString(), "\n", "", ' ');
+        PieceSprite sprite = new PieceSprite(1, new DefaultPallet(), board);
+        screen.addSprite(sprite);
+        sprite.draw(1, 1);
 
 
-        for (int i = 0; i < 22; i++) {
-            try {
-                Thread.sleep(10);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
+        KeyListener keyListener = new KeyListener();
+
+//        System.exit(0);
+        screen.commit();
+        keyListener.addKeyEventListener(new KeyEventListener() {
+            @Override
+            public void reportKey(NativeKeyEvent event) {
+                switch (event.getKeyCode()) {
+                    case NativeKeyEvent.VC_LEFT:
+                        sprite.jump(-2, 0);
+                        break;
+                    case NativeKeyEvent.VC_RIGHT:
+                        sprite.jump(2, 0);
+                        break;
+                    case NativeKeyEvent.VC_DOWN:
+                        sprite.jump(0, 1);
+                        break;
+                    case NativeKeyEvent.VC_UP:
+                        sprite.jump(0, -1);
+                        break;
+                    case NativeKeyEvent.VC_A:
+                        sprite.rotateAntiClockwise();
+                        break;
+                    case NativeKeyEvent.VC_D:
+                        sprite.rotateClockwise();
+                        break;
+                    case NativeKeyEvent.VC_F:
+                        sprite.flip();
+                        break;
+                    case NativeKeyEvent.VC_W:
+                        sprite.changePieceIDPointer(1);
+                        break;
+                    case NativeKeyEvent.VC_S:
+                        sprite.changePieceIDPointer(-1);
+                        break;
+                }
+
+                screen.commit();
             }
-
-            sprite.jump(2, 1);
+        });
+        keyListener.run();
+        try {
+            keyListener.wait();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
 
-//        screen.close();
+//        while (true) {
+//            try {
+//                Thread.sleep(10);
+//            } catch (InterruptedException e) {
+//                e.printStackTrace();
+//            }
+//
+//            switch (keyListener.getKey()) {
+//                case NO_KEY:
+//                    break;
+//                case LEFT:
+//                    sprite.jump(-2, 0);
+//                    break;
+//                case RIGHT:
+//                    sprite.jump(2, 0);
+//                    break;
+//                case DOWN:
+//                    sprite.jump(0, 1);
+//                    break;
+//                case UP:
+//                    sprite.jump(0, -1);
+//                    break;
+//                case ENTER:
+//                    break;
+//                case CTRL:
+//                    break;
+//                case SHIFT:
+//                    break;
+//            }
+//
+//            screen.commit();
+////            System.out.println(keyListener.getKey());
+//        }
+//
+
     }
+
+    public boolean isDrawn() {
+        return drawn;
+    }
+
+    public int getPosX() {
+        return posX;
+    }
+
+    public int getPosY() {
+        return posY;
+    }
+
+    public int getDimX() {
+        return dimX;
+    }
+
+    public int getDimY() {
+        return dimY;
+    }
+
+    public Texel getChar (int x, int y) {
+        try {
+            return mesh[y][x];
+        } catch (ArrayIndexOutOfBoundsException e) {
+            System.out.println(this);
+            throw new RuntimeException(e);
+        }
+    }
+
 }
