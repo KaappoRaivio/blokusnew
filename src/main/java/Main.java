@@ -11,6 +11,8 @@ public class Main {
 
     public static void main (String[] args) {
         Board board = new Board(14, 14, new MyPieceManager(2));
+        System.out.println(board.getAllFittingMoves(0).size());
+        System.exit(0);
 
         UI ui = new FancyTtyUI(board.deepCopy());
 

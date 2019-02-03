@@ -104,35 +104,4 @@ public class TwoPlayerAi extends Player {
         return board;
     }
 
-    public static void main (String[] args) {
-        Board board = new Board(14, 14, new MyPieceManager(2), true, 4);
-
-
-
-        TwoPlayerAi twoPlayerAi = new TwoPlayerAi(board, 0, "asd", new TtyUITest(board.deepCopy()), 2);
-
-        System.out.println(timeit(new Runnable() {
-            @Override
-            public void run() {
-                System.out.println(twoPlayerAi.getEvaluator().evaluateMove(twoPlayerAi.getBoard(), twoPlayerAi.depth));
-            }
-        }, 100));
-    }
-
-    private static long timeit (Runnable runnable, int iterations) {
-        List<Long> times = new ArrayList<>();
-        long sum = 0;
-
-        for (int i = 0; i < iterations; i++) {
-            long alku = System.currentTimeMillis();
-            runnable.run();
-            long loppu = System.currentTimeMillis();
-            times.add(loppu - alku);
-            sum += loppu - alku;
-        }
-
-
-        return sum / times.size();
-    }
-
 }

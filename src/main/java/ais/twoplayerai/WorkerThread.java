@@ -5,7 +5,6 @@ import blokus.Move;
 import misc.MoveAndScore;
 
 import java.util.List;
-import java.util.function.Consumer;
 
 public class WorkerThread extends Thread {
     private List<Move> movesToTest;
@@ -30,9 +29,8 @@ public class WorkerThread extends Thread {
         }
 
         public MoveAndScore getResult () {
-            boardd.putOnBoard(result.getMove());
-            System.outsssss
-                    .println(board);
+            board.putOnBoard(result.getMove());
+            System.out.println(board);
             return result;
         }
 }

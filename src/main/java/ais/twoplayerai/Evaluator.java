@@ -33,18 +33,19 @@ class Evaluator {
 
 
     private int howManyCornersFree (Board position, int color) {
-        int counter = 0;
-        PieceID pieceID = PieceID.fromStandardNotation("I1");
-
-        for (int y = 0; y < position.getDimY(); y++) {
-            for (int x = 0; x < position.getDimX(); x++) {
-                if (position.fits(x, y, pieceID, color, Orientation.UP, false, true)) {
-                    counter += 1;
-                }
-            }
-        }
-
-        return counter;
+//        int counter = 0;
+//        PieceID pieceID = PieceID.fromStandardNotation("I1");
+//
+//        for (int y = 0; y < position.getDimY(); y++) {
+//            for (int x = 0; x < position.getDimX(); x++) {
+//                if (position.fits(x, y, pieceID, color, Orientation.UP, false, true)) {
+//                    counter += 1;
+//                }
+//            }
+//        }
+//
+//        return counter;
+        return position.amountOfFreeCorners(color);
     }
 
     private float evaluatePosition(Board position) {

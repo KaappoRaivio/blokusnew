@@ -115,7 +115,7 @@ public class Terminal implements Screen {
         buffer[y][x] = newTexel;
     }
 
-d    @Override
+    @Override
     public Texel getPixel(int x, int y) {
         return buffer[y][x];
     }

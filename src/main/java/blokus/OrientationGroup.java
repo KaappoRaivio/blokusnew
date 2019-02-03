@@ -3,7 +3,13 @@ package blokus;
 import java.util.ArrayList;
 import java.util.List;
 
-public class OrientationGroup {
+public enum OrientationGroup {
+    SYMMETRIC_90_NO_FLIP (true, false, false, false, false, false, false, false),
+    SYMMETRIC_180_NO_FLIP (true, false, true, false, false, false, false, false),
+    SYMMETRIC_180_FLIP (true, true, true, true, false, false, false, false),
+    SYMMETRIC_360_NO_FLIP (true, false, true, false, true, false, true, false),
+    SYMMETRIC_360_FLIP (true, true, true, true, true, true, true, true);
+
     private boolean upFalse;
     private boolean upTrue;
     private boolean leftFalse;
@@ -13,7 +19,7 @@ public class OrientationGroup {
     private boolean rightFalse;
     private boolean rightTrue;
 
-    public OrientationGroup(boolean upFalse, boolean upTrue, boolean leftFalse, boolean leftTrue, boolean downFalse, boolean downTrue, boolean rightFalse, boolean rightTrue) {
+    OrientationGroup(boolean upFalse, boolean upTrue, boolean leftFalse, boolean leftTrue, boolean downFalse, boolean downTrue, boolean rightFalse, boolean rightTrue) {
         this.upFalse = upFalse;
         this.upTrue = upTrue;
         this.leftFalse = leftFalse;

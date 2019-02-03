@@ -34,7 +34,6 @@ public class Piece implements java.io.Serializable {
 
     public static final char OPAQUE = '#';
     public static final char TRANSPARENT = '.';
-    public static final char CORNER = '$';
 
     private char[][] mesh = new char[5][5];
     private int color;

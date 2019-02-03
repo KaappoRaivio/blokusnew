@@ -146,8 +146,6 @@ public class Board implements Serializable {
                 int absY = baseY + y;
 
                 if (safeOffset(absX, absY, 0, 0) != NO_PIECE) {
-//                    fits = false;
-//                    break;
                     return false;
                 }
 
@@ -201,7 +199,6 @@ public class Board implements Serializable {
     }
 
     public boolean fits (Move move) {
-//        System.out.println(move.getX() + " " + move.getY() + " " + move.getPieceID() + " " + move.getColor() + " " + move.getOrientation() + " " + move.isFlip());
         return fits(move.getX(), move.getY(), move.getPieceID(), move.getColor(), move.getOrientation(), move.isFlip());
     }
 
@@ -330,12 +327,10 @@ public class Board implements Serializable {
     }
 
     private String getStringFromX (int x) {
-//        return String.valueOf((char)( 65 + x));
         return String.valueOf(x % 10);
     }
 
     private String getStringFromY (int y) {
-//        return String.valueOf((char)( 65 + y));
         return String.valueOf(y % 10);
     }
 
@@ -413,68 +408,6 @@ public class Board implements Serializable {
         return pieceManager.getPiecesNotOnBoard(color);
     }
 
-    private List<Span> splitBoardInto (int amountOfChunks) {
-        int surfaceArea = dimX * dimY;
-
-
-        int[] lengths = new int[amountOfChunks];
-        int remainder = surfaceArea % amountOfChunks;
-
-        for (int i = 0; i < amountOfChunks; i++) {
-            lengths[i] = surfaceArea / amountOfChunks;
-        }
-
-        for (int i = 0; i < remainder; i++) {
-            lengths[i] += 1;
-        }
-
-        int startX = 0;
-        int startY = 0;
-
-        int endX = 0;
-        int endY = 0;
-
-        List<Span> spans = new ArrayList<>();
-
-        for (int length : lengths) {
-            endX = (endX + length) % 20;
-            endY += (endX + length) / 20;
-
-            spans.add(new Span(new Position(startX, startY), new Position(endX, endY)));
-
-            startX = endX;
-            startY = endY;
-        }
-
-        return spans;
-    }
-
-
-    private List<Move> getAllFittingMovesParallel(int color, int numberOfCores) {
-
-        List<Move> result = new ArrayList<>();
-        List<Span> spans = splitBoardInto(numberOfCores);
-        List<WorkerThread> threads = new ArrayList<>();
-
-        for (Span span : spans) {
-            WorkerThread thread = new WorkerThread(this.deepCopy(), span, color);
-            threads.add(thread);
-            thread.run();
-
-        }
-
-        for (WorkerThread thread : threads) {
-            try {
-                thread.join();
-            } catch (InterruptedException ignored) {}
-
-            result.addAll(thread.getResult());
-        }
-
-
-        return result;
-    }
-
     public List<Move> getAllFittingMoves (int color) {
             List<Move> moves = new ArrayList<>();
 
@@ -494,25 +427,6 @@ public class Board implements Serializable {
 
         for (PieceID pieceID : pieces) {
             moves.addAll(getAllFittingMoves(color, x, y, pieceID));
-        }
-
-        return moves;
-    }
-
-    public List<Move> getAllFittingMovesBad (int color) {
-        var moves = new ArrayList<Move>();
-        var pieces = getPiecesNotOnBoard(color);
-
-        for (var pieceID : pieces) {
-            for (PieceID.OrientationAndFlip orientationAndFlip : pieceID.getAllOrientations()) {
-                for (int x = 0; x < dimX; x++) {
-                    for (int y = 0; y < dimY; y++) {
-                        if (fits(new Move(x, y, pieceID, color, orientationAndFlip.getOrientation(), orientationAndFlip.isFlip()))) {
-                            moves.add(new Move(x, y, pieceID, color, orientationAndFlip.getOrientation(), orientationAndFlip.isFlip()));
-                        }
-                    }
-                }
-            }
         }
 
         return moves;
@@ -580,6 +494,10 @@ public class Board implements Serializable {
         return corners;
     }
 
+    public int amountOfFreeCorners (int color) {
+        return getEligibleCorners(color).size();
+    }
+
 
     public Board deepCopy () {
         Board newBoard;
@@ -615,53 +533,6 @@ public class Board implements Serializable {
 
     public PieceManager getPieceManager() {
         return pieceManager;
-    }
-
-    public void setPieceManager(PieceManager pieceManager) {
-        this.pieceManager = pieceManager;
-    }
-
-    public class WorkerThread extends Thread {
-
-        private final int color;
-        private Board board;
-        private Span span;
-        private List<Move> moves = new ArrayList<>();
-
-        public WorkerThread (Board board, Span span, int color) {
-            super();
-
-            this.board = board;
-            this.span = span;
-            this.color = color;
-        }
-
-        @Override
-        public void run() {
-            List<PieceID> pieces = board.getPiecesNotOnBoard(color);
-
-            for (Position position : span) {
-                for (PieceID pieceID : pieces) {
-//                    Piece notRotated = pieceManager.getCachedPiece(pieceID, color);
-
-                    for (Orientation orientation : Orientation.values()) {
-                        if (board.fits(position.x, position.y, pieceID, color, orientation, false)) {
-                            moves.add(new Move(position.x, position.y, pieceID, color, orientation, false));
-                        }
-
-                        if (board.fits(position.x, position.y, pieceID, color, orientation, true)) {
-                            moves.add(new Move(position.x, position.y, pieceID, color, orientation, true));
-                        }
-                    }
-                }
-            }
-        }
-
-        public List<Move> getResult () {
-            return moves;
-        }
-
-
     }
 
     public List<Move> getFirstNFittingMoves (int n, int color) {
@@ -704,34 +575,6 @@ public class Board implements Serializable {
                 newBuffer[y][newBuffer[0].length - 1] = newBuffer[y][0] = new Texel(pallet.getCoordinateForegroundColor(), pallet.getCoordinateBackgroundColor(), Character.forDigit((y - 1) % 10, 10));
             }
         }
-
-//        for (int y = 0; y < dimY; y++) {
-//            int[] row = board[y];
-//
-//            for (int index = 0; index < row.length - 1; index++) {
-//                if (errorBoard[y][index] != NO_PIECE) {
-//                    builder.append('E');
-//                } else {
-//                    builder.append(getMatchingChar(row[index]));
-//                }
-//                builder.append(" ");
-//            }
-//
-//
-//            if (errorBoard[y][row.length - 1] != NO_PIECE) {
-//                builder.append('E');
-//            } else {
-//                builder.append(getMatchingChar(row[row.length - 1]));
-//            }
-//
-//            builder.append(" ").append(getStringFromY(y));
-//        }
-//
-//        builder.append("\n  ");
-//
-//        for (int x = 0; x < dimX; x++) {
-//            builder.append(getStringFromX(x)).append(" ");
-//        }
 
         return newBuffer;
     }
