@@ -11,8 +11,8 @@ public class Main {
     public static final int NUMBER_OF_CORES = Runtime.getRuntime().availableProcessors();
 
     public static void main (String[] args) {
-//        Board board = new Board(14, 14, new MyPieceManager(2));
-        Board board = Board.fromFile("/home/kaappo/git/blokus/src/main/resources/boards/Sun Feb 03 22:12:25 EET 2019.ser", false);
+        Board board = new Board(14, 14, new MyPieceManager(2));
+//        Board board = Board.fromFile("/home/kaappo/git/blokus/src/main/resources/boards/Sun Feb 03 22:12:25 EET 2019.ser", false);
 
         UI ui = new FancyTtyUI(board.deepCopy());
 

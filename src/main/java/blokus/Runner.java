@@ -92,11 +92,11 @@ public class Runner {
         boolean onePlayerAlive = false;
 
         for (boolean b : lost) {
-            if (!b && !onePlayerAlive) {
-//                return true;
-                onePlayerAlive = true;
+//            if (!b && !onePlayerAlive) {
+////                return true;
+//                onePlayerAlive = true;
 
-            } else if (!b) {
+            if (!b) {
                 return true;
             }
         }

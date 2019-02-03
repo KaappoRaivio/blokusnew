@@ -94,7 +94,7 @@ public class TwoPlayerAi extends Player {
 
         try {
             return moveScores.get(new Random().nextInt(2)).getMove();
-        } catch (ArrayIndexOutOfBoundsException e) {
+        } catch (IndexOutOfBoundsException e) {
             return moveScores.get(0).getMove();
         }
 
@@ -115,12 +115,10 @@ public class TwoPlayerAi extends Player {
             board.putOnBoard(move);
             float score = evaluator.evaluateMove(board, depth);
             board.undo(0);
-            System.out.println(move);
             moveScores.put(score, move);
         }
 
         float maxScore = -1000000000.0f;
-        System.out.println(moveScores);
 
         for (float f : moveScores.keySet()) {
             maxScore = max(maxScore, f);
