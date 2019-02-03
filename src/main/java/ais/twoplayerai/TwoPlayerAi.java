@@ -7,7 +7,9 @@ import misc.Splitter;
 import uis.TtyUITest;
 import uis.UI;
 
+import java.lang.reflect.Array;
 import java.util.*;
+import java.util.stream.Collectors;
 
 import static java.lang.Math.max;
 import static java.lang.Math.min;
@@ -18,22 +20,24 @@ public class TwoPlayerAi extends Player {
     private Evaluator evaluator;
     private int depth;
 
-    public TwoPlayerAi(Board initialPosition, int color, String id, UI ui, int depth) {
+    public TwoPlayerAi(Board initialPosition, int color, String id, UI ui, int depth, Evaluator evaluator) {
         super(initialPosition, color, id, ui);
-        this.evaluator = new Evaluator(color, depth);
+        this.evaluator = evaluator;
         this.depth = depth;
     }
 
     @Override
     public Move getMove() {
+        long time = System.currentTimeMillis();
         List<Move> moves = board.getAllFittingMoves(color);
+//        List<Move> moves = board.getFirstNFittingMoves(, color);
         System.out.println("Found " + moves.size() + " moves as " + id);
 
         List<MoveAndScore> moveScores = new ArrayList<>();
 
         List<WorkerThread> threads = new ArrayList<>();
 
-        List<OnedSpan> spans = Splitter.splitListInto(moves, Runtime.getRuntime().availableProcessors());
+        List<OnedSpan> spans = Splitter.splitListInto(moves, min(Runtime.getRuntime().availableProcessors(), moves.size()));
         for (OnedSpan span : spans) {
             WorkerThread thread = new WorkerThread(moves.subList(span.getStart(), span.getEnd()), board.deepCopy(), this, depth);
             thread.start();
@@ -47,23 +51,52 @@ public class TwoPlayerAi extends Player {
                 e.printStackTrace();
             }
             try {
-                moveScores.add(thread.getResult());
+                if (thread.getResult() == null) {
+                    System.out.println("BADDD");
+                    throw new NullPointerException();
+
+                } else {
+                    moveScores.add(thread.getResult());
+                }
             } catch (NullPointerException e) {
                 System.out.println("result is null!");
+                throw new RuntimeException(e);
+//                System.exit(0);
             }
 
         }
 
-        return Collections.max(moveScores, new Comparator<MoveAndScore>() {
+//        Move move = Collections.max(moveScores, new Comparator<MoveAndScore>() {
+//            @Override
+//            public int compare(MoveAndScore moveAndScore, MoveAndScore t1) {
+//                if (!(moveAndScore.isScorePresent() && t1.isScorePresent())) {
+//                    return -1;
+//                } else {
+//                    return moveAndScore.getScore() - t1.getScore() > 0 ? 1 : 0;
+//                }
+//            }
+//        }).getMove();
+
+        moveScores.sort(new Comparator<MoveAndScore>() {
             @Override
             public int compare(MoveAndScore moveAndScore, MoveAndScore t1) {
                 if (!(moveAndScore.isScorePresent() && t1.isScorePresent())) {
                     return -1;
                 } else {
-                    return moveAndScore.getScore() - t1.getScore() > 0 ? 1 : 0;
+                    return moveAndScore.getScore() - t1.getScore() < 0 ? 1 : -1;
                 }
             }
-        }).getMove();
+        });
+        System.out.println(moveScores);
+
+        long timeEnd = System.currentTimeMillis();
+        System.out.println("Took " + (timeEnd - time) + " milliseconds as " + id);
+
+        try {
+            return moveScores.get(new Random().nextInt(2)).getMove();
+        } catch (ArrayIndexOutOfBoundsException e) {
+            return moveScores.get(0).getMove();
+        }
 
     }
 
@@ -82,15 +115,16 @@ public class TwoPlayerAi extends Player {
             board.putOnBoard(move);
             float score = evaluator.evaluateMove(board, depth);
             board.undo(0);
+            System.out.println(move);
             moveScores.put(score, move);
         }
 
-        float maxScore = -10000.0f;
+        float maxScore = -1000000000.0f;
+        System.out.println(moveScores);
 
         for (float f : moveScores.keySet()) {
             maxScore = max(maxScore, f);
         }
-//        System.out.println(moveScores.toString());
         return new MoveAndScore(moveScores.get(maxScore), true, true, maxScore);
     }
 

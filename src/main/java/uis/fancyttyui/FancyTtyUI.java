@@ -63,12 +63,12 @@ public class FancyTtyUI implements UI {
 
 
 
-        final boolean[] wait = {true};
+        final boolean[] wait = {true, false};
+
 
         keyListener.addKeyEventListener(new KeyEventListener() {
             @Override
             public void reportKey(NativeKeyEvent event) {
-
                 switch (event.getKeyCode()) {
                     case NativeKeyEvent.VC_LEFT:
                         sprite.jump(-2, 0);
@@ -103,6 +103,13 @@ public class FancyTtyUI implements UI {
                             lock.notifyAll();
                         }
                         break;
+                    case NativeKeyEvent.VC_ESCAPE:
+//                        throw new RuntimeException("Quit!");
+                        synchronized (lock) {
+                            wait[0] = false;
+                            wait[1] = true;
+                            lock.notifyAll();
+                        }
                 }
                 screen.commit();
             }
@@ -119,6 +126,10 @@ public class FancyTtyUI implements UI {
                 }
             }
         }
+        if (wait[1]) {
+            throw new RuntimeException("Quit!");
+        }
+
         keyListener.close();
         Move move = sprite.getCurrentMove();
 //        screen.commit();

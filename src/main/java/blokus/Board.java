@@ -1,5 +1,6 @@
 package blokus;
 
+import org.apache.commons.lang3.ObjectUtils;
 import uis.Texel;
 import uis.fancyttyui.ColorPallet;
 import uis.fancyttyui.Terminal;
@@ -149,11 +150,7 @@ public class Board implements Serializable {
                     return false;
                 }
 
-                if (!touchesCorner &&
-                        (absX == 0 && absY == 0 ||
-                        absX == 0 && absY == dimY - 1 ||
-                        absX == dimX - 1 && absY == 0 ||
-                        absX == dimX - 1 && absY == dimY - 1)) {
+                if (!touchesCorner && isCorner(absX, absY)) {
 
                     touchesCorner = true;
                 }
@@ -199,7 +196,12 @@ public class Board implements Serializable {
     }
 
     public boolean fits (Move move) {
-        return fits(move.getX(), move.getY(), move.getPieceID(), move.getColor(), move.getOrientation(), move.isFlip());
+        try {
+            return fits(move.getX(), move.getY(), move.getPieceID(), move.getColor(), move.getOrientation(), move.isFlip());
+        } catch (NullPointerException e) {
+            System.out.println(move);
+            throw e;
+        }
     }
 
     private void addToPiecesOnBoard (Piece piece) {
@@ -410,10 +412,7 @@ public class Board implements Serializable {
 
     public List<Move> getAllFittingMoves (int color) {
             List<Move> moves = new ArrayList<>();
-
-
-
-            for (Position boardPosition : this.getEligibleCorners(color)) {
+            for (Position boardPosition : getEligibleCorners(color)) {
                 moves.addAll(getAllFittingMoves(color, boardPosition.x, boardPosition.y));
             }
 
@@ -456,7 +455,8 @@ public class Board implements Serializable {
     }
 
     private boolean isCorner (int x, int y) {
-        return (x == 0 || x == dimX - 1) && (y == 0 || y == dimY - 1);
+//        return (x == 0 || x == dimX - 1) && (y == 0 || y == dimY - 1);
+        return (x == 4 && y == 4) || (x == dimX - 5 && y == dimY - 5);
     }
 
     private boolean isEligibleCorner (int color, int x, int y) {

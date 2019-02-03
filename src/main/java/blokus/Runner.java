@@ -75,17 +75,12 @@ public class Runner {
         List<Integer> finalScores = new ArrayList<>();
 
         for (int color = 0; color < board.getAmountOfPlayers(); color++) {
-            int total = 0;
-            for (PieceID pieceID : board.getPieceManager().getPiecesNotOnBoard(color)) {
-                Piece piece = new Piece(pieceID, color);
-
-                total += piece.getAmountOfSquares();
-            }
+            int total = board.getPieceManager().getPiecesOnBoard(color).stream().mapToInt(PieceID::getAmountOfSquares).sum();
 
             finalScores.add(total);
         }
 
-        int winner = finalScores.indexOf(Collections.min(finalScores));
+        int winner = finalScores.indexOf(Collections.max(finalScores));
 
         System.out.println("Color " + winner + " won with " + finalScores.get(winner) + " points!");
 
@@ -109,7 +104,7 @@ public class Runner {
         return false;
     }
 
-    public void updateAllPlayerValues (Board board, int turn, int moveCount) {
+    private void updateAllPlayerValues (Board board, int turn, int moveCount) {
         Arrays.stream(players).forEach((item) -> item.updateValues(board.deepCopy(), turn, moveCount));
     }
 

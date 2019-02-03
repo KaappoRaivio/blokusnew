@@ -42,4 +42,12 @@ public class MoveAndScore {
         this.isMovePresent = isMovePresent;
         this.score = score;
     }
+
+    @Override
+    public String toString() {
+        return "MoveAndScore{" +
+                "move=" + move +
+                ", score=" + score +
+                '}';
+    }
 }
