@@ -11,13 +11,14 @@ public class Main {
 
     public static void main (String[] args) {
         Board board = new Board(14, 14, new MyPieceManager(2));
-        System.out.println(board.getAllFittingMoves(0).size());
-        System.exit(0);
+//        Board board = Board.fromFile("/home/kaappo/git/blokus/src/main/resources/boards/Sun Feb 03 13:10:33 EET 2019.ser", false);
 
         UI ui = new FancyTtyUI(board.deepCopy());
 
 
-        CapableOfPlaying[] players = new CapableOfPlaying[]{new Player(board.deepCopy(), 0, null, ui), new TwoPlayerAi(board.deepCopy(), 1, null, ui,2)};
+//        CapableOfPlaying[] players = new CapableOfPlaying[]{new Player(board.deepCopy(), 0, null, ui), new TwoPlayerAi(board.deepCopy(), 1, null, ui,2)};
+        CapableOfPlaying[] players = new CapableOfPlaying[]{new TwoPlayerAi(board.deepCopy(), 0, null, ui, 1), new TwoPlayerAi(board.deepCopy(), 1, null, ui,1)};
+
 
         Runner runner = new Runner(board, players, ui);
 

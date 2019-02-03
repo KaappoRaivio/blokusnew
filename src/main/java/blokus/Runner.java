@@ -94,8 +94,14 @@ public class Runner {
     }
 
     private boolean canPlay (boolean[] lost) {
+        boolean onePlayerAlive = false;
+
         for (boolean b : lost) {
-            if (!b) {
+            if (!b && !onePlayerAlive) {
+//                return true;
+                onePlayerAlive = true;
+
+            } else if (!b) {
                 return true;
             }
         }

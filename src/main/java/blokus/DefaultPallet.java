@@ -12,6 +12,8 @@ public class DefaultPallet implements ColorPallet {
                 return new Texel(new TextColor.RGB(0, 0, 255), '█');
             case 1:
                 return new Texel(new TextColor.RGB(255, 127, 0), '█');
+            case -1:
+                return new Texel(new TextColor.RGB(200, 200, 200), '█');
             default:
                 return getBackgroundTexel();
         }
@@ -19,7 +21,7 @@ public class DefaultPallet implements ColorPallet {
 
     @Override
     public Texel getBackgroundTexel() {
-        return new Texel(new TextColor.RGB(84, 84, 84), '█'); //░
+        return new Texel(new TextColor.RGB(150, 150, 150), '█'); //░
     }
 
     @Override
@@ -29,12 +31,12 @@ public class DefaultPallet implements ColorPallet {
 
     @Override
     public TextColor.RGB getCoordinateForegroundColor() {
-        return new TextColor.RGB(255, 255, 255);
+        return new TextColor.RGB(0, 0, 0);
     }
 
     @Override
     public TextColor.RGB getCoordinateBackgroundColor() {
-        return new TextColor.RGB(0, 0, 0);
+        return new TextColor.RGB(150, 150, 150);
     }
 
     @Override

@@ -27,6 +27,7 @@ public class TwoPlayerAi extends Player {
     @Override
     public Move getMove() {
         List<Move> moves = board.getAllFittingMoves(color);
+        System.out.println("Found " + moves.size() + " moves as " + id);
 
         List<MoveAndScore> moveScores = new ArrayList<>();
 
@@ -53,13 +54,6 @@ public class TwoPlayerAi extends Player {
 
         }
 
-//        float maxScore = -1.0f;
-//
-//        for (float f : moveScores.keySet()) {
-//            maxScore = max(maxScore, f);
-//        }
-
-//        return moveScores.get(maxScore);
         return Collections.max(moveScores, new Comparator<MoveAndScore>() {
             @Override
             public int compare(MoveAndScore moveAndScore, MoveAndScore t1) {
@@ -91,12 +85,12 @@ public class TwoPlayerAi extends Player {
             moveScores.put(score, move);
         }
 
-        float maxScore = -1.0f;
+        float maxScore = -10000.0f;
 
         for (float f : moveScores.keySet()) {
             maxScore = max(maxScore, f);
         }
-        System.out.println(moveScores.toString());
+//        System.out.println(moveScores.toString());
         return new MoveAndScore(moveScores.get(maxScore), true, true, maxScore);
     }
 

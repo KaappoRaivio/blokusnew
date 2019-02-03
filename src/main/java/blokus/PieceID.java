@@ -19,7 +19,7 @@ public enum PieceID {
     PIECE_14("Z5", 13, 5, 6, OrientationGroup.SYMMETRIC_180_FLIP),
     PIECE_15("I5", 14, 5, 4, OrientationGroup.SYMMETRIC_180_NO_FLIP),
     PIECE_16("P", 15, 5, 5, OrientationGroup.SYMMETRIC_360_FLIP),
-    PIECE_17("W", 16, 5, 7, OrientationGroup.SYMMETRIC_360_FLIP),
+    PIECE_17("W", 16, 5, 7, OrientationGroup.SYMMETRIC_360_NO_FLIP),
     PIECE_18("U", 17, 5, 6, OrientationGroup.SYMMETRIC_360_NO_FLIP),
     PIECE_19("F", 18, 5, 7, OrientationGroup.SYMMETRIC_360_FLIP),
     PIECE_20("X", 19, 5, 8, OrientationGroup.SYMMETRIC_90_NO_FLIP),

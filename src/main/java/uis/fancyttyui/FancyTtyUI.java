@@ -121,8 +121,8 @@ public class FancyTtyUI implements UI {
         }
         keyListener.close();
         Move move = sprite.getCurrentMove();
-        sprite.unDraw();
-        screen.commit();
+//        screen.commit();
+        screen.removeSprite(sprite);
 
         return move;
 

@@ -556,7 +556,7 @@ public class Board implements Serializable {
 
         for (int y = 0; y < newBuffer.length; y++) {
             for (int x = 0; x < newBuffer[y].length; x++) {
-                newBuffer[y][x] = new Texel(Terminal.TRANSPARENT);
+                newBuffer[y][x] = pallet.getBackgroundTexel();
             }
         }
 

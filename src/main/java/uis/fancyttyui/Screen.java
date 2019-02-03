@@ -13,6 +13,7 @@ public interface Screen {
     void close ();
     void addSprite (Sprite sprite);
     void removeAllSprites ();
+    void removeSprite (Sprite sprite);
 
     int getDimX ();
     int getDimY ();

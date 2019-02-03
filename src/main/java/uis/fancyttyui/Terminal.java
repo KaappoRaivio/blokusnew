@@ -45,12 +45,23 @@ public class Terminal implements Screen {
     }
 
     public void addSprite (Sprite sprite) {
-        sprites.add(sprite);
+        synchronized (lock) {
+            sprites.add(sprite);
+        }
     }
 
     @Override
     public void removeAllSprites() {
-        sprites = new ArrayList<>();
+        synchronized (lock) {
+            sprites = new ArrayList<>();
+        }
+    }
+
+    @Override
+    public void removeSprite(Sprite sprite) {
+        synchronized (lock) {
+            sprites.remove(sprite);
+        }
     }
 
     private void drawSpritesToTerminal () {

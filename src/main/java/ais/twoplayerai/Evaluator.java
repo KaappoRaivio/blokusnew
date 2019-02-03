@@ -18,24 +18,26 @@ class Evaluator {
     }
 
     private int howManySquaresOnBoard (Board position, int color) {
-        int counter = 0;
+//        int counter = 0;
+//
+//        for (int y = 0; y < position.getDimY(); y++) {
+//            for (int x = 0; x < position.getDimX(); x++) {
+//                if (position.getBoard()[y][x] == color) {
+//                    counter += 1;
+//                }
+//            }
+//        }
 
-        for (int y = 0; y < position.getDimY(); y++) {
-            for (int x = 0; x < position.getDimX(); x++) {
-                if (position.getBoard()[y][x] == color) {
-                    counter += 1;
-                }
-            }
-        }
-
-        return counter;
+        final int[] result = {0};
+        position.getPieceManager().getPiecesOnBoard(color).stream().forEach((entry) -> result[0] += entry.getAmountOfSquares());
+        return result[0];
     }
 
 
     private int howManyCornersFree (Board position, int color) {
 //        int counter = 0;
 //        PieceID pieceID = PieceID.fromStandardNotation("I1");
-//
+///home/kaappo/git/blokus/src/main/resources/boards/Sun Feb 03 13:10:33 EET 2019.ser
 //        for (int y = 0; y < position.getDimY(); y++) {
 //            for (int x = 0; x < position.getDimX(); x++) {
 //                if (position.fits(x, y, pieceID, color, Orientation.UP, false, true)) {
@@ -57,11 +59,15 @@ class Evaluator {
             average += f;
         }
 
+        if (!position.hasMoves(color)) {
+            average -= 100.0f;
+        }
+
         return average / parameters.length;
     }
 
     private float decisionTree (Board position, int depth,  int turn) {
-        if (depth == 0 || !position.canPlay()) {
+        if (depth == 0 || !position.hasMoves(turn)) {
 //            System.out.println(evaluatePosition(position));
             return evaluatePosition(position);
         }
