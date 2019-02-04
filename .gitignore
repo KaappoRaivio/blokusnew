@@ -1,3 +1,6 @@
+# Serialized files #
+*.ser
+
 # Compiled source #
 ###################
 *.com
