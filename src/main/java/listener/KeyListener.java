@@ -40,7 +40,6 @@ public class KeyListener implements Runnable {
     }
 
     public void addKeyEventListener (KeyEventListener keyEventListener) {
-        System.out.println(wrapper);
         wrapper.addKeyEventListener(keyEventListener);
     }
 

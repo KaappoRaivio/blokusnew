@@ -4,11 +4,12 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
+import java.util.Vector;
 
 public class MyPieceManager implements PieceManager, Serializable {
-    private List< List<Piece> > cachedPieces = new ArrayList<>();
-    private List< List<PieceID> > piecesOnBoard = new ArrayList<>();
-    private List< List<PieceID> > piecesNotOnBoard = new ArrayList<>();
+    private List< List<Piece> > cachedPieces = new Vector<>();
+    private List< List<PieceID> > piecesOnBoard = new Vector<>();
+    private List< List<PieceID> > piecesNotOnBoard = new Vector<>();
 
     private Stack<Integer> colorHistory = new Stack<>();
 

@@ -65,7 +65,7 @@ public enum PieceID {
     }
 
     public List<OrientationAndFlip> getAllOrientations () {
-        List<OrientationAndFlip> orientations = new ArrayList<>();
+        List<OrientationAndFlip> orientations = new Vector<>();
 
         for (Orientation orientation : Orientation.values()) {
             if (relevantOrientations.isRelevant(orientation, true)) {

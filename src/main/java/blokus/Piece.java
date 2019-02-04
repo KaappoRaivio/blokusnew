@@ -5,6 +5,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Vector;
 
 public class Piece implements java.io.Serializable {
     private static final List<String> paths = Arrays.asList(
@@ -45,7 +46,7 @@ public class Piece implements java.io.Serializable {
     private final Orientation orientation;
     private final boolean flipped;
     private final int amountOfSquares;
-    private List<Position> squares = new ArrayList<>();
+    private List<Position> squares = new Vector<>();
     private int dimX;
     private int dimY;
 
@@ -154,7 +155,7 @@ public class Piece implements java.io.Serializable {
     }
 
     private void refreshSquares () {
-        squares = new ArrayList<>();
+        squares = new Vector<>();
 
         for (int x = 0; x < dimX; x++) {
             for (int y = 0; y < dimY; y++) {
@@ -279,7 +280,7 @@ public class Piece implements java.io.Serializable {
     }
 
     public List<Piece> getAllOrientations () {
-        List<Piece> pieces = new ArrayList<>();
+        List<Piece> pieces = new Vector<>();
 
         for (PieceID.OrientationAndFlip orientationAndFlip : id.getAllOrientations()) {
             pieces.add(rotate(orientationAndFlip.getOrientation(), orientationAndFlip.isFlip()));

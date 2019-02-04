@@ -11,6 +11,8 @@ import listener.KeyListener;
 import org.jnativehook.keyboard.NativeKeyEvent;
 import uis.UI;
 
+import java.util.stream.Collectors;
+
 
 public class FancyTtyUI implements UI {
     private Screen screen;
@@ -48,6 +50,10 @@ public class FancyTtyUI implements UI {
 
     @Override
     public void commit () {
+
+        for (int i = 0; i < board.getAmountOfPlayers(); i++) {
+            System.out.println("Color " + i + ": " + board.getPieceManager().getPiecesNotOnBoard(i).stream().map(Enum::toString).collect(Collectors.joining(", \t")));
+        }
 
         screen.commit();
     }

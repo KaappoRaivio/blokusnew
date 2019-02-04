@@ -6,10 +6,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 public class Runner {
     private Board board;
@@ -37,6 +34,7 @@ public class Runner {
                 lost[turn] = true;
             }
 
+            System.out.println(Arrays.toString(lost));
             if (!canPlay(lost)) {
                 break;
             }
@@ -72,7 +70,7 @@ public class Runner {
 
 
 
-        List<Integer> finalScores = new ArrayList<>();
+        List<Integer> finalScores = new Vector<>();
 
         for (int color = 0; color < board.getAmountOfPlayers(); color++) {
             int total = board.getPieceManager().getPiecesOnBoard(color).stream().mapToInt(PieceID::getAmountOfSquares).sum();
@@ -83,6 +81,7 @@ public class Runner {
         int winner = finalScores.indexOf(Collections.max(finalScores));
 
         System.out.println("Color " + winner + " won with " + finalScores.get(winner) + " points!");
+        System.out.println(finalScores);
 
 
 
@@ -95,7 +94,6 @@ public class Runner {
 //            if (!b && !onePlayerAlive) {
 ////                return true;
 //                onePlayerAlive = true;
-
             if (!b) {
                 return true;
             }

@@ -6,6 +6,7 @@ import uis.fancyttyui.FancyTtyUI;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Vector;
 
 import static java.lang.Math.max;
 import static java.lang.Math.min;
@@ -15,12 +16,14 @@ public class Evaluator {
     private float squaresOnBoardDivider;
     private float cornersFreeDivider;
     private float spreadDivider;
+    private int n;
 
-    public Evaluator(int color, float squaresOnBoardDivider, float cornersFreeDivider, float spreadDivider) {
+    public Evaluator(int color, float squaresOnBoardDivider, float cornersFreeDivider, float spreadDivider, int n) {
         this.color = color;
         this.squaresOnBoardDivider = squaresOnBoardDivider;
         this.cornersFreeDivider = cornersFreeDivider;
         this.spreadDivider = spreadDivider;
+        this.n = n;
     }
 
     private int howManySquaresOnBoard (Board position, int color) {
@@ -53,7 +56,7 @@ public class Evaluator {
     }
 
     private Position getAverage (Board board, int color) {
-        List<Position> positions = new ArrayList<>();
+        List<Position> positions = new Vector<>();
 
         for (int y = 0; y < board.getDimY(); y++) {
             for (int x = 0; x < board.getDimX(); x++) {
@@ -71,7 +74,7 @@ public class Evaluator {
             totalY += position.y;
         }
 
-        return new Position(totalX / positions.size(), totalY / positions.size());
+        return new Position(totalX / (positions.size() + 1), totalY / (positions.size() + 1));
 
     }
 
@@ -88,23 +91,18 @@ public class Evaluator {
             average += f;
         }
 
-        if (!position.hasMoves(color)) {
-            average -= 100.0f;
-        }
-
         return average / parameters.length;
     }
 
     private float decisionTree (Board position, int depth,  int turn) {
         if (depth == 0 || !position.hasMoves(turn)) {
-//            System.out.println(evaluatePosition(position));
             return evaluatePosition(position);
         }
 
         if (turn == color) { // max
             float value = -1;
 
-            for (Move move : position.getFirstNFittingMoves(10, turn)) {
+            for (Move move : position.getFirstNFittingMoves(n, turn)) {
                 position.putOnBoard(move);
                 value = max(value, decisionTree(position, depth - 1, 1 - turn));
                 position.undo(0);
@@ -114,7 +112,7 @@ public class Evaluator {
         } else { // min
             float value = 1;
 
-            for (Move move : position.getFirstNFittingMoves(10, turn)) {
+            for (Move move : position.getFirstNFittingMoves(n, turn)) {
                 position.putOnBoard(move);
                 value = min(value, decisionTree(position, depth - 1, 1 - turn));
                 position.undo(0);
@@ -128,13 +126,21 @@ public class Evaluator {
         return decisionTree(position, depth, color);
     }
 
+    public int getN() {
+        return n;
+    }
+
     public static void main (String[] aarghs) {
-        Board board = Board.fromFile("/home/kaappo/git/blokus/src/main/resources/boards/Sun Feb 03 19:51:37 EET 2019.ser", false);
+        Board board = Board.fromFile("/home/kaappo/git/blokus/src/main/resources/boards/Mon Feb 04 14:40:32 EET 2019.ser", false);
 
         UI ui = new FancyTtyUI(board);
         ui.commit();
-        Evaluator evaluator = new Evaluator(0, 10.0f, 10.0f, 8.0f);
+        Evaluator evaluator = new Evaluator(0, 10.0f, 10.0f, 8.0f, 10);
+
         System.out.println(evaluator.howMuchSpread(board, 0) + ", " + evaluator.howMuchSpread(board, 1));
+        evaluator.howManySquaresOnBoard(board, 0);
+        long time = System.currentTimeMillis();
         System.out.println(evaluator.evaluatePosition(board));
+        System.out.println(System.currentTimeMillis() - time);
     }
 }

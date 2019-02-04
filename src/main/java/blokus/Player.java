@@ -10,7 +10,7 @@ import java.util.Scanner;
 public class Player implements CapableOfPlaying, Serializable {
 
     protected int color;
-    private UI ui;
+    protected UI ui;
     protected Board board;
     protected int turn = -1;
     protected int moveCount;

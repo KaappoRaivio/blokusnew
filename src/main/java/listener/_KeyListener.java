@@ -10,13 +10,14 @@ import java.io.FileOutputStream;
 import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 class _KeyListener implements NativeKeyListener {
     private KeyListener wrapper;
     private boolean verbose;
-    private List<KeyEventListener> keyEventListeners = new ArrayList<>();
+    private List<KeyEventListener> keyEventListeners = new Vector<>();
 
     public _KeyListener(KeyListener wrapper) {
         this(wrapper, false);
@@ -27,7 +28,7 @@ class _KeyListener implements NativeKeyListener {
     }
 
     public void clearAllKeyListeners () {
-        keyEventListeners = new ArrayList<>();
+        keyEventListeners = new Vector<>();
     }
 
     private _KeyListener (KeyListener wrapper, boolean verbose) {

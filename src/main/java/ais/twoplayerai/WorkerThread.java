@@ -29,9 +29,6 @@ public class WorkerThread extends Thread {
         }
 
         public MoveAndScore getResult () {
-//            board.putOnBoard(result.getMove());
-//            System.out.println(board);
-            System.out.println(result.getMove() + ", " + result.getScore());
             return result;
         }
 }

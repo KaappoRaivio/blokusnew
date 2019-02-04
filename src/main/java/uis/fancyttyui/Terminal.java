@@ -7,6 +7,7 @@ import uis.Texel;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Vector;
 
 public class Terminal implements Screen {
     private final Object lock = new Object();
@@ -18,7 +19,7 @@ public class Terminal implements Screen {
     private com.googlecode.lanterna.terminal.Terminal terminal;
 
     private Texel[][] buffer;
-    private List<Sprite> sprites = new ArrayList<>();
+    private List<Sprite> sprites = new Vector<>();
 
     public Terminal () {
         try {
@@ -53,7 +54,7 @@ public class Terminal implements Screen {
     @Override
     public void removeAllSprites() {
         synchronized (lock) {
-            sprites = new ArrayList<>();
+            sprites = new Vector<>();
         }
     }
 
@@ -172,12 +173,4 @@ public class Terminal implements Screen {
         return terminal;
     }
 
-
-    public static void main (String[] aarghs) {
-        Terminal terminal = new Terminal();
-        terminal.setPixel(10, 10, new Texel('A'));
-        terminal.commit();
-        System.out.println("done!");
-        terminal.close();
-    }
 }

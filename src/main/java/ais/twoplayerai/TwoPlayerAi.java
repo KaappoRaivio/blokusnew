@@ -29,13 +29,21 @@ public class TwoPlayerAi extends Player {
     @Override
     public Move getMove() {
         long time = System.currentTimeMillis();
-        List<Move> moves = board.getAllFittingMoves(color);
-//        List<Move> moves = board.getFirstNFittingMoves(, color);
+//        List<Move> moves = board.getAllFittingMoves(color);
+        List<Move> moves = board.getFirstNFittingMoves(evaluator.getN(), color);
+        System.out.println(moves);
+
+
+        List<MoveAndScore> moveScores = new Vector<>();
         System.out.println("Found " + moves.size() + " moves as " + id);
 
-        List<MoveAndScore> moveScores = new ArrayList<>();
+//        moves.parallelStream().forEach((item) -> {
+//            synchronized (moveScores) {
+//                moveScores.add(new MoveAndScore(item, true, true, evaluator.evaluateMove(board.deepCopy(), depth)));
+//            }
+//        });
 
-        List<WorkerThread> threads = new ArrayList<>();
+        List<WorkerThread> threads = new Vector<>();
 
         List<OnedSpan> spans = Splitter.splitListInto(moves, min(Runtime.getRuntime().availableProcessors(), moves.size()));
         for (OnedSpan span : spans) {
@@ -50,40 +58,27 @@ public class TwoPlayerAi extends Player {
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-            try {
-                if (thread.getResult() == null) {
-                    System.out.println("BADDD");
-                    throw new NullPointerException();
 
-                } else {
-                    moveScores.add(thread.getResult());
-                }
-            } catch (NullPointerException e) {
-                System.out.println("result is null!");
-                throw new RuntimeException(e);
-//                System.exit(0);
+            if (thread.getResult() == null) {
+                System.out.println("BADDD");
+                throw new NullPointerException();
+
+            } else {
+                System.out.println(thread.getResult().getMove() + ", " + thread.getResult().getScore());
+                moveScores.add(thread.getResult());
             }
+
+
 
         }
 
-//        Move move = Collections.max(moveScores, new Comparator<MoveAndScore>() {
-//            @Override
-//            public int compare(MoveAndScore moveAndScore, MoveAndScore t1) {
-//                if (!(moveAndScore.isScorePresent() && t1.isScorePresent())) {
-//                    return -1;
-//                } else {
-//                    return moveAndScore.getScore() - t1.getScore() > 0 ? 1 : 0;
-//                }
-//            }
-//        }).getMove();
-
         moveScores.sort(new Comparator<MoveAndScore>() {
             @Override
-            public int compare(MoveAndScore moveAndScore, MoveAndScore t1) {
+            public int compare (MoveAndScore moveAndScore, MoveAndScore t1) {
                 if (!(moveAndScore.isScorePresent() && t1.isScorePresent())) {
                     return -1;
                 } else {
-                    return moveAndScore.getScore() - t1.getScore() < 0 ? 1 : -1;
+                    return moveAndScore.getScore() - t1.getScore() < 0 ? 1 : moveAndScore.getScore() - t1.getScore() == 0 ? 0 : -1;
                 }
             }
         });

@@ -6,6 +6,7 @@ import blokus.Span;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Vector;
 
 public class Splitter {
     public static List<OnedSpan> splitListInto(List<Move> moves, int amountOfChunks) {
@@ -23,7 +24,7 @@ public class Splitter {
             lengths[i] += 1;
         }
 
-        List<OnedSpan> spans = new ArrayList<>();
+        List<OnedSpan> spans = new Vector<>();
 
         int x = 0;
 

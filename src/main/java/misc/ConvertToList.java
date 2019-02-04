@@ -14,7 +14,7 @@ public class ConvertToList {
 
         dimY = split.length;
 
-        List<List<Character>> notNormalized = new ArrayList<>();
+        List<List<Character>> notNormalized = new Vector<>();
         for (String row : split) {
             notNormalized.add(new ArrayList<>());
 

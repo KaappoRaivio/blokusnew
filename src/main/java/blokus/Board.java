@@ -25,7 +25,7 @@ public class Board implements Serializable {
 
     private PieceManager pieceManager;
 
-    private List<int[][]> moveHistory = new ArrayList<>();
+    private List<int[][]> moveHistory = new Vector<>();
 
     public Board(int dimX, int dimY, PieceManager pieceManager) {
         this(dimX, dimY, pieceManager, false, 0);
@@ -123,10 +123,6 @@ public class Board implements Serializable {
 
         Piece piece = pieceManager.getCachedPiece(pieceID, color).rotate(orientation, flip);
         char[][] mesh = piece.getMesh();
-
-//        Board asd = deepCopy();
-//        asd.errorPut(baseX, baseY, piece);
-//        System.out.println(asd);
 
         boolean isConnected = false;
         boolean fits = true;
@@ -410,19 +406,22 @@ public class Board implements Serializable {
         return pieceManager.getPiecesNotOnBoard(color);
     }
 
-    public List<Move> getAllFittingMoves (int color) {
-            List<Move> moves = new ArrayList<>();
+    public List<Move> getAllFittingMoves(int color) {
+        return getAllFittingMoves(color, getPiecesNotOnBoard(color));
+    }
+
+    public List<Move> getAllFittingMoves (int color, List<PieceID> pieces) {
+            List<Move> moves = new Vector<>();
             for (Position boardPosition : getEligibleCorners(color)) {
-                moves.addAll(getAllFittingMoves(color, boardPosition.x, boardPosition.y));
+                moves.addAll(getAllFittingMoves(color, boardPosition.x, boardPosition.y, pieces));
             }
 
 
             return moves;
     }
 
-    private List<Move> getAllFittingMoves (int color, int x, int y) {
-        List<Move> moves = new ArrayList<>();
-        List<PieceID> pieces = getPiecesNotOnBoard(color);
+    private List<Move> getAllFittingMoves (int color, int x, int y, List<PieceID> pieces) {
+        List<Move> moves = new Vector<>();
 
         for (PieceID pieceID : pieces) {
             moves.addAll(getAllFittingMoves(color, x, y, pieceID));
@@ -433,7 +432,7 @@ public class Board implements Serializable {
 
 
     public List<Move> getAllFittingMoves (int color, int x, int y, PieceID pieceID) {
-        List<Move> moves = new ArrayList<>();
+        List<Move> moves = new Vector<>();
         Piece piece = pieceManager.getCachedPiece(pieceID, color);
 
         for (PieceID.OrientationAndFlip orientationAndFlip: pieceID.getAllOrientations()) {
@@ -481,7 +480,7 @@ public class Board implements Serializable {
     }
 
     private List<Position> getEligibleCorners (int color) {
-        List<Position> corners = new ArrayList<>();
+        List<Position> corners = new Vector<>();
 
         for (int y = 0; y < dimY; y++) {
             for (int x = 0; x < dimX; x++) {
@@ -536,23 +535,32 @@ public class Board implements Serializable {
     }
 
     public List<Move> getFirstNFittingMoves (int n, int color) {
-        List<Move> moves = getAllFittingMoves(color);
-        moves.sort(new Comparator<Move>() {
+        return getFirstNFittingMoves(0, n, color);
+    }
+
+    private List<Move> getFirstNFittingMoves (int start, int n, int color) {
+        List<PieceID> pieceIDs = getPiecesNotOnBoard(color);
+        pieceIDs.sort(new Comparator<PieceID>() {
             @Override
-            public int compare(Move move, Move t1) {
-                return t1.getPieceID().getAmountOfSquares() - move.getPieceID().getAmountOfSquares();
+            public int compare(PieceID pieceID, PieceID t1) {
+                return t1.getAmountOfSquares() - pieceID.getAmountOfSquares();
             }
         });
-
         try {
-            return moves.subList(0, n);
-        } catch (IndexOutOfBoundsException e) {
+            pieceIDs = pieceIDs.subList(start, n);
+        } catch (IndexOutOfBoundsException ignored) {}
+
+
+        List<Move> moves = getAllFittingMoves(color, pieceIDs);
+        if (moves.size() == 0) {
+            return getFirstNFittingMoves(n + 1,2 * n + 1, color);
+        } else {
             return moves;
         }
     }
 
     public Texel[][] texelize (ColorPallet pallet) {
-        Texel[][] newBuffer = new Texel[getDimY() + 2][getDimX() * 2 + 2];
+        Texel[][] newBuffer = new Texel[getDimY() + 2][getDimX() * 2 + 4];
 
         for (int y = 0; y < newBuffer.length; y++) {
             for (int x = 0; x < newBuffer[y].length; x++) {
@@ -562,13 +570,13 @@ public class Board implements Serializable {
 
         for (int y = 0; y < getDimY(); y++) {
             for (int x = 0; x < getDimX() * 2; x += 2) {
-                newBuffer[y + 1][x + 2] = newBuffer[y + 1][x + 1] = pallet.getTexel(board[y][x / 2]);
+                newBuffer[y + 1][x + 3] = newBuffer[y + 1][x + 2] = pallet.getTexel(board[y][x / 2]);
             }
         }
 
         if (pallet.drawCoordinates()) {
             for (int x = 1; x < getDimX() + 1; x++) {
-                newBuffer[newBuffer.length - 1][2 * x - 1] = newBuffer[0][2 * x - 1] = new Texel(pallet.getCoordinateForegroundColor(), pallet.getCoordinateBackgroundColor(), Character.forDigit((x - 1) % 10, 10));
+                newBuffer[newBuffer.length - 1][2 * x] = newBuffer[0][2 * x] = new Texel(pallet.getCoordinateForegroundColor(), pallet.getCoordinateBackgroundColor(), Character.forDigit((x - 1) % 10, 10));
             }
 
             for (int y = 1; y < getDimY() + 1; y++) {
