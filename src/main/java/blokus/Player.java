@@ -1,5 +1,6 @@
 package blokus;
 
+import ais.twoplayerai.Evaluator;
 import misc.MoveAndScore;
 import uis.UI;
 
@@ -85,5 +86,10 @@ public class Player implements CapableOfPlaying, Serializable {
     @Override
     public int getColor() {
         return color;
+    }
+
+    @Override
+    public Evaluator getEvaluator() {
+        return null;
     }
 }

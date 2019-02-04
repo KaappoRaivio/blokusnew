@@ -47,6 +47,11 @@ public class TtyUITest implements UI {
     }
 
     @Override
+    public void close() {
+
+    }
+
+    @Override
     public Move getMove(int color) {
         if (turn != color) {
             throw new RuntimeException("It's wrong turn! (should be " + color + ", is actually " + turn + ")");
@@ -102,5 +107,10 @@ public class TtyUITest implements UI {
 //                }
 //            } catch (Exception ignored) {}
 
+    }
+
+    @Override
+    public int getMoveCount() {
+        return moveCounter;
     }
 }

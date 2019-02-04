@@ -1,5 +1,6 @@
 package uis.fancyttyui;
 
+import com.googlecode.lanterna.SGR;
 import com.googlecode.lanterna.TextColor;
 import com.googlecode.lanterna.terminal.DefaultTerminalFactory;
 import uis.Texel;
@@ -25,9 +26,12 @@ public class Terminal implements Screen {
         try {
             this.terminal = new DefaultTerminalFactory().createTerminal();
             terminal.setCursorVisible(false);
+//            terminal.enableSGR(SGR.REVERSE);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+
+
 
         this.buffer = new Texel[getDimY()][getDimX()];
 
@@ -66,6 +70,11 @@ public class Terminal implements Screen {
     }
 
     private void drawSpritesToTerminal () {
+//        try {
+//            terminal.setCursorPosition(0,0);
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
         for (Sprite sprite : sprites) {
             if (sprite.isDrawn()) {
                 for (int y = sprite.getPosY(); y < sprite.getPosY() + sprite.getDimY(); y++) {
@@ -96,9 +105,12 @@ public class Terminal implements Screen {
     @Override
     public void commit() {
         synchronized (lock) {
-            for (int y = 0; y < buffer.length; y++) {
-                for (int x = 0; x < buffer[y].length; x++) {
-                    Texel current = buffer[y][x];
+            for (int y = 0; y < getDimY(); y++) {
+                for (int x = 0; x < getDimX(); x++) {
+                    Texel current;
+                    try {
+                        current = buffer[y][x];
+                    } catch (ArrayIndexOutOfBoundsException e) {continue;}
 
 
                     try {

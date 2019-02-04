@@ -11,7 +11,7 @@ public class WorkerThread extends Thread {
     private Board board;
     private TwoPlayerAi callback;
     private int depth;
-    private MoveAndScore result;
+    private List<MoveAndScore> result;
 
         public WorkerThread(List<Move> movesToTest, Board board, TwoPlayerAi callback, int depth) {
             super();
@@ -28,7 +28,7 @@ public class WorkerThread extends Thread {
             result = callback.getMoveCallBack(movesToTest, board, depth);
         }
 
-        public MoveAndScore getResult () {
+        public List<MoveAndScore> getResult () {
             return result;
         }
 }

@@ -7,6 +7,8 @@ import uis.fancyttyui.Terminal;
 
 import java.io.*;
 import java.util.*;
+import java.util.function.BinaryOperator;
+import java.util.stream.Collectors;
 
 
 public class Board implements Serializable {
@@ -535,25 +537,29 @@ public class Board implements Serializable {
     }
 
     public List<Move> getFirstNFittingMoves (int n, int color) {
-        return getFirstNFittingMoves(0, n, color);
+        return getFirstNFittingMoves(0, n, color, true);
     }
 
-    private List<Move> getFirstNFittingMoves (int start, int n, int color) {
+    private List<Move> getFirstNFittingMoves (int start, int n, int color, boolean purge) {
         List<PieceID> pieceIDs = getPiecesNotOnBoard(color);
-        pieceIDs.sort(new Comparator<PieceID>() {
-            @Override
-            public int compare(PieceID pieceID, PieceID t1) {
-                return t1.getAmountOfSquares() - pieceID.getAmountOfSquares();
-            }
-        });
-        try {
-            pieceIDs = pieceIDs.subList(start, n);
-        } catch (IndexOutOfBoundsException ignored) {}
+//        pieceIDs.sort(new Comparator<PieceID>() {
+//            @Override
+//            public int compare(PieceID pieceID, PieceID t1) {
+//                return t1.getAmountOfSquares() - pieceID.getAmountOfSquares();
+//            }
+//        });
+        if (purge) {
+            int max = pieceIDs.stream().mapToInt(PieceID::getAmountOfSquares).max().getAsInt();
+            pieceIDs = pieceIDs.stream().filter((pieceID -> pieceID.getAmountOfSquares() == max)).collect(Collectors.toList());
+            try {
+                pieceIDs = pieceIDs.subList(start, n);
+            } catch (IllegalArgumentException | IndexOutOfBoundsException ignored) {}
+        }
 
 
         List<Move> moves = getAllFittingMoves(color, pieceIDs);
         if (moves.size() == 0) {
-            return getFirstNFittingMoves(n + 1,2 * n + 1, color);
+            return getFirstNFittingMoves(n + 1,2 * n + 1, color, false);
         } else {
             return moves;
         }

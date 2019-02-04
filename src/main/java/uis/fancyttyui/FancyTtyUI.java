@@ -58,13 +58,18 @@ public class FancyTtyUI implements UI {
         screen.commit();
     }
 
+    @Override
+    public void close() {
+        screen.close();
+    }
+
 
     @Override
     public Move getMove (int color) {
         KeyListener keyListener = new KeyListener();
         PieceSprite sprite = new PieceSprite(turn, new PiecePallet(), board);
         screen.addSprite(sprite);
-        sprite.draw(1, 1);
+        sprite.draw(2, 1);
         screen.commit();
 
 
@@ -108,21 +113,22 @@ public class FancyTtyUI implements UI {
                             wait[0] = false;
                             lock.notifyAll();
                         }
+
                         break;
                     case NativeKeyEvent.VC_ESCAPE:
-//                        throw new RuntimeException("Quit!");
+                        keyListener.close();
                         synchronized (lock) {
                             wait[0] = false;
                             wait[1] = true;
                             lock.notifyAll();
                         }
+                        break;
                 }
                 screen.commit();
             }
-
         });
-
         keyListener.run();
+
         synchronized (lock) {
             while (wait[0]) {
                 try {
@@ -138,11 +144,16 @@ public class FancyTtyUI implements UI {
 
         keyListener.close();
         Move move = sprite.getCurrentMove();
-//        screen.commit();
+
         screen.removeSprite(sprite);
 
         return move;
 
 
+    }
+
+    @Override
+    public int getMoveCount() {
+        return moveCount;
     }
 }

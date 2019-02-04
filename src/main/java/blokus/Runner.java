@@ -30,11 +30,11 @@ public class Runner {
         boolean[] lost = new boolean[board.getAmountOfPlayers()];
 
         while (true) {
+
             if (!board.hasMoves(turn)) {
                 lost[turn] = true;
             }
 
-            System.out.println(Arrays.toString(lost));
             if (!canPlay(lost)) {
                 break;
             }
@@ -50,6 +50,8 @@ public class Runner {
             updateAllPlayerValues(board, turn, moveCount);
 
             CapableOfPlaying current = players[turn];
+            System.out.println(Arrays.toString(lost));
+            System.out.println("N is currently " + current.getEvaluator().getN());
             ui.updateValues(board.deepCopy(), turn, moveCount);
             ui.commit();
 

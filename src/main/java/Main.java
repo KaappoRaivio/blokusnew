@@ -18,10 +18,17 @@ public class Main {
 
         int depth = 2;
 //        CapableOfPlaying[] players = new CapableOfPlaying[]{new Player(board.deepCopy(), 0, null, ui), new TwoPlayerAi(board.deepCopy(), 1, null, ui,2)};
+
+
         CapableOfPlaying[] players = new CapableOfPlaying[]{
-                new TwoPlayerAi(board.deepCopy(), 0, "Player 0", ui, depth, new Evaluator(0, 10.0f, 10.0f, 5.0f, 4)),
-                new TwoPlayerAi(board.deepCopy(), 1, "PLayer 1", ui, depth, new Evaluator(1, 10.0f, 10.0f, 5.0f, 4))
+                new Player(board.deepCopy(), 0, "human", ui),
+                new TwoPlayerAi(board.deepCopy(), 1, "ai", ui, depth, new Evaluator(1, 10.0f, 6.0f, 8.0f, 6, ui), false)
         };
+//
+//        CapableOfPlaying[] players = new CapableOfPlaying[]{
+//                new TwoPlayerAi(board.deepCopy(), 0, "Player 0", ui, depth, new Evaluator(0, 10.0f, 10.0f, 5.0f, 6, ui)),
+//                new TwoPlayerAi(board.deepCopy(), 1, "PLayer 1", ui, depth, new Evaluator(1, 10.0f, 10.0f, 5.0f, 6, ui))
+//        };
 //        CapableOfPlaying[] players = new CapableOfPlaying[]{new Player(board.deepCopy(), 0, null, ui), new Player(board.deepCopy(), 1, null, ui)};
 
         Runner runner = new Runner(board, players, ui);
@@ -31,6 +38,7 @@ public class Main {
             runner.play();
         } catch (Exception e) {
             runner.getBoard().save();
+            ui.close();
             throw e;
         }
         runner.getBoard().save();

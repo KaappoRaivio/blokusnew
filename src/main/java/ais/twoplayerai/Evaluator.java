@@ -5,6 +5,7 @@ import uis.UI;
 import uis.fancyttyui.FancyTtyUI;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Vector;
 
@@ -17,13 +18,15 @@ public class Evaluator {
     private float cornersFreeDivider;
     private float spreadDivider;
     private int n;
+    private UI ui;
 
-    public Evaluator(int color, float squaresOnBoardDivider, float cornersFreeDivider, float spreadDivider, int n) {
+    public Evaluator(int color, float squaresOnBoardDivider, float cornersFreeDivider, float spreadDivider, int n, UI ui) {
         this.color = color;
         this.squaresOnBoardDivider = squaresOnBoardDivider;
         this.cornersFreeDivider = cornersFreeDivider;
         this.spreadDivider = spreadDivider;
         this.n = n;
+        this.ui = ui;
     }
 
     private int howManySquaresOnBoard (Board position, int color) {
@@ -79,11 +82,19 @@ public class Evaluator {
     }
 
     private float evaluatePosition(Board position) {
+        return evaluatePosition(position, false);
+    }
+
+    protected float evaluatePosition(Board position, boolean verbose) {
         float[] parameters = new float[]{
-                (float) howManySquaresOnBoard(position, color) / squaresOnBoardDivider - (float) howManySquaresOnBoard(position, 1 - color) / squaresOnBoardDivider,
-                (float) howManyCornersFree(position, color) / cornersFreeDivider - (float) howManyCornersFree(position, 1 - color) / cornersFreeDivider,
-                (float) howMuchSpread(position, color) / (float) howManySquaresOnBoard(position, color) / spreadDivider - (float) howMuchSpread(position, 1 - color) / (float) howManySquaresOnBoard(position, color) / spreadDivider
+                ((float) howManySquaresOnBoard(position, color) - (float) howManySquaresOnBoard(position, 1 - color)) / squaresOnBoardDivider,
+                ((float) howManyCornersFree(position, color) - (float) howManyCornersFree(position, 1 - color)) / cornersFreeDivider,
+                ((float) howMuchSpread(position, color) - (float) howMuchSpread(position, 1 - color)) / (float) howManySquaresOnBoard(position, color) / spreadDivider
         };
+
+        if (verbose) {
+            System.out.println(Arrays.toString(parameters));
+        }
 
         float average = 0.0f;
 
@@ -94,15 +105,16 @@ public class Evaluator {
         return average / parameters.length;
     }
 
-    private float decisionTree (Board position, int depth,  int turn) {
+
+    private float decisionTree (Board position, int depth, int turn) {
         if (depth == 0 || !position.hasMoves(turn)) {
             return evaluatePosition(position);
         }
 
         if (turn == color) { // max
-            float value = -1;
+            float value = -10000000;
 
-            for (Move move : position.getFirstNFittingMoves(n, turn)) {
+            for (Move move : position.getFirstNFittingMoves(getN(), turn)) {
                 position.putOnBoard(move);
                 value = max(value, decisionTree(position, depth - 1, 1 - turn));
                 position.undo(0);
@@ -110,9 +122,9 @@ public class Evaluator {
 
             return value;
         } else { // min
-            float value = 1;
+            float value = 10000000;
 
-            for (Move move : position.getFirstNFittingMoves(n, turn)) {
+            for (Move move : position.getFirstNFittingMoves(getN(), turn)) {
                 position.putOnBoard(move);
                 value = min(value, decisionTree(position, depth - 1, 1 - turn));
                 position.undo(0);
@@ -127,7 +139,7 @@ public class Evaluator {
     }
 
     public int getN() {
-        return n;
+        return (int)((ui.getMoveCount() + 4.5) * 0.5);
     }
 
     public static void main (String[] aarghs) {
@@ -135,7 +147,7 @@ public class Evaluator {
 
         UI ui = new FancyTtyUI(board);
         ui.commit();
-        Evaluator evaluator = new Evaluator(0, 10.0f, 10.0f, 8.0f, 10);
+        Evaluator evaluator = new Evaluator(0, 10.0f, 10.0f, 8.0f, 10, ui);
 
         System.out.println(evaluator.howMuchSpread(board, 0) + ", " + evaluator.howMuchSpread(board, 1));
         evaluator.howManySquaresOnBoard(board, 0);

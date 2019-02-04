@@ -4,26 +4,24 @@ import blokus.*;
 import misc.MoveAndScore;
 import misc.OnedSpan;
 import misc.Splitter;
-import uis.TtyUITest;
 import uis.UI;
 
-import java.lang.reflect.Array;
 import java.util.*;
-import java.util.stream.Collectors;
 
-import static java.lang.Math.max;
-import static java.lang.Math.min;
+import static java.lang.Math.*;
 
 
 public class TwoPlayerAi extends Player {
 
     private Evaluator evaluator;
     private int depth;
+    private boolean randomize;
 
-    public TwoPlayerAi(Board initialPosition, int color, String id, UI ui, int depth, Evaluator evaluator) {
+    public TwoPlayerAi(Board initialPosition, int color, String id, UI ui, int depth, Evaluator evaluator, boolean randomize) {
         super(initialPosition, color, id, ui);
         this.evaluator = evaluator;
         this.depth = depth;
+        this.randomize = randomize;
     }
 
     @Override
@@ -37,7 +35,7 @@ public class TwoPlayerAi extends Player {
         List<MoveAndScore> moveScores = new Vector<>();
         System.out.println("Found " + moves.size() + " moves as " + id);
 
-//        moves.parallelStream().forEach((item) -> {
+//        moves.parallelStream().reduce((item, result) -> {
 //            synchronized (moveScores) {
 //                moveScores.add(new MoveAndScore(item, true, true, evaluator.evaluateMove(board.deepCopy(), depth)));
 //            }
@@ -64,12 +62,22 @@ public class TwoPlayerAi extends Player {
                 throw new NullPointerException();
 
             } else {
-                System.out.println(thread.getResult().getMove() + ", " + thread.getResult().getScore());
-                moveScores.add(thread.getResult());
+//                System.out.println(thread.getResult().getMove() + ", " + thread.getResult().getScore());
+                System.out.println(Collections.max(thread.getResult(), new Comparator<MoveAndScore>() {
+                    @Override
+                    public int compare(MoveAndScore moveAndScore, MoveAndScore t1) {
+                        if (moveAndScore.getScore() - t1.getScore() < 0) {
+                            return -1;
+                        } else if (moveAndScore.getScore() - t1.getScore() > 0) {
+                            return 1;
+                        } else {
+                            return 0;
+                        }
+                    }
+                }));
+                moveScores.addAll(thread.getResult());
+
             }
-
-
-
         }
 
         moveScores.sort(new Comparator<MoveAndScore>() {
@@ -87,11 +95,24 @@ public class TwoPlayerAi extends Player {
         long timeEnd = System.currentTimeMillis();
         System.out.println("Took " + (timeEnd - time) + " milliseconds as " + id);
 
-        try {
-            return moveScores.get(new Random().nextInt(2)).getMove();
-        } catch (IndexOutOfBoundsException e) {
-            return moveScores.get(0).getMove();
+        Move bestMove;
+
+        if (randomize) {
+            try {
+                bestMove = moveScores.get(new Random().nextInt(2)).getMove();
+            } catch (IndexOutOfBoundsException e) {
+                bestMove = moveScores.get(0).getMove();
+            }
+        } else {
+            System.out.println(moveScores.get(0).getMove() + ", " + moveScores.get(0).getScore());
+//            return moveScores.get(0).getMove();
+            bestMove = moveScores.get(0).getMove();
         }
+
+        board.putOnBoard(bestMove);
+        System.out.println("Parameters: " + evaluator.evaluatePosition(board, true));
+
+        return  bestMove;
 
     }
 
@@ -99,26 +120,47 @@ public class TwoPlayerAi extends Player {
         return evaluator;
     }
 
-    protected MoveAndScore getMoveCallBack(List<Move> possibleMoves, Board board) {
+    protected List<MoveAndScore> getMoveCallBack(List<Move> possibleMoves, Board board) {
         return getMoveCallBack(possibleMoves, board, depth);
     }
 
-    protected MoveAndScore getMoveCallBack(List<Move> possibleMoves, Board board, int depth) {
-        Map<Float, Move> moveScores = new HashMap<>();
+    protected List<MoveAndScore> getMoveCallBack(List<Move> possibleMoves, Board board, int depth) {
+//        Map<Float, Move> moveScores = new HashMap<>();
+        List<MoveAndScore> moveScores = new Vector<>();
 
         for (Move move : possibleMoves) {
             board.putOnBoard(move);
             float score = evaluator.evaluateMove(board, depth);
             board.undo(0);
-            moveScores.put(score, move);
+//            moveScores.put(score, move);
+            moveScores.add(new MoveAndScore(move, true, true, score));
         }
 
-        float maxScore = -1000000000.0f;
+        return moveScores;
 
-        for (float f : moveScores.keySet()) {
-            maxScore = max(maxScore, f);
-        }
-        return new MoveAndScore(moveScores.get(maxScore), true, true, maxScore);
+//        moveScores.sort(new Comparator<MoveAndScore>() {
+//            @Override
+//            public int compare(MoveAndScore moveAndScore, MoveAndScore t1) {
+//                if (moveAndScore.getScore() - t1.getScore() < 0) {
+//                    return -1;
+//                } else if (t1.getScore() - moveAndScore.getScore() > 0) {
+//                    return 1;
+//                } else {
+//                    return 0;
+//                }
+//            }
+//        });
+
+//        List<Move> bestMoves = new Vector<>();
+//
+//        float maxScore = -1000000000.0f;
+//
+//        moveScores.v
+//
+//        for (float f : moveScores.keySet()) {
+//            maxScore = max(maxScore, f);
+//        }
+//        return new MoveAndScore(moveScores.get(maxScore), true, true, maxScore);
     }
 
     public Board getBoard () {
