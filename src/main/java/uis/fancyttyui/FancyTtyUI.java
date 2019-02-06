@@ -18,6 +18,8 @@ import java.util.stream.Collectors;
 public class FancyTtyUI implements UI, Serializable {
     private Screen screen;
     private Board board;
+    private final int scaleX;
+    private final int scaleY;
     private int turn = 0;
     private int moveCount = 0;
 
@@ -27,13 +29,16 @@ public class FancyTtyUI implements UI, Serializable {
 
 
 
-    public FancyTtyUI(Board board) {
+    public FancyTtyUI(Board board, int scaleX, int scaleY) {
         this.board = board;
+        this.scaleX = scaleX;
+        this.scaleY = scaleY;
         this.screen = new Terminal();
 
-        boardSprite = new Sprite(board.texelize(new DefaultPallet()), Terminal.TRANSPARENT);
-        screen.addSprite(boardSprite);
-        boardSprite.draw(0, 0);
+//        boardSprite = new Sprite(board.texelize(new DefaultPallet(), scaleX, scaleY), Terminal.TRANSPARENT);
+//        screen.addSprite(boardSprite);
+//        boardSprite.draw(0, 0);
+        screen.drawTexelizeable(board, new DefaultPallet(), 0, 0, scaleX, scaleY);
 
     }
 
@@ -44,10 +49,11 @@ public class FancyTtyUI implements UI, Serializable {
         this.turn = turn;
         this.moveCount = moveCount;
 
-        boardSprite = new Sprite(board.texelize(new DefaultPallet()), Terminal.TRANSPARENT);
-        screen.removeAllSprites();
-        screen.addSprite(boardSprite);
-        boardSprite.draw(0, 0);
+//        boardSprite = new Sprite(board.texelize(new DefaultPallet(), scaleX, scaleY), Terminal.TRANSPARENT);
+//        screen.removeAllSprites();
+//        screen.addSprite(boardSprite);
+//        boardSprite.draw(0, 0);
+        screen.drawTexelizeable(board, new DefaultPallet(),0, 0, scaleX, scaleY);
     }
 
     @Override
@@ -69,7 +75,7 @@ public class FancyTtyUI implements UI, Serializable {
     @Override
     public Move getMove (int color) {
         KeyListener keyListener = new KeyListener();
-        PieceSprite sprite = new PieceSprite(turn, new PiecePallet(), board);
+        PieceSprite sprite = new PieceSprite(turn, new PiecePallet(), board, scaleX, scaleY);
         screen.addSprite(sprite);
         sprite.draw(2, 1);
         screen.commit();
@@ -84,16 +90,16 @@ public class FancyTtyUI implements UI, Serializable {
             public void reportKey(NativeKeyEvent event) {
                 switch (event.getKeyCode()) {
                     case NativeKeyEvent.VC_LEFT:
-                        sprite.jump(-2, 0);
+                        sprite.jump(-2 * scaleX, 0);
                         break;
                     case NativeKeyEvent.VC_RIGHT:
-                        sprite.jump(2, 0);
+                        sprite.jump(2 * scaleX, 0);
                         break;
                     case NativeKeyEvent.VC_DOWN:
-                        sprite.jump(0, 1);
+                        sprite.jump(0, scaleY);
                         break;
                     case NativeKeyEvent.VC_UP:
-                        sprite.jump(0, -1);
+                        sprite.jump(0, -scaleY);
                         break;
                     case NativeKeyEvent.VC_A:
                         sprite.rotateAntiClockwise();

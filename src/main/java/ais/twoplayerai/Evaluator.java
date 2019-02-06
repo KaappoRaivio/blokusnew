@@ -4,7 +4,6 @@ import blokus.*;
 import uis.UI;
 import uis.fancyttyui.FancyTtyUI;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Vector;
@@ -152,7 +151,7 @@ public class Evaluator {
     public static void main (String[] aarghs) {
         Board board = Board.fromFile("/home/kaappo/git/blokus/src/main/resources/boards/Mon Feb 04 14:40:32 EET 2019.ser", false);
 
-        UI ui = new FancyTtyUI(board);
+        UI ui = new FancyTtyUI(board, 1, 1);
         ui.commit();
         Evaluator evaluator = new Evaluator(0, 10.0f, 10.0f, 8.0f, 8.0f, 0, ui);
 

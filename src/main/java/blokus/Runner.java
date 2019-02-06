@@ -111,7 +111,7 @@ public class Runner {
     }
 
 //    private String save (String name) {
-//        String path = System.getProperty("user.dir") + "/src/main/resources/runners/" + name;
+//        String path = System.getProperty("user.dir") + "/src/main/resources/games/" + name;
 //        new Saver<Runner>().save(this, path, false);
 //        return path;
 //    }

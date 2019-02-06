@@ -1,12 +1,8 @@
 package blokus;
 
-import ais.twoplayerai.Evaluator;
-import misc.MoveAndScore;
 import uis.UI;
 
 import java.io.Serializable;
-import java.util.Arrays;
-import java.util.Scanner;
 
 public class Player implements CapableOfPlaying, Serializable {
 

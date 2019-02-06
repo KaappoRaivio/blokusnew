@@ -1,9 +1,14 @@
 package uis.fancyttyui;
 
 import com.googlecode.lanterna.SGR;
+import com.googlecode.lanterna.TerminalSize;
 import com.googlecode.lanterna.TextColor;
 import com.googlecode.lanterna.terminal.DefaultTerminalFactory;
+import com.googlecode.lanterna.terminal.ResizeListener;
+import com.googlecode.lanterna.terminal.SimpleTerminalResizeListener;
+import com.googlecode.lanterna.terminal.TerminalResizeListener;
 import uis.Texel;
+import uis.Texelizeable;
 
 import java.io.IOException;
 import java.io.Serializable;
@@ -19,14 +24,24 @@ public class Terminal implements Screen, Serializable {
 
 
     private com.googlecode.lanterna.terminal.Terminal terminal;
+    private TerminalResizeListener resizeListener;
 
-    private Texel[][] buffer;
+    private volatile Texel[][] buffer;
     private List<Sprite> sprites = new Vector<>();
 
     public Terminal () {
         try {
             this.terminal = new DefaultTerminalFactory().createTerminal();
             terminal.setCursorVisible(false);
+//            this.resizeListener = new SimpleTerminalResizeListener(terminal.getTerminalSize());
+            this.resizeListener = new TerminalResizeListener() {
+                @Override
+                public void onResized(com.googlecode.lanterna.terminal.Terminal terminal, TerminalSize newSize) {
+                    System.out.println("Resized! New terminal size " + newSize.getColumns() + ", " + newSize.getRows());
+                    reinitializeBuffer(newSize.getColumns(), newSize.getRows());
+                }
+            };
+            terminal.addResizeListener(resizeListener);
 //            terminal.enableSGR(SGR.REVERSE);
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -40,7 +55,25 @@ public class Terminal implements Screen, Serializable {
         initializeBuffer();
     }
 
+    private void reinitializeBuffer (int newDimX, int newDimY) {
+        Texel[][] newBuffer = new Texel[newDimY][newDimX];
+        for (int y = 0; y < newBuffer.length; y++) {
+            for (int x = 0; x < newBuffer[y].length; x++) {
+                newBuffer[y][x] = new Texel(foregroundColor, backgroundColor, TRANSPARENT);
+            }
+        }
 
+        for (int y = 0; y < buffer.length; y++) {
+            for (int x = 0; x < buffer[y].length; x++) {
+                try {
+                    newBuffer[y][x] = buffer[y][x];
+                } catch (ArrayIndexOutOfBoundsException ignored) {}
+            }
+        }
+        buffer = newBuffer;
+        System.out.println("Trying to commit!");
+        commit();
+    }
 
     private void initializeBuffer () {
         for (int y = 0; y < buffer.length; y++) {
@@ -67,6 +100,19 @@ public class Terminal implements Screen, Serializable {
     public void removeSprite(Sprite sprite) {
         synchronized (lock) {
             sprites.remove(sprite);
+        }
+    }
+
+    @Override
+    public void drawTexelizeable (Texelizeable texelizeable, ColorPallet colorPallet, int posX, int posY, int scaleX, int scaleY) {
+        Texel[][] buffer = texelizeable.texelize(colorPallet, scaleX, scaleY);
+
+        for (int y = 0; y < buffer.length; y++) {
+            for (int x = 0; x < buffer[y].length; x++) {
+                try {
+                    this.buffer[y + posY][x + posX] = buffer[y][x];
+                } catch (ArrayIndexOutOfBoundsException ignored) {}
+            }
         }
     }
 

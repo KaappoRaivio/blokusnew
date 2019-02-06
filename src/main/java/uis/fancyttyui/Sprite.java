@@ -8,12 +8,13 @@ import misc.ConvertToList;
 import org.apache.commons.lang3.ArrayUtils;
 import org.jnativehook.keyboard.NativeKeyEvent;
 import uis.Texel;
+import uis.Texelizeable;
 
 import java.io.Serializable;
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class Sprite implements Serializable {
+public class Sprite implements Serializable, Texelizeable {
 
 
     private final transient Object lock = new Object();
@@ -28,6 +29,7 @@ public class Sprite implements Serializable {
 
     private int dimX;
     private int dimY;
+
 
     private int ID;
 
@@ -51,7 +53,7 @@ public class Sprite implements Serializable {
         return transparent;
     }
 
-    public static Sprite fromString (String string, String verticalDelimiter, String horizontalDelimiter, char transparent) {
+    public static Sprite fromString (String string, String verticalDelimiter, String horizontalDelimiter, char transparent, int scaleX, int scaleY) {
         Texel[][] mesh = misc.ConvertToList.convertToList(string, verticalDelimiter, horizontalDelimiter, transparent);
 
         return new Sprite(mesh, transparent);
@@ -96,11 +98,11 @@ public class Sprite implements Serializable {
         Screen screen = new Terminal();
 
         Board board = Board.fromFile("/home/kaappo/git/blokus/src/main/resources/boards/Sat Feb 02 20:04:00 EET 2019.ser", false);
-        Sprite boardSprite = new Sprite(board.texelize(new DefaultPallet()), '$');
+        Sprite boardSprite = new Sprite(board.texelize(new DefaultPallet(), 1, 1), '$');
         screen.addSprite(boardSprite);
         boardSprite.draw(0, 0);
 
-        PieceSprite sprite = new PieceSprite(1, new DefaultPallet(), board);
+        PieceSprite sprite = new PieceSprite(1, new DefaultPallet(), board, 1, 1);
         screen.addSprite(sprite);
         sprite.draw(1, 1);
 
@@ -147,7 +149,7 @@ public class Sprite implements Serializable {
         keyListener.run();
         try {
             keyListener.wait();
-        } catch (InterruptedException e) {
+        } catch (InterruptedException ignored) {
 
         }
             System.out.println("asdasd");
@@ -184,6 +186,25 @@ public class Sprite implements Serializable {
             System.out.println(this);
             throw new RuntimeException(e);
         }
+    }
+
+    @Override
+    public Texel[][] texelize (ColorPallet colorPallet, int scaleX, int scaleY) {
+        Texel[][] newBuffer = new Texel[getDimY() * scaleY][getDimX() * scaleX * 2];
+
+        for (int y = 0; y < newBuffer.length; y++) {
+            for (int x = 0; x < newBuffer[y].length; x++) {
+                newBuffer[y][x] = colorPallet.getBackgroundTexel();
+            }
+        }
+
+        for (int y = 0; y < newBuffer.length; y++) {
+            for (int x = 0; x < newBuffer[y].length; x++) {
+                newBuffer[y][x] = mesh[y / scaleY][x / scaleX / 2];
+            }
+        }
+
+        return newBuffer;
     }
 
 }

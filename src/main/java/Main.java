@@ -1,14 +1,9 @@
+import ais.randomai.RandomAi;
 import ais.twoplayerai.Evaluator;
 import ais.twoplayerai.TwoPlayerAi;
 import blokus.*;
-import listener.KeyEventListener;
-import misc.Saver;
-import org.jnativehook.keyboard.NativeKeyEvent;
-import uis.TtyUITest;
 import uis.UI;
 import uis.fancyttyui.FancyTtyUI;
-
-import java.util.Date;
 
 public class Main {
     public static final int NUMBER_OF_CORES = Runtime.getRuntime().availableProcessors();
@@ -18,13 +13,20 @@ public class Main {
 
         Board board = new Board(14, 14, new MyPieceManager(2));
 
-        UI ui = new FancyTtyUI(board.deepCopy());
+        UI ui = new FancyTtyUI(board.deepCopy(), 3, 3);
 
         int depth = 2;
 
+
+//        CapableOfPlaying[] players = new CapableOfPlaying[]{
+//                new Player(board.deepCopy(), 0, "human", ui),
+//                new TwoPlayerAi(board.deepCopy(), 1, "ais", ui, depth, new Evaluator(1, 0.5f, 1.0f, 5.0f, 10.0f, 50, ui), false)
+//        };
+
         CapableOfPlaying[] players = new CapableOfPlaying[]{
-                new Player(board.deepCopy(), 0, "human", ui),
-                new TwoPlayerAi(board.deepCopy(), 1, "ai", ui, depth, new Evaluator(1, 0.5f, 1.0f, 8.0f, 2.0f, 50, ui), false)
+                new TwoPlayerAi(board.deepCopy(), 0, "good (hopefully)", ui, depth, new Evaluator(0, 0.5f, 1.0f, 5.0f, 10.0f, 70, ui), false),
+//                new RandomAi(board.deepCopy(), 0, "bad", ui),
+                new TwoPlayerAi(board.deepCopy(), 1, "good (hopefully)", ui, depth, new Evaluator(1, 0.5f, 1.0f, 5.0f, 10.0f, 70, ui), false)
         };
 //
 //        CapableOfPlaying[] players = new CapableOfPlaying[]{

@@ -3,6 +3,7 @@ package blokus;
 import misc.Saver;
 import org.apache.commons.lang3.ObjectUtils;
 import uis.Texel;
+import uis.Texelizeable;
 import uis.fancyttyui.ColorPallet;
 import uis.fancyttyui.Terminal;
 
@@ -12,7 +13,7 @@ import java.util.function.BinaryOperator;
 import java.util.stream.Collectors;
 
 
-public class Board implements Serializable {
+public class Board implements Serializable, Texelizeable {
 
     private static final int NO_PIECE = -1;
     private static final int EDGE = -2;
@@ -460,23 +461,6 @@ public class Board implements Serializable {
 
 
     public Board deepCopy () {
-//        Board newBoard;
-//
-//        try {
-//            ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-//            ObjectOutputStream objectOutputStream = new ObjectOutputStream(outputStream);
-//            objectOutputStream.writeObject(this);
-//            objectOutputStream.close();
-//
-//            InputStream inputStream = new ByteArrayInputStream(outputStream.toByteArray());
-//            ObjectInputStream objectInputStream = new ObjectInputStream(inputStream);
-//            newBoard = (Board) objectInputStream.readObject();
-//
-//        } catch (IOException | ClassNotFoundException e) {
-//            throw new RuntimeException(e);
-//        }
-//
-//        return newBoard;
         return saver.deepCopy(this);
     }
 
@@ -566,8 +550,9 @@ public class Board implements Serializable {
 
     }
 
-    public Texel[][] texelize (ColorPallet pallet) {
-        Texel[][] newBuffer = new Texel[getDimY() + 2][getDimX() * 2 + 4];
+    @Override
+    public Texel[][] texelize (ColorPallet pallet, int scaleX, int scaleY) {
+        Texel[][] newBuffer = new Texel[scaleY * getDimY() + 2][scaleX * getDimX() * 2 + 4];
 
         for (int y = 0; y < newBuffer.length; y++) {
             for (int x = 0; x < newBuffer[y].length; x++) {
@@ -575,21 +560,27 @@ public class Board implements Serializable {
             }
         }
 
-        for (int y = 0; y < getDimY(); y++) {
-            for (int x = 0; x < getDimX() * 2; x += 2) {
-                newBuffer[y + 1][x + 3] = newBuffer[y + 1][x + 2] = pallet.getTexel(board[y][x / 2]);
+//        for (int y = 0; y < getDimY(); y++) {
+//            for (int x = 0; x < getDimX() * 2; x += 2) {
+//                newBuffer[y + 1][x + 3] = newBuffer[y + 1][x + 2] = pallet.getTexel(board[y][x / 2]);
+//            }
+//        }
+        for (int y = 0; y < newBuffer.length - 2; y++) {
+            for (int x = 0; x < newBuffer[y].length - 4; x++) {
+//                System.out.println(x + ", " + y);
+                newBuffer[y + 1][x + 2] = pallet.getTexel(board[y / scaleY][x / scaleX / 2]);
             }
         }
 
-        if (pallet.drawCoordinates()) {
-            for (int x = 1; x < getDimX() + 1; x++) {
-                newBuffer[newBuffer.length - 1][2 * x] = newBuffer[0][2 * x] = new Texel(pallet.getCoordinateForegroundColor(), pallet.getCoordinateBackgroundColor(), Character.forDigit((x - 1) % 10, 10));
-            }
-
-            for (int y = 1; y < getDimY() + 1; y++) {
-                newBuffer[y][newBuffer[0].length - 1] = newBuffer[y][0] = new Texel(pallet.getCoordinateForegroundColor(), pallet.getCoordinateBackgroundColor(), Character.forDigit((y - 1) % 10, 10));
-            }
-        }
+//        if (pallet.drawCoordinates()) {
+//            for (int x = 1; x < getDimX() + 1; x++) {
+//                newBuffer[newBuffer.length - 1][2 * x] = newBuffer[0][2 * x] = new Texel(pallet.getCoordinateForegroundColor(), pallet.getCoordinateBackgroundColor(), Character.forDigit((x - 1) % 10, 10));
+//            }
+//
+//            for (int y = 1; y < getDimY() + 1; y++) {
+//                newBuffer[y][newBuffer[0].length - 1] = newBuffer[y][0] = new Texel(pallet.getCoordinateForegroundColor(), pallet.getCoordinateBackgroundColor(), Character.forDigit((y - 1) % 10, 10));
+//            }
+//        }
 
         return newBuffer;
     }

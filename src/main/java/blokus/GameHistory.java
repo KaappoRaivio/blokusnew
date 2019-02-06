@@ -45,6 +45,7 @@ public class GameHistory implements Serializable {
                 System.out.println("File " + path + " already exists");
             }
         } catch (IOException e) {
+            System.out.println(path);
             throw new RuntimeException(e);
         }
 
