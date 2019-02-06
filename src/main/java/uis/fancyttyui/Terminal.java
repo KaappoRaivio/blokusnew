@@ -6,12 +6,13 @@ import com.googlecode.lanterna.terminal.DefaultTerminalFactory;
 import uis.Texel;
 
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
 
-public class Terminal implements Screen {
-    private final Object lock = new Object();
+public class Terminal implements Screen, Serializable {
+    private final transient Object lock = new Object();
     public static final char TRANSPARENT = ' ';
     public static final TextColor.RGB foregroundColor = new TextColor.RGB(255, 255, 255);
     public static final TextColor.RGB backgroundColor = new TextColor.RGB(0, 0, 0);

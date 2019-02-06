@@ -9,13 +9,14 @@ import org.apache.commons.lang3.ArrayUtils;
 import org.jnativehook.keyboard.NativeKeyEvent;
 import uis.Texel;
 
+import java.io.Serializable;
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class Sprite {
+public class Sprite implements Serializable {
 
 
-    private final Object lock = new Object();
+    private final transient Object lock = new Object();
 
     private static int spriteID = 0;
 

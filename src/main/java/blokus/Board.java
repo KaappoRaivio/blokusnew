@@ -1,5 +1,6 @@
 package blokus;
 
+import misc.Saver;
 import org.apache.commons.lang3.ObjectUtils;
 import uis.Texel;
 import uis.fancyttyui.ColorPallet;
@@ -29,16 +30,15 @@ public class Board implements Serializable {
 
     private List<int[][]> moveHistory = new Vector<>();
 
-    public Board(int dimX, int dimY, PieceManager pieceManager) {
-        this(dimX, dimY, pieceManager, false, 0);
-    }
+    private Saver<Board> saver;
 
-    public Board(int dimX, int dimY, PieceManager pieceManager, boolean parallel, int amountOfThreads) {
+    public Board(int dimX, int dimY, PieceManager pieceManager) {
         this.dimX = dimX;
         this.dimY = dimY;
         this.amountOfPlayers = pieceManager.getAmountOfPlayers();
 
         this.pieceManager = pieceManager;
+        this.saver = new Saver<>();
 
 
         board = new int[dimY][dimX];
@@ -338,37 +338,9 @@ public class Board implements Serializable {
 
     public String save (String name) {
         String path = System.getProperty("user.dir") + "/src/main/resources/boards/" + name + ".ser";
+        saver.save(this, path, false);
+        return path;
 
-
-        File file = new File(path);
-
-        try {
-            if (file.createNewFile()) {
-                System.out.println("Creating new file " + path);
-
-            } else {
-                System.out.println("File " + path + " already exists");
-            }
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-
-
-        try {
-            FileOutputStream fileOut = new FileOutputStream(path);
-
-            ObjectOutputStream out = new ObjectOutputStream(fileOut);
-            out.writeObject(this);
-            out.close();
-
-            fileOut.close();
-
-            System.out.println("Saved board to: " + path);
-      } catch (IOException e) {
-            throw new RuntimeException(e);
-      }
-
-      return path;
     }
 
     public String save () {
@@ -384,20 +356,7 @@ public class Board implements Serializable {
             absolutePath = path;
         }
 
-        Board board;
-        try {
-            FileInputStream fileIn = new FileInputStream(absolutePath);
-
-            ObjectInputStream in = new ObjectInputStream(fileIn);
-            board = (Board) in.readObject();
-            in.close();
-
-            fileIn.close();
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-
-        return board;
+        return new Saver<Board>().fromFile(absolutePath, false);
     }
 
     public static Board fromHumanReadableFile (String filePath, boolean relative) {
@@ -413,13 +372,13 @@ public class Board implements Serializable {
     }
 
     public List<Move> getAllFittingMoves (int color, List<PieceID> pieces) {
-            List<Move> moves = new Vector<>();
-            for (Position boardPosition : getEligibleCorners(color)) {
-                moves.addAll(getAllFittingMoves(color, boardPosition.x, boardPosition.y, pieces));
-            }
+        List<Move> moves = new Vector<>();
+        for (Position boardPosition : getEligibleCorners(color)) {
+            moves.addAll(getAllFittingMoves(color, boardPosition.x, boardPosition.y, pieces));
+        }
 
 
-            return moves;
+        return moves;
     }
 
     private List<Move> getAllFittingMoves (int color, int x, int y, List<PieceID> pieces) {
@@ -501,23 +460,24 @@ public class Board implements Serializable {
 
 
     public Board deepCopy () {
-        Board newBoard;
-
-        try {
-            ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-            ObjectOutputStream objectOutputStream = new ObjectOutputStream(outputStream);
-            objectOutputStream.writeObject(this);
-            objectOutputStream.close();
-
-            InputStream inputStream = new ByteArrayInputStream(outputStream.toByteArray());
-            ObjectInputStream objectInputStream = new ObjectInputStream(inputStream);
-            newBoard = (Board) objectInputStream.readObject();
-
-        } catch (IOException | ClassNotFoundException e) {
-            throw new RuntimeException(e);
-        }
-
-        return newBoard;
+//        Board newBoard;
+//
+//        try {
+//            ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+//            ObjectOutputStream objectOutputStream = new ObjectOutputStream(outputStream);
+//            objectOutputStream.writeObject(this);
+//            objectOutputStream.close();
+//
+//            InputStream inputStream = new ByteArrayInputStream(outputStream.toByteArray());
+//            ObjectInputStream objectInputStream = new ObjectInputStream(inputStream);
+//            newBoard = (Board) objectInputStream.readObject();
+//
+//        } catch (IOException | ClassNotFoundException e) {
+//            throw new RuntimeException(e);
+//        }
+//
+//        return newBoard;
+        return saver.deepCopy(this);
     }
 
     public int getDimX() {
@@ -537,63 +497,73 @@ public class Board implements Serializable {
     }
 
     public List<Move> getFirstNFittingMoves (int n, int color) {
-        return getFirstNFittingMoves(0, n, color, true, true);
-    }
-
-    private List<Move> getFirstNFittingMoves (int start, int n, int color, boolean purge, boolean heavyPurge) {
         List<PieceID> pieceIDs = getPiecesNotOnBoard(color);
-        if (purge) {
 
+        pieceIDs.sort(new Comparator<PieceID>() {
+            @Override
+            public int compare(PieceID pieceID, PieceID t1) {
+                int result = t1.getAmountOfSquares() - pieceID.getAmountOfSquares();
 
-            pieceIDs.sort(new Comparator<PieceID>() {
-                @Override
-                public int compare(PieceID pieceID, PieceID t1) {
-                    int result = t1.getAmountOfSquares() - pieceID.getAmountOfSquares();
-
-                    if (result > 0) {
-                        return 1;
-                    } else if (result < 0) {
-                        return -1;
-                    } else {
-                        int corners = t1.getAmountOfCorners() - pieceID.getAmountOfCorners();
-                        return Integer.compare(corners, 0);
-                    }
+                if (result > 0) {
+                    return 1;
+                } else if (result < 0) {
+                    return -1;
+                } else {
+                    int corners = t1.getAmountOfCorners() - pieceID.getAmountOfCorners();
+                    return Integer.compare(corners, 0);
                 }
-            });
-
-
-            if (heavyPurge) {
-                int max = pieceIDs.stream().mapToInt(PieceID::getAmountOfSquares).max().getAsInt();
-                pieceIDs = pieceIDs.stream().filter((pieceID -> pieceID.getAmountOfSquares() == max)).collect(Collectors.toList());
-                try {
-                    pieceIDs = pieceIDs.subList(start, n);
-                } catch (IllegalArgumentException | IndexOutOfBoundsException ignored) {}
-            } else {
-                try {
-                    pieceIDs = pieceIDs.subList(start, n);
-    //                System.out.println(pieceIDs);
-                } catch (IllegalArgumentException | IndexOutOfBoundsException ignored) {}
             }
+        });
 
+        List<Move> moves = new Vector<>();
+        int endIndex = 0;
+        while (moves.size() < n) {
+            PieceID current;
+            try {
+                current = pieceIDs.get(endIndex);
 
-
-
+            } catch (IndexOutOfBoundsException e) {
+                break;
+            }
+            moves.addAll(getAllFittingMoves(color, Arrays.asList(current)));
+            endIndex++;
         }
+        return moves;
+//        if (purge) {
+//
+//
+//            if (heavyPurge) {
+//                int max = pieceIDs.stream().mapToInt(PieceID::getAmountOfSquares).max().getAsInt();
+//                pieceIDs = pieceIDs.stream().filter((pieceID -> pieceID.getAmountOfSquares() == max)).collect(Collectors.toList());
+//                try {
+//                    pieceIDs = pieceIDs.subList(start, n);
+//                } catch (IllegalArgumentException | IndexOutOfBoundsException ignored) {}
+//            } else {
+//                try {
+//                    pieceIDs = pieceIDs.subList(start, n);
+//    //                System.out.println(pieceIDs);
+//                } catch (IllegalArgumentException | IndexOutOfBoundsException ignored) {}
+//            }
+//
+//
+//
 
 
 
 
-        List<Move> moves = getAllFittingMoves(color, pieceIDs);
-        if (moves.size() == 0 && heavyPurge) {
-            System.out.println("No fitting moves found with ultra strict!");
-            return getFirstNFittingMoves(start,n, color, true, false);
-        } else if (moves.size() == 0 && purge) {
-            System.out.println("No fitting moves found with strict!");
-            return getFirstNFittingMoves((int) (1.5 * n),(int) 2.5 * n, color, true, false);
-        }
-        else {
-            return moves;
-        }
+
+//        List<Move> moves = getAllFittingMoves(color, pieceIDs);
+//        if (moves.size() == 0 && heavyPurge) {
+//            System.out.println("No fitting moves found with ultra strict!");
+//            return getFirstNFittingMoves(start,n, color, true, false);
+//        } else if (moves.size() == 0 && purge) {
+//            System.out.println("No fitting moves found with strict!");
+//            return getFirstNFittingMoves((int) (1.5 * n),(int) 2.5 * n, color, true, false);
+//        }
+//        else {
+//            return moves;
+//        }
+
     }
 
     public Texel[][] texelize (ColorPallet pallet) {
@@ -622,6 +592,11 @@ public class Board implements Serializable {
         }
 
         return newBuffer;
+    }
+
+    public static void main (String[] arghs) {
+        Board board = new Board(14, 14, new MyPieceManager(2));
+        System.out.println(board.getFirstNFittingMoves(100, 0).size());
     }
 
 }

@@ -145,7 +145,8 @@ public class Evaluator {
     }
 
     public int getN() {
-        return (int)((n + ui.getMoveCount() + 4.5) * 0.5);
+        return n;
+//        return (int)((n + ui.getMoveCount() + 4.5) * 0.5);
     }
 
     public static void main (String[] aarghs) {

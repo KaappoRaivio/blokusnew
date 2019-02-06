@@ -5,14 +5,15 @@ import java.util.Arrays;
 public class Move implements java.io.Serializable {
     @Override
     public String toString() {
-        return "blokus.Move{" +
-                "x=" + x +
-                ", y=" + y +
-                ", pieceID=" + pieceID +
-                ", color=" + color +
-                ", orientation=" + orientation +
-                ", flip=" + flip +
-                '}';
+//        return "blokus.Move{" +
+//                "x=" + x +
+//                ", y=" + y +
+//                ", pieceID=" + pieceID +
+//                ", color=" + color +
+//                ", orientation=" + orientation +
+//                ", flip=" + flip +
+//                '}';
+        return "(" + x + ", " + y + ") " + color + " " + pieceID + " " + orientation + " " + flip + ".";
     }
 
     private int x;

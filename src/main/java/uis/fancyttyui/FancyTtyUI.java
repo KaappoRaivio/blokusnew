@@ -11,10 +11,11 @@ import listener.KeyListener;
 import org.jnativehook.keyboard.NativeKeyEvent;
 import uis.UI;
 
+import java.io.Serializable;
 import java.util.stream.Collectors;
 
 
-public class FancyTtyUI implements UI {
+public class FancyTtyUI implements UI, Serializable {
     private Screen screen;
     private Board board;
     private int turn = 0;
@@ -22,7 +23,7 @@ public class FancyTtyUI implements UI {
 
     private Sprite boardSprite;
 
-    private final Object lock = new Object();
+    private final transient Object lock = new Object();
 
 
 

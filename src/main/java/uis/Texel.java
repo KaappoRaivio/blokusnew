@@ -2,7 +2,9 @@ package uis;
 
 import com.googlecode.lanterna.TextColor;
 
-public class Texel {
+import java.io.Serializable;
+
+public class Texel implements Serializable {
     public Texel(char value) {
         this(new TextColor.RGB(255 ,255, 255), value);
     }

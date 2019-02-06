@@ -1,17 +1,16 @@
 package blokus;
 
+import misc.Saver;
 import uis.UI;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectOutputStream;
+import java.io.*;
 import java.util.*;
 
 public class Runner {
     private Board board;
     private CapableOfPlaying[] players;
     private UI ui;
+    private GameHistory gameHistory;
 
     public Runner (Board board, CapableOfPlaying[] players, UI ui) {
         if (board.getAmountOfPlayers() != players.length) {
@@ -21,6 +20,7 @@ public class Runner {
         this.board = board;
         this.players = players;
         this.ui = ui;
+        this.gameHistory = new GameHistory(board, 0);
     }
 
     public void play () {
@@ -44,14 +44,13 @@ public class Runner {
                 moveCount += 1;
                 updateAllPlayerValues(board, turn, moveCount);
                 continue;
-
             }
 
             updateAllPlayerValues(board, turn, moveCount);
 
             CapableOfPlaying current = players[turn];
             System.out.println(Arrays.toString(lost));
-//            System.out.println("N is currently " + current.getEvaluator().getN());
+//            System.out.println("N is currently "0,0 + current.getEvaluator().getN());
             ui.updateValues(board.deepCopy(), turn, moveCount);
             ui.commit();
 
@@ -65,10 +64,13 @@ public class Runner {
             }
 
             board.putOnBoard(move);
+            gameHistory.addMove(move);
 
             turn = (turn + 1) % board.getAmountOfPlayers();
             moveCount += 1;
         }
+
+        ui.commit();
 
 
 
@@ -108,38 +110,18 @@ public class Runner {
         Arrays.stream(players).forEach((item) -> item.updateValues(board.deepCopy(), turn, moveCount));
     }
 
-    public String save (String name) {
-        String path = System.getProperty("user.dir") + "/src/main/resources/games/" + name + ".ser";
+//    private String save (String name) {
+//        String path = System.getProperty("user.dir") + "/src/main/resources/runners/" + name;
+//        new Saver<Runner>().save(this, path, false);
+//        return path;
+//    }
+//
+//    public String save () {
+//        return save(new Date().toString());
+//    }
 
-        File file = new File(path);
-
-        try {
-            if (file.createNewFile()) {
-                System.out.println("Creating new file " + path);
-
-            } else {
-                System.out.println("File " + path + " already exists");
-            }
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-
-
-        try {
-            FileOutputStream fileOut = new FileOutputStream(path);
-
-            ObjectOutputStream out = new ObjectOutputStream(fileOut);
-            out.writeObject(this);
-            out.close();
-
-            fileOut.close();
-
-            System.out.println("Saved board to: " + path);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-
-        return path;
+    public GameHistory getGameHistory() {
+        return gameHistory;
     }
 
     public Board getBoard() {
