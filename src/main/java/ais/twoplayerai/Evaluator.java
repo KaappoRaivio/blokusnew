@@ -17,15 +17,18 @@ public class Evaluator {
     private float squaresOnBoardDivider;
     private float cornersFreeDivider;
     private float spreadDivider;
+    private float averageDivider;
     private int n;
     private UI ui;
 
-    public Evaluator(int color, float squaresOnBoardDivider, float cornersFreeDivider, float spreadDivider, int n, UI ui) {
+    public Evaluator(int color, float squaresOnBoardDivider, float cornersFreeDivider, float spreadDivider, float averageDivider, int n, UI ui) {
         this.color = color;
         this.squaresOnBoardDivider = squaresOnBoardDivider;
         this.cornersFreeDivider = cornersFreeDivider;
         this.spreadDivider = spreadDivider;
+
         this.n = n;
+        this.averageDivider = averageDivider;
         this.ui = ui;
     }
 
@@ -81,6 +84,8 @@ public class Evaluator {
 
     }
 
+
+
     private float evaluatePosition(Board position) {
         return evaluatePosition(position, false);
     }
@@ -89,7 +94,8 @@ public class Evaluator {
         float[] parameters = new float[]{
                 ((float) howManySquaresOnBoard(position, color) - (float) howManySquaresOnBoard(position, 1 - color)) / squaresOnBoardDivider,
                 ((float) howManyCornersFree(position, color) - (float) howManyCornersFree(position, 1 - color)) / cornersFreeDivider,
-                ((float) howMuchSpread(position, color) - (float) howMuchSpread(position, 1 - color)) / (float) howManySquaresOnBoard(position, color) / spreadDivider
+                ((float) howMuchSpread(position, color) - (float) howMuchSpread(position, 1 - color)) / (float) howManySquaresOnBoard(position, color) / spreadDivider,
+                -(Math.abs(getAverage(position, color).getAverage() - getAverage(position, 1 - color).getAverage())) / averageDivider
         };
 
         if (verbose) {
@@ -139,7 +145,7 @@ public class Evaluator {
     }
 
     public int getN() {
-        return (int)((ui.getMoveCount() + 4.5) * 0.5);
+        return (int)((n + ui.getMoveCount() + 4.5) * 0.5);
     }
 
     public static void main (String[] aarghs) {
@@ -147,7 +153,7 @@ public class Evaluator {
 
         UI ui = new FancyTtyUI(board);
         ui.commit();
-        Evaluator evaluator = new Evaluator(0, 10.0f, 10.0f, 8.0f, 10, ui);
+        Evaluator evaluator = new Evaluator(0, 10.0f, 10.0f, 8.0f, 8.0f, 0, ui);
 
         System.out.println(evaluator.howMuchSpread(board, 0) + ", " + evaluator.howMuchSpread(board, 1));
         evaluator.howManySquaresOnBoard(board, 0);

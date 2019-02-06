@@ -537,30 +537,61 @@ public class Board implements Serializable {
     }
 
     public List<Move> getFirstNFittingMoves (int n, int color) {
-        return getFirstNFittingMoves(0, n, color, true);
+        return getFirstNFittingMoves(0, n, color, true, true);
     }
 
-    private List<Move> getFirstNFittingMoves (int start, int n, int color, boolean purge) {
+    private List<Move> getFirstNFittingMoves (int start, int n, int color, boolean purge, boolean heavyPurge) {
         List<PieceID> pieceIDs = getPiecesNotOnBoard(color);
-//        pieceIDs.sort(new Comparator<PieceID>() {
-//            @Override
-//            public int compare(PieceID pieceID, PieceID t1) {
-//                return t1.getAmountOfSquares() - pieceID.getAmountOfSquares();
-//            }
-//        });
         if (purge) {
-            int max = pieceIDs.stream().mapToInt(PieceID::getAmountOfSquares).max().getAsInt();
-            pieceIDs = pieceIDs.stream().filter((pieceID -> pieceID.getAmountOfSquares() == max)).collect(Collectors.toList());
-            try {
-                pieceIDs = pieceIDs.subList(start, n);
-            } catch (IllegalArgumentException | IndexOutOfBoundsException ignored) {}
+
+
+            pieceIDs.sort(new Comparator<PieceID>() {
+                @Override
+                public int compare(PieceID pieceID, PieceID t1) {
+                    int result = t1.getAmountOfSquares() - pieceID.getAmountOfSquares();
+
+                    if (result > 0) {
+                        return 1;
+                    } else if (result < 0) {
+                        return -1;
+                    } else {
+                        int corners = t1.getAmountOfCorners() - pieceID.getAmountOfCorners();
+                        return Integer.compare(corners, 0);
+                    }
+                }
+            });
+
+
+            if (heavyPurge) {
+                int max = pieceIDs.stream().mapToInt(PieceID::getAmountOfSquares).max().getAsInt();
+                pieceIDs = pieceIDs.stream().filter((pieceID -> pieceID.getAmountOfSquares() == max)).collect(Collectors.toList());
+                try {
+                    pieceIDs = pieceIDs.subList(start, n);
+                } catch (IllegalArgumentException | IndexOutOfBoundsException ignored) {}
+            } else {
+                try {
+                    pieceIDs = pieceIDs.subList(start, n);
+    //                System.out.println(pieceIDs);
+                } catch (IllegalArgumentException | IndexOutOfBoundsException ignored) {}
+            }
+
+
+
+
         }
 
 
+
+
         List<Move> moves = getAllFittingMoves(color, pieceIDs);
-        if (moves.size() == 0) {
-            return getFirstNFittingMoves(n + 1,2 * n + 1, color, false);
-        } else {
+        if (moves.size() == 0 && heavyPurge) {
+            System.out.println("No fitting moves found with ultra strict!");
+            return getFirstNFittingMoves(start,n, color, true, false);
+        } else if (moves.size() == 0 && purge) {
+            System.out.println("No fitting moves found with strict!");
+            return getFirstNFittingMoves((int) (1.5 * n),(int) 2.5 * n, color, true, false);
+        }
+        else {
             return moves;
         }
     }

@@ -12,7 +12,7 @@ public class Main {
 
     public static void main(String[] args) {
         Board board = new Board(14, 14, new MyPieceManager(2));
-//        Board board = Board.fromFile("/home/kaappo/git/blokus/src/main/resources/boards/Mon Feb 04 13:20:45 EET 2019.ser", false);
+//        Board board = Board.fromFile("/home/kaappo/git/blokus/src/main/resources/boards/Wed Feb 06 10:15:13 EET 2019.ser", false);
 
         UI ui = new FancyTtyUI(board.deepCopy());
 
@@ -22,7 +22,7 @@ public class Main {
 
         CapableOfPlaying[] players = new CapableOfPlaying[]{
                 new Player(board.deepCopy(), 0, "human", ui),
-                new TwoPlayerAi(board.deepCopy(), 1, "ai", ui, depth, new Evaluator(1, 10.0f, 6.0f, 8.0f, 6, ui), false)
+                new TwoPlayerAi(board.deepCopy(), 1, "ai", ui, depth, new Evaluator(1, 1.0f, 3.0f, 8.0f, 1.0f, 0, ui), false)
         };
 //
 //        CapableOfPlaying[] players = new CapableOfPlaying[]{

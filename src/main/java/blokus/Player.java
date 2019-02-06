@@ -88,8 +88,4 @@ public class Player implements CapableOfPlaying, Serializable {
         return color;
     }
 
-    @Override
-    public Evaluator getEvaluator() {
-        return null;
-    }
 }

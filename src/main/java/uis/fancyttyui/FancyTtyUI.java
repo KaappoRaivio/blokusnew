@@ -44,6 +44,7 @@ public class FancyTtyUI implements UI {
         this.moveCount = moveCount;
 
         boardSprite = new Sprite(board.texelize(new DefaultPallet()), Terminal.TRANSPARENT);
+        screen.removeAllSprites();
         screen.addSprite(boardSprite);
         boardSprite.draw(0, 0);
     }
@@ -144,7 +145,7 @@ public class FancyTtyUI implements UI {
 
         keyListener.close();
         Move move = sprite.getCurrentMove();
-
+        sprite.unDraw();
         screen.removeSprite(sprite);
 
         return move;

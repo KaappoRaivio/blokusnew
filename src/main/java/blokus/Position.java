@@ -11,6 +11,10 @@ public class Position implements Serializable {
         this.y = y;
     }
 
+    public float getAverage () {
+        return (x + y) / 2.0f;
+    }
+
     @Override
     public String toString() {
         return "blokus.Position(" +

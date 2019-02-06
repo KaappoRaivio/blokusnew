@@ -53,7 +53,15 @@ public class PieceSprite extends Sprite {
         refreshData();
     }
 
-    public void rotateClockwise () {
+    public void rotateClockwise() {
+        rotateClockwise(true);
+    }
+
+    private void rotateClockwise (boolean recursive) {
+        if (flip && recursive) {
+            rotateAntiClockwise(false);
+            return;
+        }
         Orientation newOrientation;
         switch (orientation) {
             case UP:
@@ -76,7 +84,16 @@ public class PieceSprite extends Sprite {
         refreshData();
     }
 
-    public void rotateAntiClockwise () {
+    public void rotateAntiClockwise() {
+        rotateAntiClockwise(true);
+    }
+
+    private void rotateAntiClockwise (boolean recursive) {
+        if (flip && recursive) {
+            rotateClockwise(false);
+            return;
+        }
+        
         Orientation newOrientation;
         switch (orientation) {
             case UP:

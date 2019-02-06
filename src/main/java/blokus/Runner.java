@@ -51,7 +51,7 @@ public class Runner {
 
             CapableOfPlaying current = players[turn];
             System.out.println(Arrays.toString(lost));
-            System.out.println("N is currently " + current.getEvaluator().getN());
+//            System.out.println("N is currently " + current.getEvaluator().getN());
             ui.updateValues(board.deepCopy(), turn, moveCount);
             ui.commit();
 
