@@ -357,6 +357,7 @@ public class Board implements Serializable, Texelizeable {
 
         if (relative) {
             absolutePath = System.getProperty("user.dir") + "/src/main/resources/boards/" + path;
+            System.out.println(System.getProperty("user.dir"));
         } else {
             absolutePath = path;
         }
@@ -576,15 +577,15 @@ public class Board implements Serializable, Texelizeable {
             }
         }
 
-//        if (pallet.drawCoordinates()) {
-//            for (int x = 1; x < getDimX() + 1; x++) {
-//                newBuffer[newBuffer.length - 1][2 * x] = newBuffer[0][2 * x] = new Texel(pallet.getCoordinateForegroundColor(), pallet.getCoordinateBackgroundColor(), Character.forDigit((x - 1) % 10, 10));
-//            }
-//
-//            for (int y = 1; y < getDimY() + 1; y++) {
-//                newBuffer[y][newBuffer[0].length - 1] = newBuffer[y][0] = new Texel(pallet.getCoordinateForegroundColor(), pallet.getCoordinateBackgroundColor(), Character.forDigit((y - 1) % 10, 10));
-//            }
-//        }
+        if (pallet.drawCoordinates()) {
+            for (int x = 1; x < getDimX() + 1; x++) {
+                newBuffer[newBuffer.length - 1][2 * x] = newBuffer[0][2 * x] = new Texel(pallet.getCoordinateForegroundColor(), pallet.getCoordinateBackgroundColor(), Character.forDigit((x - 1) % 10, 10));
+            }
+
+            for (int y = 1; y < getDimY() + 1; y++) {
+                newBuffer[y][newBuffer[0].length - 1] = newBuffer[y][0] = new Texel(pallet.getCoordinateForegroundColor(), pallet.getCoordinateBackgroundColor(), Character.forDigit((y - 1) % 10, 10));
+            }
+        }
 
         return newBuffer;
     }

@@ -11,22 +11,22 @@ public class Main {
     public static void main(String[] args) {
 
 
-//        Board board = new Board(14, 14, new MyPieceManager(2));
-        Board board = Board.fromFile("/home/kaappo/git/blokus/src/main/resources/boards/Thu Feb 07 13:02:59 EET 2019.ser", false);
+        Board board = new Board(10, 10, new MyPieceManager(2));
+//        Board board = Board.fromFile("/home/kaappo/git/blokusnew/src/main/resources/boards/Thu Feb 07 20:28:59 EET 2019.ser", false);
 
         UI ui = new FancyTtyUI(board.deepCopy(), 1, 1);
         ui.commit();
 //
 //        synchronized (Thread.currentThread()) {
 //            try {
-//                System.out.println(board.hasMoves( 1));
+//                System.out.println(board.hasMoves( 0));
 //                Thread.currentThread().wait();
 //            } catch (InterruptedException e) {
 //                e.printStackTrace();
 //            }
 //        }
 
-        int depth = 6;
+        int depth = 12;
 
 
 //        CapableOfPlaying[] players = new CapableOfPlaying[]{
@@ -35,8 +35,9 @@ public class Main {
 //        };
 
         CapableOfPlaying[] players = new CapableOfPlaying[]{
-                new TwoPlayerAi(board.deepCopy(), 1, "color 1", ui, depth, new Evaluator(1, 0.5f, 1.0f, 500.0f, 800.0f, 400, ui), false),
                 new TwoPlayerAi(board.deepCopy(), 0, "color 0", ui, depth, new Evaluator(0, 0.5f, 1.0f, 500.0f, 800.0f, 400, ui), false),
+                new TwoPlayerAi(board.deepCopy(), 1, "color 1", ui, depth + 1, new Evaluator(1, 0.5f, 1.0f, 500.0f, 800.0f, 400, ui), false),
+//                new TwoPlayerAi(board.deepCopy(), 1, "color 1", ui, depth, new Evaluator(1, 3f, 1.0f, 50000.0f, 80000.0f, 400, ui), false),
 //                new RandomAi(board.deepCopy(), 0, "bad", ui),
 //                new TwoPlayerAi(board.deepCopy(), 1, "good (hopefully)", ui, depth, new Evaluator(1, 0.5f, 1.0f, 5.0f, 10.0f, 400, ui), true)
 //                new RandomAi(board.deepCopy(), 1, null, ui)
@@ -64,6 +65,8 @@ public class Main {
             throw e;
         }
         runner.getGameHistory().save();
+        runner.getBoard().save();
+//        ui.close();
 
     }
 }

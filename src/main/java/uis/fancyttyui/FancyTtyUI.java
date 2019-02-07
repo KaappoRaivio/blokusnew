@@ -53,15 +53,13 @@ public class FancyTtyUI implements UI, Serializable {
 //        screen.removeAllSprites();
 //        screen.addSprite(boardSprite);
 //        boardSprite.draw(0, 0);
-        screen.drawTexelizeable(board, new DefaultPallet(),0, 0, scaleX, scaleY);
+        screen.drawTexelizeable(this.board, new DefaultPallet(),0, 0, scaleX, scaleY);
     }
 
     @Override
     public void commit () {
 
-        for (int i = 0; i < board.getAmountOfPlayers(); i++) {
-            System.out.println("Color " + i + ": " + board.getPieceManager().getPiecesNotOnBoard(i).stream().map(Enum::toString).collect(Collectors.joining(", \t")));
-        }
+
 
         screen.commit();
     }

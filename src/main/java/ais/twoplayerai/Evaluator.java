@@ -1,6 +1,8 @@
 package ais.twoplayerai;
 
 import blokus.*;
+import misc.BoardAndMoveAndScore;
+import misc.MoveAndScore;
 import uis.UI;
 import uis.fancyttyui.FancyTtyUI;
 
@@ -19,6 +21,16 @@ public class Evaluator {
     private int n;
     private UI ui;
 
+    public List<BoardAndMoveAndScore> getBoardAndScores() {
+        return boardAndMoveAndScores;
+    }
+
+    public void resetBoardsAndScore () {
+        boardAndMoveAndScores = new Vector<>();
+    }
+
+    private List<BoardAndMoveAndScore> boardAndMoveAndScores;
+
     public Evaluator(int color, float squaresOnBoardDivider, float cornersFreeDivider, float spreadDivider, float averageDivider, int n, UI ui) {
         this.color = color;
         this.squaresOnBoardDivider = squaresOnBoardDivider;
@@ -28,6 +40,15 @@ public class Evaluator {
         this.n = n;
         this.averageDivider = averageDivider;
         this.ui = ui;
+        boardAndMoveAndScores = new Vector<>() {
+            @Override
+            public boolean add (BoardAndMoveAndScore boardAndMoveAndScore) {
+                synchronized (this) {
+                    super.add(boardAndMoveAndScore);
+                }
+                return true;
+            }
+        };
     }
 
     private int howManySquaresOnBoard (Board position, int color) {
@@ -90,10 +111,10 @@ public class Evaluator {
 
     protected float evaluatePosition(Board position, boolean verbose) {
         float[] parameters = new float[]{
-                ((float) howManySquaresOnBoard(position, color) - (float) howManySquaresOnBoard(position, 1 - color)) / squaresOnBoardDivider,
-                ((float) howManyCornersFree(position, color) - (float) howManyCornersFree(position, 1 - color)) / cornersFreeDivider,
-                ((float) howMuchSpread(position, color) - (float) howMuchSpread(position, 1 - color)) / (float) howManySquaresOnBoard(position, color) / spreadDivider,
-                -(Math.abs(getAverage(position, color).getAverage() - getAverage(position, 1 - color).getAverage())) / averageDivider
+//                ((float) howManySquaresOnBoard(position, color) - (float) howManySquaresOnBoard(position, 1 - color)) / squaresOnBoardDivider,
+                ((float) howManyCornersFree(position, color) - (float) howManyCornersFree(position, 1 - color) * 2) / cornersFreeDivider,
+//                ((float) howMuchSpread(position, color) - (float) howMuchSpread(position, 1 - color)) / (float) howManySquaresOnBoard(position, color) / spreadDivider,
+//                -(Math.abs(getAverage(position, color).getAverage() - getAverage(position, 1 - color).getAverage())) / averageDivider
         };
 
         if (verbose) {
@@ -110,9 +131,16 @@ public class Evaluator {
     }
 
 
-    private float decisionTree (Board node, int depth, int turn, float alpha, float beta) {
-        if (depth == 0 || !node.hasMoves(turn)) {
+    private float decisionTree (Board node, int depth, int turn, float alpha, float beta, Move initialMove) {
+        if (depth == 0) {
+//            System.out.println(node);
+//            ui.updateValues(node.deepCopy(), turn, 0);
+//            ui.commit();
+            boardAndMoveAndScores.add(new BoardAndMoveAndScore(node.deepCopy(), new MoveAndScore(initialMove, true, true, evaluatePosition(node))));
             return evaluatePosition(node);
+        } else if ( !node.hasMoves(turn)) {
+            boardAndMoveAndScores.add(new BoardAndMoveAndScore(node.deepCopy(), new MoveAndScore(initialMove, true, true, evaluatePosition(node))));
+            return -1000f;
         }
 
         if (turn == color) { // max
@@ -120,7 +148,7 @@ public class Evaluator {
 
             for (Move move : node.getFirstNFittingMoves(getN(), turn)) {
                 node.putOnBoard(move);
-                value = max(value, decisionTree(node, depth - 1, 1 - turn, alpha, beta));
+                value = max(value, decisionTree(node, depth - 1, 1 - turn, alpha, beta, initialMove));
                 alpha = max(alpha, value);
 
                 if (alpha >= beta) {
@@ -139,7 +167,7 @@ public class Evaluator {
 
             for (Move move : node.getFirstNFittingMoves(getN(), turn)) {
                 node.putOnBoard(move);
-                value = min(value, decisionTree(node, depth - 1, 1 - turn, alpha, beta));
+                value = min(value, decisionTree(node, depth - 1, 1 - turn, alpha, beta, initialMove));
                 beta = min(beta, value);
 
                 if (alpha >= beta) {
@@ -156,8 +184,8 @@ public class Evaluator {
         }
     }
 
-    float evaluateMove(Board position, int depth) {
-        return decisionTree(position, depth, color, 1e10f, -1e10f);
+    float evaluateMove(Board position, int depth, Move initialMove) {
+        return decisionTree(position, depth, 1 - color, 1e10f, -1e10f, initialMove);
     }
 
     public int getN() {

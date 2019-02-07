@@ -2,13 +2,15 @@ package misc;
 
 import blokus.Move;
 
+import java.util.Objects;
+
 public class MoveAndScore {
     private Move move;
     private boolean isMovePresent;
     private boolean isScorePresent;
     private float score;
 
-    public MoveAndScore(Move move) {
+    public MoveAndScore (Move move) {
         if (move == null) {
             throw new RuntimeException("Move can't be null in this context!");
         }
@@ -49,5 +51,21 @@ public class MoveAndScore {
                 "move=" + move +
                 ", score=" + score +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        MoveAndScore that = (MoveAndScore) o;
+        return isMovePresent == that.isMovePresent &&
+                isScorePresent == that.isScorePresent &&
+                Float.compare(that.score, score) == 0 &&
+                move.equals(that.move);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(move, isMovePresent, isScorePresent, score);
     }
 }

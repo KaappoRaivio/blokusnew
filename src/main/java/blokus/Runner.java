@@ -5,6 +5,7 @@ import uis.UI;
 
 import java.io.*;
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class Runner {
     private Board board;
@@ -30,13 +31,13 @@ public class Runner {
         boolean[] lost = new boolean[board.getAmountOfPlayers()];
 
         while (true) {
-            new Scanner(System.in).nextLine();
 
             if (!board.hasMoves(turn)) {
                 lost[turn] = true;
             }
 
             if (!canPlay(lost)) {
+                ui.commit();
                 break;
             }
 
@@ -45,6 +46,10 @@ public class Runner {
                 moveCount += 1;
                 updateAllPlayerValues(board, turn, moveCount);
                 continue;
+            }
+
+            for (int i = 0; i < board.getAmountOfPlayers(); i++) {
+                System.out.println("Color " + i + ": " + board.getPieceManager().getPiecesNotOnBoard(i).stream().map(Enum::toString).collect(Collectors.joining(", \t")));
             }
 
             updateAllPlayerValues(board, turn, moveCount);
@@ -91,12 +96,7 @@ public class Runner {
     }
 
     private boolean canPlay (boolean[] lost) {
-        boolean onePlayerAlive = false;
-
         for (boolean b : lost) {
-//            if (!b && !onePlayerAlive) {
-////                return true;
-//                onePlayerAlive = true;
             if (!b) {
                 return true;
             }
@@ -108,16 +108,6 @@ public class Runner {
     private void updateAllPlayerValues (Board board, int turn, int moveCount) {
         Arrays.stream(players).forEach((item) -> item.updateValues(board.deepCopy(), turn, moveCount));
     }
-
-//    private String save (String name) {
-//        String path = System.getProperty("user.dir") + "/src/main/resources/games/" + name;
-//        new Saver<Runner>().save(this, path, false);
-//        return path;
-//    }
-//
-//    public String save () {
-//        return save(new Date().toString());
-//    }
 
     public GameHistory getGameHistory() {
         return gameHistory;

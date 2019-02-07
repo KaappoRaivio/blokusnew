@@ -1,6 +1,7 @@
 package ais.twoplayerai;
 
 import blokus.*;
+import misc.BoardAndMoveAndScore;
 import misc.MoveAndScore;
 import misc.OnedSpan;
 import misc.Splitter;
@@ -95,25 +96,43 @@ public class TwoPlayerAi extends Player {
         long timeEnd = System.currentTimeMillis();
         System.out.println("Took " + (timeEnd - time) + " milliseconds as " + id);
 
-        Move bestMove;
+        MoveAndScore bestMove;
 
         if (randomize) {
             try {
-                bestMove = moveScores.get(new Random().nextInt(2)).getMove();
+                bestMove = moveScores.get(new Random().nextInt(2));
             } catch (IndexOutOfBoundsException e) {
-                bestMove = moveScores.get(0).getMove();
+                bestMove = moveScores.get(0);
             }
         } else {
             System.out.println(moveScores.get(0).getMove() + ", " + moveScores.get(0).getScore());
 //            return moveScores.get(0).getMove();
-            bestMove = moveScores.get(0).getMove();
+            bestMove = moveScores.get(0);
         }
 
-        board.putOnBoard(bestMove);
+        Board board = searchPosition(bestMove);
+        evaluator.resetBoardsAndScore();
+        board.save();
+        ui.updateValues(board, 0, moveCount + depth - 1);
+        ui.commit();
+        System.out.print("Press enter to continue> ");
+        new Scanner(System.in).nextLine();
+
+
+
         System.out.println("Parameters: " + evaluator.evaluatePosition(board, true));
 
-        return  bestMove;
+        return  bestMove.getMove();
 
+    }
+
+    private Board searchPosition (MoveAndScore moveAndScore) {
+        for (BoardAndMoveAndScore position : evaluator.getBoardAndScores()) {
+            if (moveAndScore.getMove().equals(position.getMoveAndScore().getMove())) {
+                return position.getBoard();
+            }
+        }
+        throw new RuntimeException("Didn't find anything!");
     }
 
     public Evaluator getEvaluator() {
@@ -130,7 +149,7 @@ public class TwoPlayerAi extends Player {
 
         for (Move move : possibleMoves) {
             board.putOnBoard(move);
-            float score = evaluator.evaluateMove(board, depth);
+            float score = evaluator.evaluateMove(board, depth, move);
             board.undo(0);
 //            moveScores.put(score, move);
             moveScores.add(new MoveAndScore(move, true, true, score));
