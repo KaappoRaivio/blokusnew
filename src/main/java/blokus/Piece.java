@@ -119,10 +119,9 @@ public class Piece implements java.io.Serializable {
         }
 
         String[] lines = text.split("\n");
-        System.out.println(lines.length);
         dimY = lines.length;
         dimX = lines[0].length();
-        System.out.println(dimX + ", " + dimY);
+
 
 
         for (int y = 0; y < dimY; y++) {
@@ -375,10 +374,4 @@ public class Piece implements java.io.Serializable {
         return 21;
     }
 
-    public static void main (String[] args) {
-        Piece piece = new Piece(PieceID.PIECE_19, 0);
-        for (Piece orientationAndFlip : piece.getAllOrientations()) {
-            System.out.println(orientationAndFlip);
-        }
-    }
 }

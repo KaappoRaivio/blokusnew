@@ -5,19 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ce25beff-fdbc-46a7-a774-9d3d5b134b5f" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_1stleg_jnativehook_2_0_22.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__junit_junit_4_122.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_apache_commons_commons_lang3_3_8_1.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_hamcrest_hamcrest_core_1_32.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_openjfx_javafx_base_11_0_2.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ais/randomai/RandomAi.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ais/randomai/RandomAi.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ais/twoplayerai/Evaluator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ais/twoplayerai/Evaluator.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/blokus/Board.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/blokus/Board.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/blokus/Piece.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/blokus/Piece.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/blokus/PieceID.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/blokus/PieceID.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/uis/fancyttyui/Terminal.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/uis/fancyttyui/Terminal.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/blokus/Runner.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/blokus/Runner.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/.gradle/" />
@@ -29,7 +20,7 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="DarkyenusTimeTracker">
-    <option name="totalTimeSeconds" value="291950" />
+    <option name="totalTimeSeconds" value="294088" />
     <option name="gitIntegration" value="true" />
     <option name="naggedAbout" value="1" />
   </component>
@@ -98,8 +89,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/Main.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="288">
-              <caret line="21" column="58" selection-start-line="21" selection-start-column="58" selection-end-line="21" selection-end-column="58" />
+            <state relative-caret-position="25">
+              <caret line="18" lean-forward="true" selection-start-line="18" selection-start-column="2" selection-end-line="26" selection-end-column="11" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -108,10 +99,31 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/ais/twoplayerai/TwoPlayerAi.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="103">
+              <caret line="30" column="43" selection-start-line="30" selection-start-column="43" selection-end-line="30" selection-end-column="43" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/misc/Splitter.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="148">
+              <caret line="16" selection-start-line="16" selection-end-line="16" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/blokus/Runner.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="345">
-              <caret line="35" column="13" lean-forward="true" selection-start-line="33" selection-start-column="28" selection-end-line="35" selection-end-column="13" />
+            <state relative-caret-position="30">
+              <caret line="32" column="46" lean-forward="true" selection-start-line="32" selection-start-column="46" selection-end-line="32" selection-end-column="46" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -131,13 +143,25 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/blokus/Board.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="233">
-              <caret line="410" column="43" lean-forward="true" selection-start-line="410" selection-start-column="43" selection-end-line="410" selection-end-column="43" />
+            <state relative-caret-position="273">
+              <caret line="411" column="37" lean-forward="true" selection-start-line="411" selection-start-column="37" selection-end-line="411" selection-end-column="37" />
               <folding>
-                <element signature="e#6375#6376#0" expanded="true" />
-                <element signature="e#6432#6433#0" expanded="true" />
-                <element signature="e#10983#10984#0" expanded="true" />
-                <element signature="e#11059#11060#0" expanded="true" />
+                <element signature="e#6462#6463#0" expanded="true" />
+                <element signature="e#6569#6570#0" expanded="true" />
+                <element signature="e#8245#8246#0" expanded="true" />
+                <element signature="e#8723#8724#0" expanded="true" />
+                <element signature="e#8784#8785#0" expanded="true" />
+                <element signature="e#10056#10057#0" expanded="true" />
+                <element signature="e#10146#10147#0" expanded="true" />
+                <element signature="e#10436#10437#0" expanded="true" />
+                <element signature="e#11065#11066#0" expanded="true" />
+                <element signature="e#11196#11197#0" expanded="true" />
+                <element signature="e#14105#14106#0" expanded="true" />
+                <element signature="e#14181#14182#0" expanded="true" />
+                <element signature="e#14236#14237#0" expanded="true" />
+                <element signature="e#14291#14292#0" expanded="true" />
+                <element signature="e#14368#14369#0" expanded="true" />
+                <element signature="e#14448#14449#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -164,19 +188,19 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/blokus/Piece.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="460">
-              <caret line="278" column="64" selection-start-line="278" selection-start-column="64" selection-end-line="278" selection-end-column="64" />
+            <state relative-caret-position="198">
+              <caret line="141" column="17" lean-forward="true" selection-start-line="141" selection-start-column="17" selection-end-line="141" selection-end-column="17" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#2611#2612#0" expanded="true" />
                 <element signature="e#2641#2642#0" expanded="true" />
-                <element signature="e#4855#4856#0" expanded="true" />
-                <element signature="e#9529#9530#0" expanded="true" />
-                <element signature="e#10412#10413#0" expanded="true" />
-                <element signature="e#10565#10566#0" expanded="true" />
+                <element signature="e#4766#4767#0" expanded="true" />
+                <element signature="e#9425#9426#0" expanded="true" />
+                <element signature="e#10308#10309#0" expanded="true" />
+                <element signature="e#10461#10462#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -204,9 +228,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>/src/main/resources/boards/</find>
-      <find>getFirstN</find>
-      <find>getN</find>
       <find>texelize</find>
       <find>get</find>
       <find>mesh</find>
@@ -234,6 +255,9 @@
       <find>dimY</find>
       <find>private Piece</find>
       <find>rotate</find>
+      <find>getA</find>
+      <find>Piece</find>
+      <find>System.out</find>
     </findStrings>
     <replaceStrings>
       <replace />
@@ -308,10 +332,10 @@
         <option value="$PROJECT_DIR$/src/main/java/ais/twoplayerai/Evaluator.java" />
         <option value="$PROJECT_DIR$/src/main/java/ais/randomai/RandomAi.java" />
         <option value="$PROJECT_DIR$/src/main/java/blokus/PieceID.java" />
-        <option value="$PROJECT_DIR$/src/main/java/blokus/Runner.java" />
-        <option value="$PROJECT_DIR$/src/main/java/blokus/Board.java" />
-        <option value="$PROJECT_DIR$/src/main/java/Main.java" />
         <option value="$PROJECT_DIR$/src/main/java/blokus/Piece.java" />
+        <option value="$PROJECT_DIR$/src/main/java/blokus/Board.java" />
+        <option value="$PROJECT_DIR$/src/main/java/blokus/Runner.java" />
+        <option value="$PROJECT_DIR$/src/main/java/Main.java" />
       </list>
     </option>
   </component>
@@ -458,7 +482,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Application.Piece">
+  <component name="RunManager" selected="Application.Main without depencencies">
     <configuration name="Board" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="blokus.Board" />
       <module name="Blokus.Blokus.main" />
@@ -625,7 +649,7 @@
       <window_info id="Favorites" order="6" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32739422" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.38344988" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.41841492" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.3997669" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -634,7 +658,7 @@
       <window_info anchor="bottom" id="Event Log" order="8" side_tool="true" />
       <window_info anchor="bottom" id="Version Control" order="9" weight="0.32983682" />
       <window_info anchor="bottom" id="Build" order="10" weight="0.32850778" />
-      <window_info active="true" anchor="bottom" id="Messages" order="11" visible="true" weight="0.32284382" />
+      <window_info anchor="bottom" id="Messages" order="11" weight="0.32284382" />
       <window_info anchor="bottom" id="Tail" order="12" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
@@ -684,14 +708,8 @@
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/blokus/Board.java</url>
-          <line>403</line>
-          <properties />
-          <option name="timeStamp" value="9" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/blokus/Piece.java</url>
-          <line>200</line>
+          <line>199</line>
           <properties />
           <option name="timeStamp" value="12" />
         </line-breakpoint>
@@ -1006,23 +1024,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/ais/twoplayerai/TwoPlayerAi.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="797">
-          <caret line="103" column="46" lean-forward="true" selection-start-line="103" selection-start-column="46" selection-end-line="103" selection-end-column="46" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/misc/Splitter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="150">
-          <caret line="16" selection-start-line="16" selection-end-line="16" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/ais/randomai/RandomAi.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="203">
@@ -1040,27 +1041,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/blokus/Runner.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="345">
-          <caret line="35" column="13" lean-forward="true" selection-start-line="33" selection-start-column="28" selection-end-line="35" selection-end-column="13" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/blokus/Orientation.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="30">
           <caret line="2" selection-start-line="2" selection-end-line="2" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/blokus/OrientationGroup.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="198">
-          <caret line="36" selection-start-line="36" selection-end-line="36" />
         </state>
       </provider>
     </entry>
@@ -1081,16 +1065,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/Main.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="288">
-          <caret line="21" column="58" selection-start-line="21" selection-start-column="58" selection-end-line="21" selection-end-column="58" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/resources/pieces/piece8.txt">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
@@ -1106,31 +1080,87 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/blokus/Board.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="233">
-          <caret line="410" column="43" lean-forward="true" selection-start-line="410" selection-start-column="43" selection-end-line="410" selection-end-column="43" />
-          <folding>
-            <element signature="e#6375#6376#0" expanded="true" />
-            <element signature="e#6432#6433#0" expanded="true" />
-            <element signature="e#10983#10984#0" expanded="true" />
-            <element signature="e#11059#11060#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/blokus/Piece.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="460">
-          <caret line="278" column="64" selection-start-line="278" selection-start-column="64" selection-end-line="278" selection-end-column="64" />
+        <state relative-caret-position="198">
+          <caret line="141" column="17" lean-forward="true" selection-start-line="141" selection-start-column="17" selection-end-line="141" selection-end-column="17" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#2611#2612#0" expanded="true" />
             <element signature="e#2641#2642#0" expanded="true" />
-            <element signature="e#4855#4856#0" expanded="true" />
-            <element signature="e#9529#9530#0" expanded="true" />
-            <element signature="e#10412#10413#0" expanded="true" />
-            <element signature="e#10565#10566#0" expanded="true" />
+            <element signature="e#4766#4767#0" expanded="true" />
+            <element signature="e#9425#9426#0" expanded="true" />
+            <element signature="e#10308#10309#0" expanded="true" />
+            <element signature="e#10461#10462#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ais/twoplayerai/TwoPlayerAi.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="103">
+          <caret line="30" column="43" selection-start-line="30" selection-start-column="43" selection-end-line="30" selection-end-column="43" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/blokus/OrientationGroup.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="198">
+          <caret line="36" selection-start-line="36" selection-end-line="36" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/blokus/Board.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="273">
+          <caret line="411" column="37" lean-forward="true" selection-start-line="411" selection-start-column="37" selection-end-line="411" selection-end-column="37" />
+          <folding>
+            <element signature="e#6462#6463#0" expanded="true" />
+            <element signature="e#6569#6570#0" expanded="true" />
+            <element signature="e#8245#8246#0" expanded="true" />
+            <element signature="e#8723#8724#0" expanded="true" />
+            <element signature="e#8784#8785#0" expanded="true" />
+            <element signature="e#10056#10057#0" expanded="true" />
+            <element signature="e#10146#10147#0" expanded="true" />
+            <element signature="e#10436#10437#0" expanded="true" />
+            <element signature="e#11065#11066#0" expanded="true" />
+            <element signature="e#11196#11197#0" expanded="true" />
+            <element signature="e#14105#14106#0" expanded="true" />
+            <element signature="e#14181#14182#0" expanded="true" />
+            <element signature="e#14236#14237#0" expanded="true" />
+            <element signature="e#14291#14292#0" expanded="true" />
+            <element signature="e#14368#14369#0" expanded="true" />
+            <element signature="e#14448#14449#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/misc/Splitter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="148">
+          <caret line="16" selection-start-line="16" selection-end-line="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/Main.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="25">
+          <caret line="18" lean-forward="true" selection-start-line="18" selection-start-column="2" selection-end-line="26" selection-end-column="11" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/blokus/Runner.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="30">
+          <caret line="32" column="46" lean-forward="true" selection-start-line="32" selection-start-column="46" selection-end-line="32" selection-end-column="46" />
+          <folding>
+            <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>

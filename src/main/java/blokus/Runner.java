@@ -30,6 +30,7 @@ public class Runner {
         boolean[] lost = new boolean[board.getAmountOfPlayers()];
 
         while (true) {
+            new Scanner(System.in).nextLine();
 
             if (!board.hasMoves(turn)) {
                 lost[turn] = true;
@@ -86,8 +87,6 @@ public class Runner {
 
         System.out.println("Color " + winner + " won with " + finalScores.get(winner) + " points!");
         System.out.println(finalScores);
-
-
 
     }
 

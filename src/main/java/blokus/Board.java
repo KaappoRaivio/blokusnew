@@ -116,15 +116,19 @@ public class Board implements Serializable, Texelizeable {
         return fits(baseX, baseY, pieceID, color, orientation, flip, true);
     }
 
-    public boolean fits (int baseX, int baseY, PieceID pieceID, int color, Orientation orientation, boolean flip, boolean noDupe) {
-
-
+    private boolean fits (int baseX, int baseY, PieceID pieceID, int color, Orientation orientation, boolean flip, boolean noDupe) {
         if (pieceManager.isOnBoard(pieceID, color) && noDupe) {
             return false;
+        } else {
+            Piece piece = pieceManager.getCachedPiece(pieceID, color).rotate(orientation, flip);
+            return fits(baseX, baseY, piece);
         }
 
 
-        Piece piece = pieceManager.getCachedPiece(pieceID, color).rotate(orientation, flip);
+    }
+
+    private boolean fits (int baseX, int baseY, Piece piece) {
+
         char[][] mesh = piece.getMesh();
 
         boolean isConnected = false;
@@ -375,7 +379,6 @@ public class Board implements Serializable, Texelizeable {
     public List<Move> getAllFittingMoves (int color, List<PieceID> pieces) {
         List<Move> moves = new ArrayList<>();
         for (Position boardPosition : getEligibleCorners(color)) {
-            System.out.println(getAllFittingMoves(color, boardPosition.x, boardPosition.y, pieces));
             moves.addAll(getAllFittingMoves(color, boardPosition.x, boardPosition.y, pieces));
         }
 
@@ -397,25 +400,17 @@ public class Board implements Serializable, Texelizeable {
     public List<Move> getAllFittingMoves (int color, int x, int y, PieceID pieceID) {
         List<Move> moves = new ArrayList<>();
         Piece piece = pieceManager.getCachedPiece(pieceID, color);
-        System.out.println(piece);
 
 //        if (pieceID == PieceID.fromStandardNotation("L4")) {
-        if (x == 9 && y == 8 && pieceID == PieceID.fromStandardNotation("L4")) {
-            System.out.println("Entering debugger");
-        }
+
 
         for (PieceID.OrientationAndFlip orientationAndFlip: pieceID.getAllOrientations()) {
-            System.out.println(orientationAndFlip);
             for (Position position : piece.getSquares()) {
                 int baseX = x - position.x;
                 int baseY = y - position.y;
 
-                Move move = new Move(baseX, baseY, pieceID, color, orientationAndFlip.getOrientation(), orientationAndFlip.isFlip());
-
-
-
-                if (fits(move)) {
-                    moves.add(move);
+                if (fits(baseX, baseY, piece.rotate(orientationAndFlip.getOrientation(), orientationAndFlip.isFlip()))) {
+                    moves.add(new Move(baseX, baseY, pieceID, color, orientationAndFlip.getOrientation(), orientationAndFlip.isFlip()));
                 }
             }
         }
@@ -518,7 +513,7 @@ public class Board implements Serializable, Texelizeable {
             } catch (IndexOutOfBoundsException e) {
                 break;
             }
-            moves.addAll(getAllFittingMoves(color, Arrays.asList(current)));
+            moves.addAll(getAllFittingMoves(color, Collections.singletonList(current)));
             endIndex++;
         }
         return moves;
