@@ -30,8 +30,9 @@ public class RandomAi implements CapableOfPlaying {
     @Override
     public Move getMove() {
         List<Move> moves = board.getAllFittingMoves(color);
-//        return moves.get(new Random().nextInt(moves.size()));
-        return moves.get(moves.size() -1);
+        return moves.get(new Random().nextInt(moves.size()));
+//        return moves.get(0);
+//        return moves.get(moves.size() -1);
     }
 
     @Override

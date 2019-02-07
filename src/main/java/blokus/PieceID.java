@@ -96,6 +96,14 @@ public enum PieceID {
             this.orientation = orientation;
             this.flip = flip;
         }
+
+        @Override
+        public String toString() {
+            return "OrientationAndFlip{" +
+                    "orientation=" + orientation +
+                    ", flip=" + flip +
+                    '}';
+        }
     }
 
     public static PieceID fromStandardNotation (String notation) {

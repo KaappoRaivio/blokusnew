@@ -24,7 +24,7 @@ public class Terminal implements Screen, Serializable {
 
 
     private com.googlecode.lanterna.terminal.Terminal terminal;
-    private TerminalResizeListener resizeListener;
+//    private TerminalResizeListener resizeListener;
 
     private volatile Texel[][] buffer;
     private List<Sprite> sprites = new Vector<>();
@@ -34,14 +34,14 @@ public class Terminal implements Screen, Serializable {
             this.terminal = new DefaultTerminalFactory().createTerminal();
             terminal.setCursorVisible(false);
 //            this.resizeListener = new SimpleTerminalResizeListener(terminal.getTerminalSize());
-            this.resizeListener = new TerminalResizeListener() {
-                @Override
-                public void onResized(com.googlecode.lanterna.terminal.Terminal terminal, TerminalSize newSize) {
-                    System.out.println("Resized! New terminal size " + newSize.getColumns() + ", " + newSize.getRows());
-                    reinitializeBuffer(newSize.getColumns(), newSize.getRows());
-                }
-            };
-            terminal.addResizeListener(resizeListener);
+//            this.resizeListener = new TerminalResizeListener() {
+//                @Override
+//                public void onResized(com.googlecode.lanterna.terminal.Terminal terminal, TerminalSize newSize) {
+//                    System.out.println("Resized! New terminal size " + newSize.getColumns() + ", " + newSize.getRows());
+//                    reinitializeBuffer(newSize.getColumns(), newSize.getRows());
+//                }
+//            };
+//            terminal.addResizeListener(resizeListener);
 //            terminal.enableSGR(SGR.REVERSE);
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -105,7 +105,11 @@ public class Terminal implements Screen, Serializable {
 
     @Override
     public void drawTexelizeable (Texelizeable texelizeable, ColorPallet colorPallet, int posX, int posY, int scaleX, int scaleY) {
+
         Texel[][] buffer = texelizeable.texelize(colorPallet, scaleX, scaleY);
+        if (buffer.length > this.buffer.length || buffer[0].length > this.buffer[0].length) {
+            reinitializeBuffer(buffer[0].length, buffer.length);
+        }
 
         for (int y = 0; y < buffer.length; y++) {
             for (int x = 0; x < buffer[y].length; x++) {

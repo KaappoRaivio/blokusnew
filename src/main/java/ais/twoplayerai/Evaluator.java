@@ -8,8 +8,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Vector;
 
-import static java.lang.Math.max;
-import static java.lang.Math.min;
+import static java.lang.Math.*;
 
 public class Evaluator {
     private int color;
@@ -111,36 +110,54 @@ public class Evaluator {
     }
 
 
-    private float decisionTree (Board position, int depth, int turn) {
-        if (depth == 0 || !position.hasMoves(turn)) {
-            return evaluatePosition(position);
+    private float decisionTree (Board node, int depth, int turn, float alpha, float beta) {
+        if (depth == 0 || !node.hasMoves(turn)) {
+            return evaluatePosition(node);
         }
 
         if (turn == color) { // max
-            float value = -10000000;
+            float value = -1e10f;
 
-            for (Move move : position.getFirstNFittingMoves(getN(), turn)) {
-                position.putOnBoard(move);
-                value = max(value, decisionTree(position, depth - 1, 1 - turn));
-                position.undo(0);
+            for (Move move : node.getFirstNFittingMoves(getN(), turn)) {
+                node.putOnBoard(move);
+                value = max(value, decisionTree(node, depth - 1, 1 - turn, alpha, beta));
+                alpha = max(alpha, value);
+
+                if (alpha >= beta) {
+                    node.undo(0);
+//                    return beta;
+                    break;
+                }
+
+                node.undo(0);
             }
 
             return value;
-        } else { // min
-            float value = 10000000;
 
-            for (Move move : position.getFirstNFittingMoves(getN(), turn)) {
-                position.putOnBoard(move);
-                value = min(value, decisionTree(position, depth - 1, 1 - turn));
-                position.undo(0);
+        } else { // min
+            float value = 1e10f;
+
+            for (Move move : node.getFirstNFittingMoves(getN(), turn)) {
+                node.putOnBoard(move);
+                value = min(value, decisionTree(node, depth - 1, 1 - turn, alpha, beta));
+                beta = min(beta, value);
+
+                if (alpha >= beta) {
+                    node.undo(0);
+//                    return beta;
+                    break;
+                }
+
+                node.undo(0);
             }
 
+//            System.out.println("Alpha is smaller! returning " + beta + " as beta!");
             return value;
         }
     }
 
     float evaluateMove(Board position, int depth) {
-        return decisionTree(position, depth, color);
+        return decisionTree(position, depth, color, 1e10f, -1e10f);
     }
 
     public int getN() {

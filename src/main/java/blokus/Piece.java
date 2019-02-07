@@ -45,7 +45,7 @@ public class Piece implements java.io.Serializable {
     private final PieceID id;
     private final Orientation orientation;
     private final boolean flipped;
-    private final int amountOfSquares;
+    private int amountOfSquares;
     private List<Position> squares = new Vector<>();
     private int dimX;
     private int dimY;
@@ -91,10 +91,9 @@ public class Piece implements java.io.Serializable {
     }
 
     private void initializeMesh () {
-
         for (int y = 0; y < mesh.length; y++) {
             for (int x = 0; x < mesh[y].length; x++) {
-                this.mesh[x][y] = Piece.TRANSPARENT;
+                this.mesh[y][x] = Piece.TRANSPARENT;
             }
         }
     }
@@ -120,50 +119,56 @@ public class Piece implements java.io.Serializable {
         }
 
         String[] lines = text.split("\n");
+        System.out.println(lines.length);
         dimY = lines.length;
         dimX = lines[0].length();
+        System.out.println(dimX + ", " + dimY);
 
-        int counter = 0;
 
         for (int y = 0; y < dimY; y++) {
             for (int x = 0; x < dimX; x++) {
                 char current = lines[y].charAt(x);
-
                 switch (current) {
                     case Piece.TRANSPARENT:
-                        mesh[x][y] = Piece.TRANSPARENT;
+                        mesh[y][x] = Piece.TRANSPARENT;
                         break;
                     case Piece.OPAQUE:
-                        counter++;
-                        squares.add(new Position(x, y));
-                        mesh[x][y] = Piece.OPAQUE;
+                        mesh[y][x] = Piece.OPAQUE;
                         break;
                     default:
                         System.out.println("Invalid data in " + pieceID + " at " + x + ", " + y + "!" );
-                        mesh[x][y] = Piece.TRANSPARENT;
+                        mesh[y][x] = Piece.TRANSPARENT;
                         break;
 
                 }
             }
         }
 
-        this.amountOfSquares = counter;
         this.id = pieceID;
         this.orientation = Orientation.UP;
         this.flipped = false;
+        refreshSquares();
 
+        if (amountOfSquares != pieceID.getAmountOfSquares()) {
+            throw new RuntimeException("Wrong amount of sqares in resource. Found " + amountOfSquares + ", expecting " + pieceID.getAmountOfCorners());
+        }
     }
 
     private void refreshSquares () {
         squares = new Vector<>();
 
+        int counter = 0;
+
         for (int x = 0; x < dimX; x++) {
             for (int y = 0; y < dimY; y++) {
-                if (mesh[x][y] == OPAQUE) {
+                if (mesh[y][x] == OPAQUE) {
+                    counter++;
                     squares.add(new Position(x, y));
                 }
             }
         }
+
+        amountOfSquares = counter;
     }
 
     public int getAmountOfSquares () {
@@ -176,6 +181,9 @@ public class Piece implements java.io.Serializable {
         } else {
             throw new RuntimeException("Invalid color " + color + "!");
         }
+
+        dimY = mesh.length;
+        dimX = mesh[0].length;
 
         initializeMesh();
 
@@ -190,18 +198,18 @@ public class Piece implements java.io.Serializable {
     }
 
     private void moveLeft () {
-        for (int y = 0; y < 5; y++) {
-            if (mesh[0][y] == Piece.OPAQUE) {
+        for (int y = 0; y < dimY; y++) {
+            if (mesh[y][0] == Piece.OPAQUE) {
                 return;
             }
         }
 
-        for (int x = 0; x < 5; x++) {
-            for (int y = 0; y < 5; y++) {
-                if (x + 1 >= 5) {
-                    mesh[x][y] = Piece.TRANSPARENT;
+        for (int y = 0; y < dimY; y++) {
+            for (int x = 0; x < dimX; x++) {
+                if (x + 1 >= dimX) {
+                    mesh[y][x] = Piece.TRANSPARENT;
                 } else {
-                    mesh[x][y] = mesh[x + 1][y];
+                    mesh[y][x] = mesh[y][x + 1];
                 }
             }
         }
@@ -211,17 +219,17 @@ public class Piece implements java.io.Serializable {
 
     private void moveUp () {
         for (int x = 0; x < 5; x++) {
-            if (mesh[x][0] == Piece.OPAQUE) {
+            if (mesh[0][x] == Piece.OPAQUE) {
                 return;
             }
         }
 
         for (int y = 0; y < 5; y++) {
             for (int x = 0; x < 5; x++) {
-                if (y >= 4) {
-                    mesh[x][y] = Piece.TRANSPARENT;
+                if (y + 1 >= dimY) {
+                    mesh[y][x] = Piece.TRANSPARENT;
                 } else {
-                    mesh[x][y] = mesh[x][y + 1];
+                    mesh[y][x] = mesh[y + 1][x];
                 }
             }
         }
@@ -230,46 +238,57 @@ public class Piece implements java.io.Serializable {
     }
 
     public Piece rotate (Orientation orientation, boolean flip) {
-        char[][] newlist = new char[5][5];
+        char[][] newList;
 
 
         switch (orientation) {
             case UP:
-                newlist = this.mesh;
+                newList = new char[dimY][dimX];
+
+                newList = mesh;
                 break;
             case DOWN:
-                for (int y = 0; y < this.mesh.length; y++) {
-                    for (int x = 0; x < this.mesh[y].length; x++) {
-                        newlist[4 - y][4 - x] = this.mesh[y][x];
+                newList = new char[dimY][dimX];
+
+                for (int y = 0; y < mesh.length; y++) {
+                    for (int x = 0; x < mesh[y].length; x++) {
+                        newList[dimY - y - 1][dimX - x - 1] = mesh[y][x];
                     }
                 }
                 break;
             case LEFT:
-                for (int y = 0; y < this.mesh.length; y++) {
-                    for (int x = 0; x < this.mesh[y].length; x++) {
-                        newlist[4 - x][y] = this.mesh[y][x];
+                newList = new char[dimX][dimY];
+
+                for (int y = 0; y < mesh.length; y++) {
+                    for (int x = 0; x < mesh[y].length; x++) {
+                        newList[dimX - x - 1][y] = mesh[y][x];
                     }
                 }
                 break;
             case RIGHT:
-                for (int y = 0; y < this.mesh.length; y++) {
-                    for (int x = 0; x < this.mesh[y].length; x++) {
-                        newlist[x][4 - y] = this.mesh[y][x];
+                newList = new char[dimX][dimY];
+
+                for (int y = 0; y < mesh.length; y++) {
+                    for (int x = 0; x < mesh[y].length; x++) {
+                        newList[x][dimY - y - 1] = mesh[y][x];
                     }
                 }
                 break;
+
+            default:
+                throw new RuntimeException("Shouln't get here");
         }
 
-        char[][] afterFlip = new char[5][5];
+        char[][] afterFlip = new char[dimY][dimX];
 
         if (flip) {
-            for (int y = 0; y < this.mesh.length; y++) {
-                for (int x = 0; x < this.mesh[y].length; x++) {
-                    afterFlip[y][4 - x] = newlist[y][x];
+            for (int y = 0; y < mesh.length; y++) {
+                for (int x = 0; x < mesh[y].length; x++) {
+                    afterFlip[y][dimX - x - 1] = newList[y][x];
                 }
             }
         } else {
-            afterFlip = newlist;
+            afterFlip = newList;
         }
         Piece piece = new Piece(afterFlip, this.color, this.getID(), orientation, flip, this.isOnBoard(), this.getAmountOfSquares());
         piece.moveLeft();
@@ -354,5 +373,12 @@ public class Piece implements java.io.Serializable {
 
     public static int amountOfUniquePieces () {
         return 21;
+    }
+
+    public static void main (String[] args) {
+        Piece piece = new Piece(PieceID.PIECE_19, 0);
+        for (Piece orientationAndFlip : piece.getAllOrientations()) {
+            System.out.println(orientationAndFlip);
+        }
     }
 }

@@ -373,8 +373,9 @@ public class Board implements Serializable, Texelizeable {
     }
 
     public List<Move> getAllFittingMoves (int color, List<PieceID> pieces) {
-        List<Move> moves = new Vector<>();
+        List<Move> moves = new ArrayList<>();
         for (Position boardPosition : getEligibleCorners(color)) {
+            System.out.println(getAllFittingMoves(color, boardPosition.x, boardPosition.y, pieces));
             moves.addAll(getAllFittingMoves(color, boardPosition.x, boardPosition.y, pieces));
         }
 
@@ -383,7 +384,7 @@ public class Board implements Serializable, Texelizeable {
     }
 
     private List<Move> getAllFittingMoves (int color, int x, int y, List<PieceID> pieces) {
-        List<Move> moves = new Vector<>();
+        List<Move> moves = new ArrayList<>();
 
         for (PieceID pieceID : pieces) {
             moves.addAll(getAllFittingMoves(color, x, y, pieceID));
@@ -394,10 +395,17 @@ public class Board implements Serializable, Texelizeable {
 
 
     public List<Move> getAllFittingMoves (int color, int x, int y, PieceID pieceID) {
-        List<Move> moves = new Vector<>();
+        List<Move> moves = new ArrayList<>();
         Piece piece = pieceManager.getCachedPiece(pieceID, color);
+        System.out.println(piece);
+
+//        if (pieceID == PieceID.fromStandardNotation("L4")) {
+        if (x == 9 && y == 8 && pieceID == PieceID.fromStandardNotation("L4")) {
+            System.out.println("Entering debugger");
+        }
 
         for (PieceID.OrientationAndFlip orientationAndFlip: pieceID.getAllOrientations()) {
+            System.out.println(orientationAndFlip);
             for (Position position : piece.getSquares()) {
                 int baseX = x - position.x;
                 int baseY = y - position.y;
@@ -442,10 +450,11 @@ public class Board implements Serializable, Texelizeable {
     }
 
     private List<Position> getEligibleCorners (int color) {
-        List<Position> corners = new Vector<>();
+        List<Position> corners = new ArrayList<>();
 
         for (int y = 0; y < dimY; y++) {
             for (int x = 0; x < dimX; x++) {
+
                 if (isEligibleCorner(color, x, y)) {
                     corners.add(new Position(x, y));
                 }
@@ -499,7 +508,7 @@ public class Board implements Serializable, Texelizeable {
             }
         });
 
-        List<Move> moves = new Vector<>();
+        List<Move> moves = new ArrayList<>();
         int endIndex = 0;
         while (moves.size() < n) {
             PieceID current;
