@@ -8,7 +8,7 @@ public class MoveAndScore {
     private Move move;
     private boolean isMovePresent;
     private boolean isScorePresent;
-    private float score;
+    private double score;
 
     public MoveAndScore (Move move) {
         if (move == null) {
@@ -34,11 +34,11 @@ public class MoveAndScore {
         return isScorePresent;
     }
 
-    public float getScore() {
+    public double getScore() {
         return score;
     }
 
-    public MoveAndScore(Move move, boolean isScorePresent, boolean isMovePresent, float score) {
+    public MoveAndScore(Move move, boolean isScorePresent, boolean isMovePresent, double score) {
         this.move = move;
         this.isScorePresent = isScorePresent;
         this.isMovePresent = isMovePresent;
@@ -60,7 +60,7 @@ public class MoveAndScore {
         MoveAndScore that = (MoveAndScore) o;
         return isMovePresent == that.isMovePresent &&
                 isScorePresent == that.isScorePresent &&
-                Float.compare(that.score, score) == 0 &&
+                Double.compare(that.score, score) == 0 &&
                 move.equals(that.move);
     }
 

@@ -21,6 +21,8 @@ public class Terminal implements Screen, Serializable {
     public static final char TRANSPARENT = ' ';
     public static final TextColor.RGB foregroundColor = new TextColor.RGB(255, 255, 255);
     public static final TextColor.RGB backgroundColor = new TextColor.RGB(0, 0, 0);
+    private final int dimX;
+    private final int dimY;
 
 
     private com.googlecode.lanterna.terminal.Terminal terminal;
@@ -29,7 +31,11 @@ public class Terminal implements Screen, Serializable {
     private volatile Texel[][] buffer;
     private List<Sprite> sprites = new Vector<>();
 
-    public Terminal () {
+    public Terminal (int dimX, int dimY) {
+        this.dimX = dimX;
+        this.dimY = dimY;
+
+
         try {
             this.terminal = new DefaultTerminalFactory().createTerminal();
             terminal.setCursorVisible(false);
@@ -49,7 +55,7 @@ public class Terminal implements Screen, Serializable {
 
 
 
-        this.buffer = new Texel[getDimY()][getDimX()];
+        this.buffer = new Texel[dimY][dimX];
 
 
         initializeBuffer();

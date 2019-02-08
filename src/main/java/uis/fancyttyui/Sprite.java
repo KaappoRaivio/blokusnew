@@ -95,7 +95,7 @@ public class Sprite implements Serializable, Texelizeable {
     }
 
     public static void main (String[] args) {
-        Screen screen = new Terminal();
+        Screen screen = new Terminal(16, 16);
 
         Board board = Board.fromFile("/home/kaappo/git/blokus/src/main/resources/boards/Sat Feb 02 20:04:00 EET 2019.ser", false);
         Sprite boardSprite = new Sprite(board.texelize(new DefaultPallet(), 1, 1), '$');

@@ -1,5 +1,7 @@
 package blokus;
 
+import ais.twoplayerai.Evaluator;
+
 public interface CapableOfPlaying {
     Move getMove();
     void updateValues (Board board, int turn, int moveCount);

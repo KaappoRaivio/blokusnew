@@ -86,8 +86,8 @@ public class KeyListener implements Runnable {
                 @Override public void print(char c) {}
                 @Override public void print(int i) {}
                 @Override public void print(long l) {}
-                @Override public void print(float f) {}
-                @Override public void print(double d) {}
+                @Override public void print(double f) {}
+                @Override public void print(float d) {}
                 @Override public void print(char[] s) {}
                 @Override public void print(String s) {}
                 @Override public void print(Object obj) {}
@@ -96,8 +96,8 @@ public class KeyListener implements Runnable {
                 @Override public void println(char x) {}
                 @Override public void println(int x) {}
                 @Override public void println(long x) {}
-                @Override public void println(float x) {}
                 @Override public void println(double x) {}
+                @Override public void println(float x) {}
                 @Override public void println(char[] x) {}
                 @Override public void println(String x) {}
                 @Override public void println(Object x) {}

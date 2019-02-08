@@ -9,6 +9,7 @@ import blokus.PiecePallet;
 import listener.KeyEventListener;
 import listener.KeyListener;
 import org.jnativehook.keyboard.NativeKeyEvent;
+import uis.Texel;
 import uis.UI;
 
 import java.io.Serializable;
@@ -33,7 +34,10 @@ public class FancyTtyUI implements UI, Serializable {
         this.board = board;
         this.scaleX = scaleX;
         this.scaleY = scaleY;
-        this.screen = new Terminal();
+
+        Texel[][] texelMesh = board.texelize(new DefaultPallet(), scaleX, scaleY);
+
+        this.screen = new Terminal(texelMesh[0].length, texelMesh.length);
 
 //        boardSprite = new Sprite(board.texelize(new DefaultPallet(), scaleX, scaleY), Terminal.TRANSPARENT);
 //        screen.addSprite(boardSprite);

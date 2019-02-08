@@ -11,22 +11,26 @@ public class Main {
     public static void main(String[] args) {
 
 
-        Board board = new Board(10, 10, new MyPieceManager(2));
-//        Board board = Board.fromFile("/home/kaappo/git/blokusnew/src/main/resources/boards/Thu Feb 07 20:28:59 EET 2019.ser", false);
+        Board board = new Board(14, 14, new MyPieceManager(2));
+//        Board board = Board.fromFile("/home/kaappo/git/blokus/src/main/resources/boards/Fri Feb 08 10:33:17 EET 2019.ser", false);
 
-        UI ui = new FancyTtyUI(board.deepCopy(), 1, 1);
+        UI ui = new FancyTtyUI(board.deepCopy(), 2, 2);
         ui.commit();
 //
 //        synchronized (Thread.currentThread()) {
 //            try {
-//                System.out.println(board.hasMoves( 0));
+////                System.out.println(board.hasMoves( 0));
+//                Evaluator evaluator1 = new Evaluator(0, 0.5f, 1.0f, 5.0f, 2.0f, 400, ui);
+//                Evaluator evaluator2 = new Evaluator(1, 0.5f, 1.0f, 5.0f, 2.0f, 400, ui);
+//                System.out.println(evaluator1.evaluatePosition(board));
+//                System.out.println(evaluator2.evaluatePosition(board));
 //                Thread.currentThread().wait();
 //            } catch (InterruptedException e) {
 //                e.printStackTrace();
 //            }
 //        }
 
-        int depth = 12;
+        int depth = 4;
 
 
 //        CapableOfPlaying[] players = new CapableOfPlaying[]{
@@ -35,12 +39,20 @@ public class Main {
 //        };
 
         CapableOfPlaying[] players = new CapableOfPlaying[]{
-                new TwoPlayerAi(board.deepCopy(), 0, "color 0", ui, depth, new Evaluator(0, 0.5f, 1.0f, 500.0f, 800.0f, 400, ui), false),
-                new TwoPlayerAi(board.deepCopy(), 1, "color 1", ui, depth + 1, new Evaluator(1, 0.5f, 1.0f, 500.0f, 800.0f, 400, ui), false),
+
+                new Player(board.deepCopy(), 0, null, ui),
+                new Player(board.deepCopy(), 1, null, ui),
 //                new TwoPlayerAi(board.deepCopy(), 1, "color 1", ui, depth, new Evaluator(1, 3f, 1.0f, 50000.0f, 80000.0f, 400, ui), false),
 //                new RandomAi(board.deepCopy(), 0, "bad", ui),
 //                new TwoPlayerAi(board.deepCopy(), 1, "good (hopefully)", ui, depth, new Evaluator(1, 0.5f, 1.0f, 5.0f, 10.0f, 400, ui), true)
 //                new RandomAi(board.deepCopy(), 1, null, ui)
+        };
+
+        TwoPlayerAi twoPlayerAi0 = new TwoPlayerAi(board.deepCopy(), 0, "color 0", ui, depth, new Evaluator(0, 1, 1.0, 1, 1, 400, ui), false);
+        TwoPlayerAi towPlayerAi1 = new TwoPlayerAi(board.deepCopy(), 1, "color 1", ui, depth, new Evaluator(1, 1, 1.0, 1, 1, 400, ui), false);
+
+        Spectator[] spectators = new Spectator[]{
+                new MoveAnalyzer(twoPlayerAi0, towPlayerAi1)
         };
 //
 //        CapableOfPlaying[] players = new CapableOfPlaying[]{
@@ -50,7 +62,7 @@ public class Main {
 //        CapableOfPlaying[] players = new CapableOfPlaying[]{new Player(board.deepCopy(), 0, null, ui), new Player(board.deepCopy(), 1, null, ui)};
 //        CapableOfPlaying[] players = new CapableOfPlaying[]{}
 
-        Runner runner = new Runner(board, players, ui);
+        Runner runner = new Runner(board, players, spectators, ui);
 //        runner.getGameHistory().save();
 //        GameHistory gameHistory = new Saver<GameHistory>().fromFile("/home/kaappo/git/blokus/src/main/resources/games/Wed Feb 06 12:34:50 EET 2019.ser", false);
 //        System.out.println(gameHistory);

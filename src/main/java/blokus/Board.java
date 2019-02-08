@@ -425,7 +425,7 @@ public class Board implements Serializable, Texelizeable {
     }
 
     private boolean isEligibleCorner (int color, int x, int y) {
-        if (!isColorOnBoard(color) && isCorner(x, y)) {
+        if (!isColorOnBoard(color) && isCorner(x, y) && isEmpty(x, y)) {
             return true;
         }
 
@@ -443,6 +443,14 @@ public class Board implements Serializable, Texelizeable {
         boolean corners = topRight == color || bottomRight == color || topLeft == color || bottomLeft == color;
 
         return edges && corners;
+    }
+
+    private boolean isEmpty(int x, int y) {
+        try{
+            return board[y][x] == NO_PIECE;
+        } catch (ArrayIndexOutOfBoundsException e) {
+            return false;
+        }
     }
 
     private List<Position> getEligibleCorners (int color) {
@@ -579,11 +587,13 @@ public class Board implements Serializable, Texelizeable {
 
         if (pallet.drawCoordinates()) {
             for (int x = 1; x < getDimX() + 1; x++) {
-                newBuffer[newBuffer.length - 1][2 * x] = newBuffer[0][2 * x] = new Texel(pallet.getCoordinateForegroundColor(), pallet.getCoordinateBackgroundColor(), Character.forDigit((x - 1) % 10, 10));
+                newBuffer[newBuffer.length - 1][2 * x * scaleX] = new Texel(pallet.getCoordinateForegroundColor(), pallet.getCoordinateBackgroundColor(), Character.forDigit((x - 1) % 10, 10));
+                newBuffer[0][2 * x * scaleX] = new Texel(pallet.getCoordinateForegroundColor(), pallet.getCoordinateBackgroundColor(), Character.forDigit((x - 1) % 10, 10));
             }
 
             for (int y = 1; y < getDimY() + 1; y++) {
-                newBuffer[y][newBuffer[0].length - 1] = newBuffer[y][0] = new Texel(pallet.getCoordinateForegroundColor(), pallet.getCoordinateBackgroundColor(), Character.forDigit((y - 1) % 10, 10));
+                newBuffer[y * scaleY][newBuffer[0].length - 1] = new Texel(pallet.getCoordinateForegroundColor(), pallet.getCoordinateBackgroundColor(), Character.forDigit((y - 1) % 10, 10));
+                newBuffer[y * scaleY][0] = new Texel(pallet.getCoordinateForegroundColor(), pallet.getCoordinateBackgroundColor(), Character.forDigit((y - 1) % 10, 10));
             }
         }
 

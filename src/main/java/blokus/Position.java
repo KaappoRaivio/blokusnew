@@ -11,7 +11,7 @@ public class Position implements Serializable {
         this.y = y;
     }
 
-    public float getAverage () {
+    public double getAverage () {
         return (x + y) / 2.0f;
     }
 

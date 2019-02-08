@@ -110,13 +110,13 @@ public class TwoPlayerAi extends Player {
             bestMove = moveScores.get(0);
         }
 
-        Board board = searchPosition(bestMove);
-        evaluator.resetBoardsAndScore();
-        board.save();
-        ui.updateValues(board, 0, moveCount + depth - 1);
-        ui.commit();
-        System.out.print("Press enter to continue> ");
-        new Scanner(System.in).nextLine();
+//        Board board = searchPosition(bestMove);
+//        evaluator.resetBoardsAndScore();
+//        board.save();
+//        ui.updateValues(board, 0, moveCount + depth - 1);
+//        ui.commit();
+//        System.out.print("Press enter to continue> ");
+//        new Scanner(System.in).nextLine();
 
 
 
@@ -144,12 +144,12 @@ public class TwoPlayerAi extends Player {
     }
 
     protected List<MoveAndScore> getMoveCallBack(List<Move> possibleMoves, Board board, int depth) {
-//        Map<Float, Move> moveScores = new HashMap<>();
+//        Map<double, Move> moveScores = new HashMap<>();
         List<MoveAndScore> moveScores = new Vector<>();
 
         for (Move move : possibleMoves) {
             board.putOnBoard(move);
-            float score = evaluator.evaluateMove(board, depth, move);
+            double score = evaluator.evaluateMove(board, depth, move);
             board.undo(0);
 //            moveScores.put(score, move);
             moveScores.add(new MoveAndScore(move, true, true, score));
@@ -172,11 +172,11 @@ public class TwoPlayerAi extends Player {
 
 //        List<Move> bestMoves = new Vector<>();
 //
-//        float maxScore = -1000000000.0f;
+//        double maxScore = -1000000000.0f;
 //
 //        moveScores.v
 //
-//        for (float f : moveScores.keySet()) {
+//        for (double f : moveScores.keySet()) {
 //            maxScore = max(maxScore, f);
 //        }
 //        return new MoveAndScore(moveScores.get(maxScore), true, true, maxScore);
