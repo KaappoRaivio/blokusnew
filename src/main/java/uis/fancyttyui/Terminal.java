@@ -3,13 +3,17 @@ package uis.fancyttyui;
 import com.googlecode.lanterna.SGR;
 import com.googlecode.lanterna.TerminalSize;
 import com.googlecode.lanterna.TextColor;
+import com.googlecode.lanterna.gui2.Panel;
 import com.googlecode.lanterna.terminal.DefaultTerminalFactory;
 import com.googlecode.lanterna.terminal.ResizeListener;
 import com.googlecode.lanterna.terminal.SimpleTerminalResizeListener;
 import com.googlecode.lanterna.terminal.TerminalResizeListener;
+import com.googlecode.lanterna.terminal.swing.SwingTerminal;
+import com.googlecode.lanterna.terminal.swing.SwingTerminalFrame;
 import uis.Texel;
 import uis.Texelizeable;
 
+import java.awt.*;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -35,10 +39,15 @@ public class Terminal implements Screen, Serializable {
         this.dimX = dimX;
         this.dimY = dimY;
 
+        System.out.println(dimX + ", " + dimY);
+
 
         try {
             this.terminal = new DefaultTerminalFactory().createTerminal();
             terminal.setCursorVisible(false);
+            ((SwingTerminalFrame) terminal).setSize(new Dimension(dimX / 2 * 16, dimY * 19));
+            ((SwingTerminalFrame) terminal).setAlwaysOnTop(true);
+
 //            this.resizeListener = new SimpleTerminalResizeListener(terminal.getTerminalSize());
 //            this.resizeListener = new TerminalResizeListener() {
 //                @Override

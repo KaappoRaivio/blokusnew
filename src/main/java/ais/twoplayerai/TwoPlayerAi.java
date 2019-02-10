@@ -112,7 +112,6 @@ public class TwoPlayerAi extends Player {
 
 //        Board board = searchPosition(bestMove);
 //        evaluator.resetBoardsAndScore();
-//        board.save();
 //        ui.updateValues(board, 0, moveCount + depth - 1);
 //        ui.commit();
 //        System.out.print("Press enter to continue> ");

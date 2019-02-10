@@ -2,26 +2,21 @@ package ais.twoplayerai;
 
 import blokus.*;
 import misc.BoardAndMoveAndScore;
-import misc.MoveAndScore;
-import org.apache.commons.lang3.ArrayUtils;
-import uis.Color;
 import uis.UI;
 import uis.fancyttyui.FancyTtyUI;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.Vector;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 import static java.lang.Math.*;
 
 public class Evaluator {
     private int color;
-    private double squaresOnBoardDivider;
-    private double cornersFreeDivider;
-    private double spreadDivider;
-    private double averageDivider;
+    private double squaresOnBoardWeight;
+    private double cornersFreeWeight;
+    private double spreadWeight;
+    private double averageWeight;
+    private double aggression;
     private int n;
     private UI ui;
 
@@ -35,14 +30,15 @@ public class Evaluator {
 
     private List<BoardAndMoveAndScore> boardAndMoveAndScores;
 
-    public Evaluator(int color, double squaresOnBoardDivider, double cornersFreeDivider, double spreadDivider, double averageDivider, int n, UI ui) {
+    public Evaluator(int color, double squaresOnBoardWeight, double cornersFreeWeight, double spreadWeight, double averageWeight, double aggression, int n, UI ui) {
         this.color = color;
-        this.squaresOnBoardDivider = squaresOnBoardDivider;
-        this.cornersFreeDivider = cornersFreeDivider;
-        this.spreadDivider = spreadDivider;
+        this.squaresOnBoardWeight = squaresOnBoardWeight;
+        this.cornersFreeWeight = cornersFreeWeight;
+        this.spreadWeight = spreadWeight;
+        this.aggression = aggression;
 
         this.n = n;
-        this.averageDivider = averageDivider;
+        this.averageWeight = averageWeight;
         this.ui = ui;
         boardAndMoveAndScores = new Vector<>() {
             @Override
@@ -113,20 +109,29 @@ public class Evaluator {
         return evaluatePosition(position, false);
     }
 
-    public double evaluatePosition(Board position, boolean verbose) {
-        double[] parameters = new double[]{
-                ((double) howManySquaresOnBoard(position, color) - (double) howManySquaresOnBoard(position, 1 - color)) / squaresOnBoardDivider,
-                ((double) howManyCornersFree(position, color) - (double) howManyCornersFree(position, 1 - color)) / cornersFreeDivider,
-                ((double) howMuchSpread(position, color) - (double) howMuchSpread(position, 1 - color)) / spreadDivider,
-//                -(Math.abs(getAverage(position, color).getAverage() - getAverage(position, 1 - color).getAverage())) / averageDivider
-        };
+    private int counter;
 
-        if (verbose) {
-            System.out.println("\t" + Stream.of(howManySquaresOnBoard(position, color), howManyCornersFree(position, color), howMuchSpread(position, color)).map(String::valueOf).collect(Collectors.joining(" ")));
-            System.out.println("-\t" + Stream.of(howManySquaresOnBoard(position, 1 - color), howManyCornersFree(position, 1 - color), howMuchSpread(position, 1 - color)).map(String::valueOf).collect(Collectors.joining(" ")));
-            System.out.println("=\t" + parameters[0] + " " + parameters[1] + " " + parameters[2]);
-            System.out.println(Arrays.toString(parameters));
-        }
+    public double evaluatePosition(Board position, boolean verbose) {
+//        return  0.0;
+        double[] parameters = new double[]{
+                ((double) howManySquaresOnBoard(position, color) - (double) howManySquaresOnBoard(position, 1 - color)) * squaresOnBoardWeight,
+                ((double) howManyCornersFree(position, color) - (double) howManyCornersFree(position, 1 - color) * aggression) * cornersFreeWeight,
+                ((double) howMuchSpread(position, color) - (double) howMuchSpread(position, 1 - color)) * spreadWeight,
+                -(Math.abs(getAverage(position, color).getAverage() - getAverage(position, 1 - color).getAverage())) * averageWeight
+        };
+//        double[] parameters = new double[]{
+////                new Random().nextFloat()
+////                counter++
+//                ((double) howMuchSpread(position, color) - (double) howMuchSpread(position, 1 - color)) / spreadWeight,
+//
+//        };
+
+//        if (verbose) {
+//            System.out.println("\t" + Stream.of(howManySquaresOnBoard(position, color), howManyCornersFree(position, color), howMuchSpread(position, color)).map(String::valueOf).collect(Collectors.joining(" ")));
+//            System.out.println("-\t" + Stream.of(howManySquaresOnBoard(position, 1 - color), howManyCornersFree(position, 1 - color), howMuchSpread(position, 1 - color)).map(String::valueOf).collect(Collectors.joining(" ")));
+//            System.out.println("=\t" + parameters[0] + " " + parameters[1] + " " + parameters[2]);
+//            System.out.println(Arrays.toString(parameters));
+//        }
 
         double average = 0.0f;
 
@@ -139,19 +144,20 @@ public class Evaluator {
 
 
     private double decisionTree (Board node, int depth, boolean maximizingPlayer, double alpha, double beta, Move initialMove) {
-        if (depth <= 0 && sameAmountOfPiecesOnBoard(node)) {
+//        if (depth <= 0 && sameAmountOfPiecesOnBoard(node)) {
+        if (depth <= 0) {
 //            System.out.println("Hei");
 //            System.out.println(node);
-            ui.updateValues(node.deepCopy(), maximizingPlayer ? color : 1 - color, 0);
-            ui.commit();
-            boardAndMoveAndScores.add(new BoardAndMoveAndScore(node.deepCopy(), new MoveAndScore(initialMove, true, true, evaluatePosition(node))));
+//            ui.updateValues(node.deepCopy(), maximizingPlayer ? color : 1 - color, 0);
+//            ui.commit();
+//            boardAndMoveAndScores.add(new BoardAndMoveAndScore(node.deepCopy(), new MoveAndScore(initialMove, true, true, evaluatePosition(node))));
 
             return evaluatePosition(node);
 
         } else if ( !node.hasMoves(maximizingPlayer ? color : 1 - color)) {
-            boardAndMoveAndScores.add(new BoardAndMoveAndScore(node.deepCopy(), new MoveAndScore(initialMove, true, true, evaluatePosition(node))));
+//            boardAndMoveAndScores.add(new BoardAndMoveAndScore(node.deepCopy(), new MoveAndScore(initialMove, true, true, evaluatePosition(node))));
 
-            return -1e10f;
+            return -1e10f + evaluatePosition(node);
         }
 
         if (maximizingPlayer) {
@@ -169,6 +175,7 @@ public class Evaluator {
 
                 node.undo(0);
             }
+
 
             return value;
 
@@ -189,6 +196,7 @@ public class Evaluator {
             }
 
 //            System.out.println("Alpha is smaller! returning " + beta + " as beta!");
+
             return value;
         }
     }
@@ -198,7 +206,7 @@ public class Evaluator {
     }
 
     double evaluateMove(Board position, int depth, Move initialMove) {
-        return decisionTree(position, depth, false, 1e10f, -1e10f, initialMove);
+        return decisionTree(position, depth, false, -1e10f, 1e10f, initialMove);
     }
 
     public int getN() {
@@ -211,7 +219,7 @@ public class Evaluator {
 
         UI ui = new FancyTtyUI(board, 1, 1);
         ui.commit();
-        Evaluator evaluator = new Evaluator(0, 10.0f, 10.0f, 8.0f, 8.0f, 0, ui);
+        Evaluator evaluator = new Evaluator(0, 10.0f, 10.0f, 8.0f, 8.0f, 1,0, ui);
 
         System.out.println(evaluator.howMuchSpread(board, 0) + ", " + evaluator.howMuchSpread(board, 1));
         evaluator.howManySquaresOnBoard(board, 0);
