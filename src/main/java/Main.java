@@ -48,8 +48,8 @@ public class Main {
 ////                new RandomAi(board.deepCopy(), 1, null, ui)
 //        };
 
-        TwoPlayerAi twoPlayerAi0 = new TwoPlayerAi(board.deepCopy(), 0, "color 0", ui, depth, new Evaluator(0, 1, 1.0, 0.2, 0.1,2,  300, ui), false);
-        TwoPlayerAi twoPlayerAi1 = new TwoPlayerAi(board.deepCopy(), 1, "color 1", ui, depth, new Evaluator(1, 1, 1.0, 0.2, 0.1, 1, 300, ui), false);
+        TwoPlayerAi twoPlayerAi0 = new TwoPlayerAi(board.deepCopy(), 0, "color 0", ui, depth, new Evaluator(0, 1, 1.0, 0.2, 0.1,2,  40, ui), false);
+        TwoPlayerAi twoPlayerAi1 = new TwoPlayerAi(board.deepCopy(), 1, "color 1", ui, depth, new Evaluator(1, 1, 1.0, 0.2, 0.1, 1, 40, ui), false);
 
         Spectator[] spectators = new Spectator[]{
                 new MoveAnalyzer(twoPlayerAi0, twoPlayerAi1)

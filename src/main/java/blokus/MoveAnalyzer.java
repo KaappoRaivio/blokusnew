@@ -18,7 +18,7 @@ public class MoveAnalyzer implements Spectator {
 
     @Override
     public void updateValues(Board board, int turn, int moveCount) {
-        System.out.println("0: " + ai1.getEvaluator().evaluatePosition(board, true));
-        System.out.println("1: " + ai2.getEvaluator().evaluatePosition(board, true));
+        ai1.getEvaluator().evaluatePosition(board, true);
+        ai2.getEvaluator().evaluatePosition(board, true);
     }
 }

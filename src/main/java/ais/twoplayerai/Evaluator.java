@@ -2,11 +2,17 @@ package ais.twoplayerai;
 
 import blokus.*;
 import misc.BoardAndMoveAndScore;
+import org.apache.commons.lang3.ArrayUtils;
+import org.apache.commons.lang3.StringUtils;
 import uis.UI;
 import uis.fancyttyui.FancyTtyUI;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Vector;
+import java.util.concurrent.atomic.AtomicReferenceArray;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import static java.lang.Math.*;
 
@@ -126,12 +132,14 @@ public class Evaluator {
 //
 //        };
 
-//        if (verbose) {
-//            System.out.println("\t" + Stream.of(howManySquaresOnBoard(position, color), howManyCornersFree(position, color), howMuchSpread(position, color)).map(String::valueOf).collect(Collectors.joining(" ")));
-//            System.out.println("-\t" + Stream.of(howManySquaresOnBoard(position, 1 - color), howManyCornersFree(position, 1 - color), howMuchSpread(position, 1 - color)).map(String::valueOf).collect(Collectors.joining(" ")));
-//            System.out.println("=\t" + parameters[0] + " " + parameters[1] + " " + parameters[2]);
-//            System.out.println(Arrays.toString(parameters));
-//        }
+        if (verbose) {
+            System.out.println("\t" + Stream.of((double) howManySquaresOnBoard(position, color), (double) howManyCornersFree(position, color), (double) howMuchSpread(position, color)).map(String::valueOf).collect(Collectors.joining(" ")));
+            System.out.println(" -\t" + Stream.of(howManySquaresOnBoard(position, 1 - color), howManyCornersFree(position, 1 - color), howMuchSpread(position, 1 - color)).map(String::valueOf).collect(Collectors.joining(" ")));
+//            Arrays.stream(parameters).mapToObj(Double::valueOf).forEach((item) -> System.out.println(item + " "));
+            System.out.println(" =\t" + StringUtils.join(ArrayUtils.toObject(parameters), " "));
+
+
+        }
 
         double average = 0.0f;
 
