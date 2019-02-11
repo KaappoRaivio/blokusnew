@@ -45,8 +45,22 @@ public class Terminal implements Screen, Serializable {
         try {
             this.terminal = new DefaultTerminalFactory().createTerminal();
             terminal.setCursorVisible(false);
-            ((SwingTerminalFrame) terminal).setSize(new Dimension(dimX / 2 * 16, dimY * 19));
+
+            int pixDimX = dimX / 2 * 16;
+            int pixDimY = dimY * 16;
+
+//            ((SwingTerminalFrame) terminal).setSize(new Dimension(dimX / 2 * 16, dimY * 16));
+            Insets insets = ((SwingTerminalFrame) terminal).getInsets();
+
+             ((SwingTerminalFrame) terminal).setSize(new Dimension(insets.left + insets.right + pixDimX,
+             insets.top + insets.bottom + pixDimY));
+
             ((SwingTerminalFrame) terminal).setAlwaysOnTop(true);
+//            ((SwingTerminalFrame) terminal).setResizable(false);
+//            ((SwingTerminalFrame) terminal).getdContentPane().setPreferredSize(new Dimension(dimX / 2 * 16, dimY * 16));
+
+//            ((SwingTerminalFrame) terminal).pack();
+
 
 //            this.resizeListener = new SimpleTerminalResizeListener(terminal.getTerminalSize());
 //            this.resizeListener = new TerminalResizeListener() {

@@ -14,7 +14,7 @@ public class Main {
         Board board = new Board(14, 14, new MyPieceManager(2));
 //        Board board = Board.fromFile("/home/kaappo/git/blokus/src/main/resources/boards/Fri Feb 08 10:33:17 EET 2019.ser", false);
 
-        UI ui = new FancyTtyUI(board.deepCopy(), 1, 1);
+        UI ui = new FancyTtyUI(board.deepCopy(), 2, 2);
         ui.commit();
 //
 //        synchronized (Thread.currentThread()) {
@@ -30,7 +30,7 @@ public class Main {
 //            }
 //        }
 
-        int depth = 2;
+        int depth = 3;
 
 
 //        CapableOfPlaying[] players = new CapableOfPlaying[]{
@@ -48,8 +48,8 @@ public class Main {
 ////                new RandomAi(board.deepCopy(), 1, null, ui)
 //        };
 
-        TwoPlayerAi twoPlayerAi0 = new TwoPlayerAi(board.deepCopy(), 0, "color 0", ui, depth, new Evaluator(0, 1, 1.0, 0.2, 0.1,2,  40, ui), false);
-        TwoPlayerAi twoPlayerAi1 = new TwoPlayerAi(board.deepCopy(), 1, "color 1", ui, depth, new Evaluator(1, 1, 1.0, 0.2, 0.1, 1, 40, ui), false);
+        TwoPlayerAi twoPlayerAi0 = new TwoPlayerAi(board.deepCopy(), 0, "color 0", ui, depth, new Evaluator(0, 1, 1.0, 0.2, 0.1,10,  10, ui), false);
+        TwoPlayerAi twoPlayerAi1 = new TwoPlayerAi(board.deepCopy(), 1, "color 1", ui, depth, new Evaluator(1, 1, 1.0, 0.2, 0.1, 10, 40, ui), false);
 
         Spectator[] spectators = new Spectator[]{
                 new MoveAnalyzer(twoPlayerAi0, twoPlayerAi1)
@@ -59,7 +59,8 @@ public class Main {
 //                new Player(board , 0, null, ui),
 //                new RandomAi(board, 0, null, ui),
                 twoPlayerAi0,
-                twoPlayerAi1
+//                twoPlayerAi1
+                new Player(board, 1, null, ui)
         };
 //
 //        CapableOfPlaying[] players = new CapableOfPlaying[]{
