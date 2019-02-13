@@ -49,29 +49,11 @@ public class Terminal implements Screen, Serializable {
             int pixDimX = dimX / 2 * 16;
             int pixDimY = dimY * 16;
 
-//            ((SwingTerminalFrame) terminal).setSize(new Dimension(dimX / 2 * 16, dimY * 16));
             Insets insets = ((SwingTerminalFrame) terminal).getInsets();
 
-             ((SwingTerminalFrame) terminal).setSize(new Dimension(insets.left + insets.right + pixDimX,
-             insets.top + insets.bottom + pixDimY));
+             ((SwingTerminalFrame) terminal).setSize(new Dimension(insets.left + insets.right + pixDimX + 1, insets.top + insets.bottom + pixDimY + 1));
 
             ((SwingTerminalFrame) terminal).setAlwaysOnTop(true);
-//            ((SwingTerminalFrame) terminal).setResizable(false);
-//            ((SwingTerminalFrame) terminal).getdContentPane().setPreferredSize(new Dimension(dimX / 2 * 16, dimY * 16));
-
-//            ((SwingTerminalFrame) terminal).pack();
-
-
-//            this.resizeListener = new SimpleTerminalResizeListener(terminal.getTerminalSize());
-//            this.resizeListener = new TerminalResizeListener() {
-//                @Override
-//                public void onResized(com.googlecode.lanterna.terminal.Terminal terminal, TerminalSize newSize) {
-//                    System.out.println("Resized! New terminal size " + newSize.getColumns() + ", " + newSize.getRows());
-//                    reinitializeBuffer(newSize.getColumns(), newSize.getRows());
-//                }
-//            };
-//            terminal.addResizeListener(resizeListener);
-//            terminal.enableSGR(SGR.REVERSE);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

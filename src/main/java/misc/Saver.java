@@ -34,7 +34,7 @@ public class Saver<T extends Serializable> implements Serializable {
 
             fileOut.close();
 
-            System.out.println("Saved object to: " + path);
+            System.out.println("Saved " + object.getClass() + " to: " + path);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

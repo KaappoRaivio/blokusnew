@@ -173,18 +173,8 @@ public class Board implements Serializable, Texelizeable {
                     isConnected = true;
                 }
 
-                int top = safeOffset(absX, absY, 0, -1);
-                int bottom = safeOffset(absX, absY, 0, +1);
-                int left = safeOffset(absX, absY, -1, 0);
-                int right = safeOffset(absX, absY, +1, 0);
-
-                if (top == piece.getColor() ||
-                    bottom == piece.getColor() ||
-                    left == piece.getColor() ||
-                    right == piece.getColor()) {
-//                        fits = false;
-//                        break;
-                        return false;
+                if (!adjacentsFree(absX, absY, piece.getColor())) {
+                    return false;
                 }
             }
         }
@@ -197,6 +187,20 @@ public class Board implements Serializable, Texelizeable {
         return fits && isConnected;
 
     }
+
+    public boolean adjacentsFree (int x, int y, int color) {
+        int top     = safeOffset(x, y, 0, -1);
+        int bottom  = safeOffset(x, y, 0, +1);
+        int left    = safeOffset(x, y, -1, 0);
+        int right   = safeOffset(x, y, +1, 0);
+
+        return top != color &&
+                bottom != color &&
+                left != color &&
+                right != color;
+    }
+
+
 
     public boolean fits (Move move) {
         try {
@@ -445,7 +449,7 @@ public class Board implements Serializable, Texelizeable {
         return edges && corners;
     }
 
-    private boolean isEmpty(int x, int y) {
+    public boolean isEmpty(int x, int y) {
         try{
             return board[y][x] == NO_PIECE;
         } catch (ArrayIndexOutOfBoundsException e) {
@@ -453,7 +457,7 @@ public class Board implements Serializable, Texelizeable {
         }
     }
 
-    private List<Position> getEligibleCorners (int color) {
+    public List<Position> getEligibleCorners(int color) {
         List<Position> corners = new ArrayList<>();
 
         for (int y = 0; y < dimY; y++) {

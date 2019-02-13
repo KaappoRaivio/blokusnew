@@ -30,7 +30,7 @@ public class Main {
 //            }
 //        }
 
-        int depth = 3;
+        int depth = 2;
 
 
 //        CapableOfPlaying[] players = new CapableOfPlaying[]{
@@ -49,7 +49,7 @@ public class Main {
 //        };
 
         TwoPlayerAi twoPlayerAi0 = new TwoPlayerAi(board.deepCopy(), 0, "color 0", ui, depth, new Evaluator(0, 1, 1.0, 0.2, 0.1,10,  10, ui), false);
-        TwoPlayerAi twoPlayerAi1 = new TwoPlayerAi(board.deepCopy(), 1, "color 1", ui, depth, new Evaluator(1, 1, 1.0, 0.2, 0.1, 10, 40, ui), false);
+        TwoPlayerAi twoPlayerAi1 = new TwoPlayerAi(board.deepCopy(), 1, "color 1", ui, depth, new Evaluator(1, 1, 1.0, 0.2, 0.1, 20, 40, ui), false);
 
         Spectator[] spectators = new Spectator[]{
                 new MoveAnalyzer(twoPlayerAi0, twoPlayerAi1)
@@ -58,9 +58,10 @@ public class Main {
         CapableOfPlaying[] players = new CapableOfPlaying[]{
 //                new Player(board , 0, null, ui),
 //                new RandomAi(board, 0, null, ui),
+//                new Player(board, 0, null, ui),
+                twoPlayerAi1,
                 twoPlayerAi0,
-//                twoPlayerAi1
-                new Player(board, 1, null, ui)
+//                new Player(board, 1, null, ui)
         };
 //
 //        CapableOfPlaying[] players = new CapableOfPlaying[]{
