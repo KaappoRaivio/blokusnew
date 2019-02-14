@@ -2,19 +2,81 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ce25beff-fdbc-46a7-a774-9d3d5b134b5f" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/ais/twoplayerai/MyPositionEvaluator.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/ais/twoplayerai/PositionEvaluator.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/uis/MessageType.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ais/twoplayerai/Evaluator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ais/twoplayerai/Evaluator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ais/twoplayerai/TwoPlayerAi.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ais/twoplayerai/TwoPlayerAi.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/blokus/MoveAnalyzer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/blokus/MoveAnalyzer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/blokus/PieceManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/blokus/PieceManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/blokus/Runner.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/blokus/Runner.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/uis/TtyUITest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/uis/TtyUITest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/uis/UI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/uis/UI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/uis/fancyttyui/FancyTtyUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/uis/fancyttyui/FancyTtyUI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/boards/1.01724134E12.ser" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/boards/1.1098283E12.ser" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/boards/1.13347304E12.ser" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/boards/1.1390322E12.ser" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/boards/1.16234178E12.ser" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/boards/1.39470137E12.ser" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/boards/1.47445462E12.ser" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/boards/1.49051195E11.ser" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/boards/1.76905667E11.ser" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/boards/2.36061245E11.ser" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/boards/2.81105138E11.ser" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/boards/3.00707021E11.ser" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/boards/3.58803046E11.ser" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/boards/3.95050418E11.ser" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/boards/4.32201925E11.ser" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/boards/4.41268896E11.ser" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/boards/5.27343485E11.ser" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/boards/6.002823E11.ser" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/boards/8.6716167E11.ser" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/boards/9.9973366E10.ser" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/boards/Fri Dec 14 13:54:56 CET 2018.ser" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/boards/Fri Dec 14 13:55:24 CET 2018.ser" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/boards/Fri Dec 14 14:26:31 CET 2018.ser" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/boards/Fri Feb 08 10:13:13 EET 2019.ser" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/boards/Fri Feb 08 10:14:02 EET 2019.ser" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/boards/Fri Feb 08 10:15:36 EET 2019.ser" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/boards/Fri Feb 08 10:16:39 EET 2019.ser" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/boards/Fri Feb 08 10:18:39 EET 2019.ser" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/boards/Fri Feb 08 10:19:36 EET 2019.ser" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/boards/Fri Feb 08 10:20:02 EET 2019.ser" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/boards/Fri Feb 08 10:21:03 EET 2019.ser" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/boards/Fri Feb 08 10:21:39 EET 2019.ser" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/boards/Fri Feb 08 10:21:58 EET 2019.ser" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/boards/Fri Feb 08 10:23:13 EET 2019.ser" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/boards/Fri Feb 08 10:23:30 EET 2019.ser" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/boards/Fri Feb 08 10:23:46 EET 2019.ser" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/boards/Fri Feb 08 10:24:11 EET 2019.ser" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/boards/Fri Feb 08 10:24:38 EET 2019.ser" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/boards/Fri Feb 08 10:25:02 EET 2019.ser" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/boards/Fri Feb 08 10:25:19 EET 2019.ser" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/boards/Fri Feb 08 10:25:37 EET 2019.ser" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/boards/Fri Feb 08 10:27:23 EET 2019.ser" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/boards/Fri Feb 08 10:27:33 EET 2019.ser" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/boards/Fri Feb 08 10:27:41 EET 2019.ser" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/boards/Fri Feb 08 10:27:47 EET 2019.ser" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/boards/Fri Feb 08 10:27:51 EET 2019.ser" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/boards/Fri Feb 08 10:27:56 EET 2019.ser" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/boards/Fri Feb 08 10:27:58 EET 2019.ser" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/boards/Fri Feb 08 10:28:01 EET 2019.ser" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/boards/Fri Feb 08 10:28:03 EET 2019.ser" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/boards/Fri Feb 08 10:28:07 EET 2019.ser" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/boards/Fri Feb 08 10:28:08 EET 2019.ser" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/boards/Fri Feb 08 10:28:09 EET 2019.ser" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/boards/Fri Feb 08 10:28:10 EET 2019.ser" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/boards/Fri Feb 08 10:28:11 EET 2019.ser" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/boards/Fri Feb 08 10:28:12 EET 2019.ser" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/boards/Fri Feb 08 10:28:13 EET 2019.ser" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/boards/Fri Feb 08 10:28:14 EET 2019.ser" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/boards/Fri Feb 08 10:28:15 EET 2019.ser" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/boards/Fri Feb 08 10:30:17 EET 2019.ser" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/boards/Fri Feb 08 10:33:17 EET 2019.ser" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/boards/Fri Feb 08 10:42:16 EET 2019.ser" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/boards/Fri Feb 08 10:53:45 EET 2019.ser" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/boards/Fri Feb 08 11:20:09 EET 2019.ser" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/boards/Fri Feb 08 11:24:44 EET 2019.ser" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/boards/Fri Feb 08 11:32:38 EET 2019.ser" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/boards/Fri Feb 08 11:39:12 EET 2019.ser" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/boards/Fri Feb 08 13:37:31 EET 2019.ser" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/boards/Fri Feb 08 14:13:00 EET 2019.ser" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/boards/Fri Feb 08 14:30:32 EET 2019.ser" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/boards/Mon Feb 04 09:35:25 EET 2019.ser" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/boards/Mon Feb 04 09:48:59 EET 2019.ser" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/boards/Mon Feb 04 10:01:05 EET 2019.ser" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/boards/Mon Feb 04 10:13:11 EET 2019.ser" beforeDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/.gradle/" />
@@ -26,7 +88,7 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="DarkyenusTimeTracker">
-    <option name="totalTimeSeconds" value="333195" />
+    <option name="totalTimeSeconds" value="333220" />
     <option name="gitIntegration" value="true" />
     <option name="naggedAbout" value="1" />
   </component>
@@ -95,12 +157,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/uis/fancyttyui/FancyTtyUI.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="338">
-              <caret line="155" column="20" selection-start-line="155" selection-start-column="20" selection-end-line="155" selection-end-column="20" />
-              <folding>
-                <element signature="e#1675#1676#0" expanded="true" />
-                <element signature="e#1706#1707#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="540">
+              <caret line="144" column="13" lean-forward="true" selection-start-line="144" selection-start-column="13" selection-end-line="144" selection-end-column="13" />
             </state>
           </provider>
         </entry>
@@ -117,8 +175,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/uis/TtyUITest.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-225">
-              <caret line="12" column="32" lean-forward="true" selection-start-line="12" selection-start-column="32" selection-end-line="12" selection-end-column="32" />
+            <state relative-caret-position="105">
+              <caret line="12" column="32" selection-start-line="12" selection-start-column="32" selection-end-line="12" selection-end-column="32" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -138,15 +196,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/ais/twoplayerai/Evaluator.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1125">
-              <caret line="82" column="5" lean-forward="true" selection-start-line="82" selection-start-column="5" selection-end-line="82" selection-end-column="5" />
-              <folding>
-                <element signature="e#509#510#0" expanded="true" />
-                <element signature="e#549#550#0" expanded="true" />
-                <element signature="e#6865#6945#1" />
-                <element signature="e#2371#2372#0" expanded="true" />
-                <element signature="e#2395#2396#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="1110">
+              <caret line="82" column="5" selection-start-line="82" selection-start-column="5" selection-end-line="82" selection-end-column="5" />
             </state>
           </provider>
         </entry>
@@ -154,30 +205,15 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/ais/twoplayerai/MyPositionEvaluator.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="225">
+            <state relative-caret-position="90">
               <caret line="15" column="104" selection-start-line="15" selection-start-column="104" selection-end-line="15" selection-end-column="104" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#222#223#0" expanded="true" />
-                <element signature="e#246#247#0" expanded="true" />
-                <element signature="e#1304#1582#1" />
-                <element signature="e#1363#1572#1" />
-                <element signature="e#1421#1558#1" />
                 <element signature="method#getAverage#0;class#MyPositionEvaluator#0" />
-                <element signature="e#2532#2741#1" />
-                <element signature="e#2588#2731#1" />
-                <element signature="e#2643#2717#1" />
-                <element signature="e#2836#2915#1" />
                 <element signature="method#sameAmountOfPiecesOnBoard#0;class#MyPositionEvaluator#0" />
                 <element signature="method#dfs#0;class#MyPositionEvaluator#0" />
-                <element signature="e#3510#3543#1" />
-                <element signature="e#3578#3611#1" />
-                <element signature="e#3721#3818#1" />
-                <element signature="e#3843#3876#1" />
                 <element signature="method#isOufOfBounds#0;class#MyPositionEvaluator#0" />
                 <element signature="method#adjacents#0;class#MyPositionEvaluator#0" />
-                <element signature="e#5844#6538#1" />
-                <element signature="e#6608#6645#1" />
               </folding>
             </state>
           </provider>
@@ -186,12 +222,10 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/ais/twoplayerai/TwoPlayerAi.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="83">
+            <state relative-caret-position="330">
               <caret line="34" column="27" selection-start-line="34" selection-start-column="27" selection-end-line="34" selection-end-column="27" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#855#856#0" expanded="true" />
-                <element signature="e#895#896#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -200,7 +234,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/blokus/Runner.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="307">
+            <state relative-caret-position="930">
               <caret line="68" column="12" selection-start-line="68" selection-start-column="12" selection-end-line="68" selection-end-column="12" />
               <folding>
                 <element signature="imports" expanded="true" />
@@ -221,7 +255,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/Main.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-165">
+            <state relative-caret-position="120">
               <caret line="12" column="32" selection-start-line="12" selection-start-column="32" selection-end-line="12" selection-end-column="32" />
               <folding>
                 <element signature="imports" expanded="true" />
@@ -368,7 +402,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -399,50 +432,7 @@
               <item name="blokusnew" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="ais" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Blokus" type="b2602c69:ProjectViewProjectNode" />
-              <item name="blokusnew" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="ais" type="462c0819:PsiDirectoryNode" />
-              <item name="twoplayerai" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Blokus" type="b2602c69:ProjectViewProjectNode" />
-              <item name="blokusnew" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="blokus" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Blokus" type="b2602c69:ProjectViewProjectNode" />
-              <item name="blokusnew" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="misc" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Blokus" type="b2602c69:ProjectViewProjectNode" />
-              <item name="blokusnew" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="uis" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Blokus" type="b2602c69:ProjectViewProjectNode" />
-              <item name="blokusnew" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="uis" type="462c0819:PsiDirectoryNode" />
-              <item name="fancyttyui" type="462c0819:PsiDirectoryNode" />
+              <item name="resources" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="Blokus" type="b2602c69:ProjectViewProjectNode" />
@@ -450,6 +440,7 @@
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
               <item name="resources" type="462c0819:PsiDirectoryNode" />
+              <item name="boards" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="Blokus" type="b2602c69:ProjectViewProjectNode" />
@@ -459,6 +450,7 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
       <pane id="PackagesPane" />
     </panes>
   </component>
@@ -649,9 +641,8 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1920" height="1046" extended-state="6" />
-    <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.21611527" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.21824974" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -660,7 +651,7 @@
       <window_info id="Favorites" order="6" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32739422" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49781182" visible="true" weight="0.40338984" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49781182" weight="0.40338984" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.3986014" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -1058,79 +1049,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/Main.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-165">
-          <caret line="12" column="32" selection-start-line="12" selection-start-column="32" selection-end-line="12" selection-end-column="32" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/ais/twoplayerai/PositionEvaluator.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="6" column="73" selection-start-line="6" selection-start-column="73" selection-end-line="6" selection-end-column="73" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/ais/twoplayerai/Evaluator.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1125">
-          <caret line="82" column="5" lean-forward="true" selection-start-line="82" selection-start-column="5" selection-end-line="82" selection-end-column="5" />
-          <folding>
-            <element signature="e#509#510#0" expanded="true" />
-            <element signature="e#549#550#0" expanded="true" />
-            <element signature="e#6865#6945#1" />
-            <element signature="e#2371#2372#0" expanded="true" />
-            <element signature="e#2395#2396#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/ais/twoplayerai/MyPositionEvaluator.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="225">
-          <caret line="15" column="104" selection-start-line="15" selection-start-column="104" selection-end-line="15" selection-end-column="104" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#222#223#0" expanded="true" />
-            <element signature="e#246#247#0" expanded="true" />
-            <element signature="e#1304#1582#1" />
-            <element signature="e#1363#1572#1" />
-            <element signature="e#1421#1558#1" />
-            <element signature="method#getAverage#0;class#MyPositionEvaluator#0" />
-            <element signature="e#2532#2741#1" />
-            <element signature="e#2588#2731#1" />
-            <element signature="e#2643#2717#1" />
-            <element signature="e#2836#2915#1" />
-            <element signature="method#sameAmountOfPiecesOnBoard#0;class#MyPositionEvaluator#0" />
-            <element signature="method#dfs#0;class#MyPositionEvaluator#0" />
-            <element signature="e#3510#3543#1" />
-            <element signature="e#3578#3611#1" />
-            <element signature="e#3721#3818#1" />
-            <element signature="e#3843#3876#1" />
-            <element signature="method#isOufOfBounds#0;class#MyPositionEvaluator#0" />
-            <element signature="method#adjacents#0;class#MyPositionEvaluator#0" />
-            <element signature="e#5844#6538#1" />
-            <element signature="e#6608#6645#1" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/ais/twoplayerai/TwoPlayerAi.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="83">
-          <caret line="34" column="27" selection-start-line="34" selection-start-column="27" selection-end-line="34" selection-end-column="27" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#855#856#0" expanded="true" />
-            <element signature="e#895#896#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/blokus/CapableOfPlaying.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="60">
@@ -1138,10 +1056,24 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/blokus/Runner.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/uis/fancyttyui/FancyTtyUI.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="307">
-          <caret line="68" column="12" selection-start-line="68" selection-start-column="12" selection-end-line="68" selection-end-column="12" />
+        <state relative-caret-position="540">
+          <caret line="144" column="13" lean-forward="true" selection-start-line="144" selection-start-column="13" selection-end-line="144" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/uis/UI.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="7" column="38" selection-start-line="7" selection-start-column="38" selection-end-line="7" selection-end-column="38" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/uis/TtyUITest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="105">
+          <caret line="12" column="32" selection-start-line="12" selection-start-column="32" selection-end-line="12" selection-end-column="32" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -1155,30 +1087,61 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/uis/UI.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/ais/twoplayerai/Evaluator.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="7" column="38" selection-start-line="7" selection-start-column="38" selection-end-line="7" selection-end-column="38" />
+        <state relative-caret-position="1110">
+          <caret line="82" column="5" selection-start-line="82" selection-start-column="5" selection-end-line="82" selection-end-column="5" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/uis/TtyUITest.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/ais/twoplayerai/MyPositionEvaluator.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-225">
-          <caret line="12" column="32" lean-forward="true" selection-start-line="12" selection-start-column="32" selection-end-line="12" selection-end-column="32" />
+        <state relative-caret-position="90">
+          <caret line="15" column="104" selection-start-line="15" selection-start-column="104" selection-end-line="15" selection-end-column="104" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="method#getAverage#0;class#MyPositionEvaluator#0" />
+            <element signature="method#sameAmountOfPiecesOnBoard#0;class#MyPositionEvaluator#0" />
+            <element signature="method#dfs#0;class#MyPositionEvaluator#0" />
+            <element signature="method#isOufOfBounds#0;class#MyPositionEvaluator#0" />
+            <element signature="method#adjacents#0;class#MyPositionEvaluator#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ais/twoplayerai/TwoPlayerAi.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="330">
+          <caret line="34" column="27" selection-start-line="34" selection-start-column="27" selection-end-line="34" selection-end-column="27" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/uis/fancyttyui/FancyTtyUI.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/blokus/Runner.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="338">
-          <caret line="155" column="20" selection-start-line="155" selection-start-column="20" selection-end-line="155" selection-end-column="20" />
+        <state relative-caret-position="930">
+          <caret line="68" column="12" selection-start-line="68" selection-start-column="12" selection-end-line="68" selection-end-column="12" />
           <folding>
-            <element signature="e#1675#1676#0" expanded="true" />
-            <element signature="e#1706#1707#0" expanded="true" />
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ais/twoplayerai/PositionEvaluator.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="6" column="73" selection-start-line="6" selection-start-column="73" selection-end-line="6" selection-end-column="73" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/Main.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="120">
+          <caret line="12" column="32" selection-start-line="12" selection-start-column="32" selection-end-line="12" selection-end-column="32" />
+          <folding>
+            <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
