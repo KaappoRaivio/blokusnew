@@ -1,7 +1,6 @@
 package blokus;
 
 import ais.twoplayerai.TwoPlayerAi;
-import uis.UI;
 
 public class MoveAnalyzer implements Spectator {
     private TwoPlayerAi ai1;
@@ -18,7 +17,7 @@ public class MoveAnalyzer implements Spectator {
 
     @Override
     public void updateValues(Board board, int turn, int moveCount) {
-        ai1.getEvaluator().evaluatePosition(board, true);
-        ai2.getEvaluator().evaluatePosition(board, true);
+        ai1.getEvaluator().getPositionEvaluator().evaluatePosition(board, ai1.getColor(), true);
+        ai2.getEvaluator().getPositionEvaluator().evaluatePosition(board, ai2.getColor(), true);
     }
 }

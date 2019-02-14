@@ -1,10 +1,11 @@
 package blokus;
 
-import misc.Saver;
 import uis.UI;
 
-import java.io.*;
-import java.util.*;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+import java.util.Vector;
 import java.util.stream.Collectors;
 
 public class Runner {
@@ -33,7 +34,6 @@ public class Runner {
         boolean[] lost = new boolean[board.getAmountOfPlayers()];
 
         while (true) {
-
             if (!board.hasMoves(turn)) {
                 lost[turn] = true;
             }
@@ -64,12 +64,18 @@ public class Runner {
 
 
 
+            long timeBegin = System.currentTimeMillis();
 
             Move move = current.getMove();
             if (!board.fits(move)) {
                 System.out.println("Move " + move + " doesn't fit!");
                 continue;
             }
+
+            long timeEnd = System.currentTimeMillis();
+            System.out.println("Took " + (timeEnd - timeBegin) + " milliseconds as color" + current.getColor());
+
+
 
             board.putOnBoard(move);
             gameHistory.addMove(move);

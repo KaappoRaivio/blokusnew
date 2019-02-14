@@ -9,6 +9,7 @@ import blokus.PiecePallet;
 import listener.KeyEventListener;
 import listener.KeyListener;
 import org.jnativehook.keyboard.NativeKeyEvent;
+import uis.MessageType;
 import uis.Texel;
 import uis.UI;
 
@@ -53,18 +54,16 @@ public class FancyTtyUI implements UI, Serializable {
         this.turn = turn;
         this.moveCount = moveCount;
 
-//        boardSprite = new Sprite(board.texelize(new DefaultPallet(), scaleX, scaleY), Terminal.TRANSPARENT);
-//        screen.removeAllSprites();
-//        screen.addSprite(boardSprite);
-//        boardSprite.draw(0, 0);
         screen.drawTexelizeable(this.board, new DefaultPallet(),0, 0, scaleX, scaleY);
     }
 
     @Override
+    public void showMessage (MessageType messageType, String message) {
+
+    }
+
+    @Override
     public void commit () {
-
-
-
         screen.commit();
     }
 
@@ -82,10 +81,7 @@ public class FancyTtyUI implements UI, Serializable {
         sprite.draw(2, 1);
         screen.commit();
 
-
-
         final boolean[] wait = {true, false};
-
 
         keyListener.addKeyEventListener(new KeyEventListener() {
             @Override
@@ -158,8 +154,6 @@ public class FancyTtyUI implements UI, Serializable {
         screen.removeSprite(sprite);
 
         return move;
-
-
     }
 
     @Override

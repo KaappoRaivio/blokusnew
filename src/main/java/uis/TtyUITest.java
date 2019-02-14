@@ -2,13 +2,8 @@ package uis;
 
 import blokus.Board;
 import blokus.Move;
-import blokus.Orientation;
-import blokus.PieceID;
-import misc.MoveAndScore;
 
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 import java.util.Scanner;
 import java.util.stream.Collectors;
 
@@ -29,6 +24,11 @@ public class TtyUITest implements UI {
         this.board = board;
         this.turn = turn;
         this.moveCounter = moveCount;
+    }
+
+    @Override
+    public void showMessage(MessageType messageType, String message) {
+        System.out.println(messageType.toString() + ": " + message);
     }
 
     @Override
