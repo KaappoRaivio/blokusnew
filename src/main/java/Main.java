@@ -16,7 +16,7 @@ public class Main {
         UI ui = new FancyTtyUI(board.deepCopy(), 2, 2);
         ui.commit();
 
-        int depth = 2;
+        int depth = 1;
 
 
         TwoPlayerAi twoPlayerAi0 = new TwoPlayerAi(board.deepCopy(), 0, "color 0", ui, depth, MyPositionEvaluator.EVALUATOR_0, 10, false);
@@ -31,8 +31,8 @@ public class Main {
 //                new RandomAi(board, 0, null, ui),
 //                new Player(board, 0, null, ui),
                 twoPlayerAi0,
-                twoPlayerAi1,
-//                new Player(board, 1, null, ui)
+//                twoPlayerAi1,
+                new Player(board, 1, null, ui)
         };
 
         Runner runner = new Runner(board, players, spectators, ui);

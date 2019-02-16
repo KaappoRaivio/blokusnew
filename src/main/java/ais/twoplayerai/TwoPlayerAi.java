@@ -82,12 +82,15 @@ public class TwoPlayerAi extends Player {
             @Override
             public int compare (MoveAndScore moveAndScore, MoveAndScore t1) {
                 if (!(moveAndScore.isScorePresent() && t1.isScorePresent())) {
-                    return -1;
+                    return 0;
                 } else {
                     return moveAndScore.getScore() - t1.getScore() < 0 ? 1 : moveAndScore.getScore() - t1.getScore() == 0 ? 0 : -1;
                 }
             }
         });
+
+
+
         System.out.println(moveScores);
 
 
@@ -109,8 +112,16 @@ public class TwoPlayerAi extends Player {
 
         System.out.println("Parameters: " + evaluator.getPositionEvaluator().evaluatePosition(board, color, true));
 
+        showChainOfDeduction(bestMove.getMove());
         return  bestMove.getMove();
 
+    }
+
+    private void showChainOfDeduction (Move move) {
+        Board position = evaluator.getFinalPosition(move);
+        ui.updateValues(position, (color + depth + 1) % 2, moveCount + depth + 1);
+        ui.commit();
+        new Scanner(System.in).nextLine();
     }
 
     public Evaluator getEvaluator() {

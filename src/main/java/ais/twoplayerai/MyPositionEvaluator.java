@@ -1,9 +1,12 @@
 package ais.twoplayerai;
 
 import blokus.Board;
+import blokus.PieceID;
 import blokus.Position;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
+import uis.UI;
+import uis.fancyttyui.FancyTtyUI;
 
 import java.util.Arrays;
 import java.util.List;
@@ -12,24 +15,24 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class MyPositionEvaluator implements PositionEvaluator {
-    public static final MyPositionEvaluator EVALUATOR_0 = new MyPositionEvaluator(1, 1.0, 0.2, 0.1,10);
-    public static final MyPositionEvaluator EVALUATOR_1 = new MyPositionEvaluator(1, 1.0, 0.2, 0.1, 20);
+    public static final MyPositionEvaluator EVALUATOR_0 = new MyPositionEvaluator(1, 0.1, 0.2, 0.3,1);
+    public static final MyPositionEvaluator EVALUATOR_1 = new MyPositionEvaluator(1, 0.1, 0.2, 0.3, 10);
 
     private double squaresOnBoardWeight;
     private double cornersFreeWeight;
     private double spreadWeight;
-    private double averageWeight;
+    private double centerDistanceWeight;
     private double aggression;
 
 
-    public MyPositionEvaluator (double squaresOnBoardWeight, double cornersFreeWeight, double spreadWeight, double averageWeight, double aggression) {
+    public MyPositionEvaluator (double squaresOnBoardWeight, double cornersFreeWeight, double spreadWeight, double centerDistanceWeight, double aggression) {
 
         this.squaresOnBoardWeight = squaresOnBoardWeight;
         this.cornersFreeWeight = cornersFreeWeight;
         this.spreadWeight = spreadWeight;
         this.aggression = aggression;
 
-        this.averageWeight = averageWeight;
+        this.centerDistanceWeight = centerDistanceWeight;
     }
 
     @Override
@@ -38,18 +41,13 @@ public class MyPositionEvaluator implements PositionEvaluator {
     }
 
     private int howManySquaresOnBoard (Board position, int color) {
-
-        final int[] result = {0};
-        position.getPieceManager().getPiecesOnBoard(color).stream().forEach((entry) -> result[0] += entry.getAmountOfSquares());
-        return result[0];
+        return position.getPieceManager().getPiecesOnBoard(color).stream().mapToInt(PieceID::getAmountOfSquares).sum();
     }
 
     private int howManyCornersFree (Board position, int color) {
         List<Integer> values = new Vector<>();
-//        return position.amountOfFreeCorners(color);
 
-        var corners = position.getEligibleCorners(color);
-        for (var corner : corners) {
+        for (var corner : position.getEligibleCorners(color)) {
             values.add(roomSpace(corner.x, corner.y, position, color));
         }
 
@@ -101,7 +99,6 @@ public class MyPositionEvaluator implements PositionEvaluator {
         return new Position(totalX / (positions.size() + 1), totalY / (positions.size() + 1));
 
     }
-
 
     private boolean sameAmountOfPiecesOnBoard(Board node) {
         return node.getPieceManager().getPiecesOnBoard(0).size() == node.getPieceManager().getPiecesOnBoard(1).size();
@@ -163,19 +160,37 @@ public class MyPositionEvaluator implements PositionEvaluator {
         );
     }
 
+    private double distanceFromCenter (Board position, int color) {
+        int avgX = getAverage(position, color).x;
+        int avgY = getAverage(position, color).y;
+
+
+
+        double dX = Math.abs(avgX - position.getDimX() / 2.0);
+        double dY = Math.abs(avgY - position.getDimY() / 2.0);
+
+
+        return Math.hypot(dX, dY);
+    }
+
+    private static int invert (int color) {
+        return 1 - color;
+    }
+
     @Override
     public double evaluatePosition(Board position, int color, boolean verbose) {
 //        return  0.0;
         double[] parameters = new double[]{
-                ((double) howManySquaresOnBoard(position, color) - (double) howManySquaresOnBoard(position, 1 - color)) * squaresOnBoardWeight,
-                ((double) howManyCornersFree(position, color) - (double) howManyCornersFree(position, 1 - color) * aggression) * cornersFreeWeight,
-                ((double) howMuchSpread(position, color) - (double) howMuchSpread(position, 1 - color)) * spreadWeight,
-                -(Math.abs(getAverage(position, color).getAverage() - getAverage(position, 1 - color).getAverage())) * averageWeight
+                ((double) howManySquaresOnBoard(position, color) - (double) howManySquaresOnBoard(position, invert(color))) * squaresOnBoardWeight,
+                ((double) howManyCornersFree(position, color) - (double) howManyCornersFree(position, invert(color)) * aggression) * cornersFreeWeight,
+                ((double) howMuchSpread(position, color) - (double) howMuchSpread(position, invert(color))) * spreadWeight,
+//                -(Math.abs(getAverage(position, color).getAverage() - getAverage(position, invert(color)).getAverage())) * centerDistanceWeight
+                (-distanceFromCenter(position, color) + distanceFromCenter(position, invert(color))) * centerDistanceWeight,
         };
 
         if (verbose) {
             System.out.println("\t" + Stream.of((double) howManySquaresOnBoard(position, color), (double) howManyCornersFree(position, color), (double) howMuchSpread(position, color)).map(String::valueOf).collect(Collectors.joining(" ")));
-            System.out.println(" -\t" + Stream.of(howManySquaresOnBoard(position, 1 - color), howManyCornersFree(position, 1 - color), howMuchSpread(position, 1 - color)).map(String::valueOf).collect(Collectors.joining(" ")));
+            System.out.println(" -\t" + Stream.of(howManySquaresOnBoard(position, invert(color)), howManyCornersFree(position, invert(color)), howMuchSpread(position, invert(color))).map(String::valueOf).collect(Collectors.joining(" ")));
 //            Arrays.stream(parameters).mapToObj(Double::valueOf).forEach((item) -> System.out.println(item + " "));
             System.out.println(" =\t" + StringUtils.join(ArrayUtils.toObject(parameters), " "));
 
@@ -189,6 +204,15 @@ public class MyPositionEvaluator implements PositionEvaluator {
         }
 
         return average / parameters.length;
+    }
+
+    public static void main(String[] args) {
+        Board board = Board.fromFile("/home/kaappo/git/blokusnew/src/main/resources/boards/Thu Feb 14 15:17:47 EET 2019.ser", false);
+        UI ui = new FancyTtyUI(board, 1, 1);
+        ui.commit();
+
+        EVALUATOR_0.distanceFromCenter(board, 1);
+        EVALUATOR_0.distanceFromCenter(board, 0);
     }
 
 
