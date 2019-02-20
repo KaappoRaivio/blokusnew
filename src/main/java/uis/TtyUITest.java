@@ -27,6 +27,12 @@ public class TtyUITest implements UI {
     }
 
     @Override
+    public void overlay(Texelizeable board) {}
+
+    @Override
+    public void clearOverlay() {}
+
+    @Override
     public void showMessage(MessageType messageType, String message) {
         System.out.println(messageType.toString() + ": " + message);
     }

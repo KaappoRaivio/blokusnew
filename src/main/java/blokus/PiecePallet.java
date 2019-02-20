@@ -2,7 +2,7 @@ package blokus;
 
 import com.googlecode.lanterna.TextColor;
 import uis.Texel;
-import uis.fancyttyui.ColorPallet;
+import uis.fancyttyui.DefaultPallet;
 
 public class PiecePallet extends DefaultPallet {
     @Override

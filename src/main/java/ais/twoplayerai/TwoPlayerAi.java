@@ -119,9 +119,11 @@ public class TwoPlayerAi extends Player {
 
     private void showChainOfDeduction (Move move) {
         Board position = evaluator.getFinalPosition(move);
-        ui.updateValues(position, (color + depth + 1) % 2, moveCount + depth + 1);
-        ui.commit();
+//        ui.updateValues(position, (color + depth + 1) % 2, moveCount + depth + 1);
+//        ui.commit();
+        ui.overlay(position);
         new Scanner(System.in).nextLine();
+        ui.clearOverlay();
     }
 
     public Evaluator getEvaluator() {

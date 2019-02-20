@@ -5,8 +5,6 @@ import uis.UI;
 import uis.fancyttyui.FancyTtyUI;
 
 public class Main {
-    public static final int NUMBER_OF_CORES = Runtime.getRuntime().availableProcessors();
-
     public static void main(String[] args) {
 
 
@@ -16,11 +14,11 @@ public class Main {
         UI ui = new FancyTtyUI(board.deepCopy(), 2, 2);
         ui.commit();
 
-        int depth = 1;
+        int depth = 2;
 
 
-        TwoPlayerAi twoPlayerAi0 = new TwoPlayerAi(board.deepCopy(), 0, "color 0", ui, depth, MyPositionEvaluator.EVALUATOR_0, 10, false);
-        TwoPlayerAi twoPlayerAi1 = new TwoPlayerAi(board.deepCopy(), 1, "color 1", ui, depth, MyPositionEvaluator.EVALUATOR_1, 10, false);
+        TwoPlayerAi twoPlayerAi0 = new TwoPlayerAi(board.deepCopy(), 0, "color 0", ui, depth, MyPositionEvaluator.EVALUATOR_0, 30, false);
+        TwoPlayerAi twoPlayerAi1 = new TwoPlayerAi(board.deepCopy(), 1, "color 1", ui, depth, MyPositionEvaluator.EVALUATOR_1, 30, false);
 
         Spectator[] spectators = new Spectator[]{
                 new MoveAnalyzer(twoPlayerAi0, twoPlayerAi1)

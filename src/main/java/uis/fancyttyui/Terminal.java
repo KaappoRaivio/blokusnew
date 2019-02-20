@@ -23,8 +23,8 @@ import java.util.Vector;
 public class Terminal implements Screen, Serializable {
     private final transient Object lock = new Object();
     public static final char TRANSPARENT = ' ';
-    public static final TextColor.RGB foregroundColor = new TextColor.RGB(255, 255, 255);
-    public static final TextColor.RGB backgroundColor = new TextColor.RGB(0, 0, 0);
+    private static final TextColor.RGB foregroundColor = new TextColor.RGB(255, 255, 255);
+    private static final TextColor.RGB backgroundColor = new TextColor.RGB(0, 0, 0);
     private final int dimX;
     private final int dimY;
 
@@ -95,20 +95,30 @@ public class Terminal implements Screen, Serializable {
     }
 
     public void addSprite (Sprite sprite) {
+        addSprite(sprite, false);
+    }
+
+    @Override
+    public void addSprite (Sprite sprite, boolean tuck) {
+
         synchronized (lock) {
-            sprites.add(sprite);
+            if (tuck) {
+                sprites.add(0, sprite);
+            } else {
+                sprites.add(sprite);
+            }
         }
     }
 
     @Override
-    public void removeAllSprites() {
+    public void removeAllSprites () {
         synchronized (lock) {
             sprites = new Vector<>();
         }
     }
 
     @Override
-    public void removeSprite(Sprite sprite) {
+    public void removeSprite (Sprite sprite) {
         synchronized (lock) {
             sprites.remove(sprite);
         }
@@ -132,11 +142,6 @@ public class Terminal implements Screen, Serializable {
     }
 
     private void drawSpritesToTerminal () {
-//        try {
-//            terminal.setCursorPosition(0,0);
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
         for (Sprite sprite : sprites) {
             if (sprite.isDrawn()) {
                 for (int y = sprite.getPosY(); y < sprite.getPosY() + sprite.getDimY(); y++) {
@@ -165,7 +170,7 @@ public class Terminal implements Screen, Serializable {
     }
 
     @Override
-    public void commit() {
+    public void commit () {
         synchronized (lock) {
             for (int y = 0; y < getDimY(); y++) {
                 for (int x = 0; x < getDimX(); x++) {

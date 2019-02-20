@@ -5,10 +5,14 @@ import blokus.Move;
 
 public interface UI {
     void updateValues (Board board, int turn, int moveCount);
-    void showMessage (MessageType messageType, String message);
+    Move getMove (int color);
+
     void commit ();
     void close ();
-    Move getMove (int color);
-    int getMoveCount ();
 
+    void overlay (Texelizeable board);
+    void clearOverlay ();
+    void showMessage (MessageType messageType, String message);
+
+    int getMoveCount ();
 }

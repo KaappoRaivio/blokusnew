@@ -1,4 +1,4 @@
-package blokus;
+package uis.fancyttyui;
 
 import com.googlecode.lanterna.TextColor;
 import uis.Texel;

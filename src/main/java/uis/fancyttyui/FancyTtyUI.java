@@ -1,7 +1,6 @@
 package uis.fancyttyui;
 
 import blokus.Board;
-import blokus.DefaultPallet;
 import blokus.Move;
 
 
@@ -11,10 +10,12 @@ import listener.KeyListener;
 import org.jnativehook.keyboard.NativeKeyEvent;
 import uis.MessageType;
 import uis.Texel;
+import uis.Texelizeable;
 import uis.UI;
 
 import java.io.Serializable;
-import java.util.stream.Collectors;
+import java.util.List;
+import java.util.Vector;
 
 
 public class FancyTtyUI implements UI, Serializable {
@@ -28,6 +29,8 @@ public class FancyTtyUI implements UI, Serializable {
     private Sprite boardSprite;
 
     private final transient Object lock = new Object();
+
+    private List<Sprite> overlaidSprites = new Vector<>();
 
 
 
@@ -55,6 +58,39 @@ public class FancyTtyUI implements UI, Serializable {
         this.moveCount = moveCount;
 
         screen.drawTexelizeable(this.board, new DefaultPallet(),0, 0, scaleX, scaleY);
+    }
+
+    @Override
+    public void overlay (Texelizeable board) {
+        Texel[][] mesh = board.texelize(new OverlayPallet(), scaleX, scaleY);
+        var compareMesh = this.board.texelize(new OverlayPallet(), scaleX, scaleY);
+
+
+
+        for (int y = 0; y < mesh.length; y++) {
+            for (int x = 0; x < mesh[y].length; x++) {
+                if (mesh[y][x].equals(compareMesh[y][x])) {
+                    mesh[y][x] = new Texel('$');
+                }
+            }
+
+        }
+        Sprite overlaySprite = new Sprite(mesh, '$');
+
+        screen.addSprite(overlaySprite, false);
+        overlaySprite.draw(0, 0);
+        screen.commit();
+
+        overlaidSprites.add(overlaySprite);
+    }
+
+    @Override
+    public void clearOverlay() {
+        for (var sprite : overlaidSprites) {
+            screen.removeSprite(sprite);
+        }
+        screen.commit();
+
     }
 
     @Override

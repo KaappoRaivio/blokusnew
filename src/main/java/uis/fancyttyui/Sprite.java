@@ -1,18 +1,14 @@
 package uis.fancyttyui;
 
 import blokus.*;
-import com.googlecode.lanterna.TextColor;
 import listener.KeyEventListener;
 import listener.KeyListener;
-import misc.ConvertToList;
-import org.apache.commons.lang3.ArrayUtils;
 import org.jnativehook.keyboard.NativeKeyEvent;
 import uis.Texel;
 import uis.Texelizeable;
 
 import java.io.Serializable;
 import java.util.*;
-import java.util.stream.Collectors;
 
 public class Sprite implements Serializable, Texelizeable {
 

@@ -13,6 +13,7 @@ public interface Screen {
     void updateBuffer (Texel[][] buffer);
     void close ();
     void addSprite (Sprite sprite);
+    void addSprite (Sprite sprite, boolean tuck);
     void removeAllSprites ();
     void removeSprite (Sprite sprite);
     void drawTexelizeable (Texelizeable texelizeable, ColorPallet colorPallet, int posX, int posY, int scaleX, int scaleY);

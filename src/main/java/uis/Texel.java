@@ -3,6 +3,7 @@ package uis;
 import com.googlecode.lanterna.TextColor;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 public class Texel implements Serializable {
     public Texel(char value) {
@@ -46,4 +47,28 @@ public class Texel implements Serializable {
     private TextColor.RGB foregroundColor;
     private TextColor.RGB backgroundColor;
     private char value;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Texel texel = (Texel) o;
+        return value == texel.value &&
+                foregroundColor.equals(texel.foregroundColor) &&
+                backgroundColor.equals(texel.backgroundColor);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(foregroundColor, backgroundColor, value);
+    }
+
+    @Override
+    public String toString() {
+        return "Texel{" +
+                "foregroundColor=" + foregroundColor +
+                ", backgroundColor=" + backgroundColor +
+                ", value=" + value +
+                '}';
+    }
 }

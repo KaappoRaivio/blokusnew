@@ -15,8 +15,8 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class MyPositionEvaluator implements PositionEvaluator {
-    public static final MyPositionEvaluator EVALUATOR_0 = new MyPositionEvaluator(1, 0.1, 0.2, 0.3,1);
-    public static final MyPositionEvaluator EVALUATOR_1 = new MyPositionEvaluator(1, 0.1, 0.2, 0.3, 10);
+    public static final MyPositionEvaluator EVALUATOR_0 = new MyPositionEvaluator(3, 0.1, 1, <1000,4);
+    public static final MyPositionEvaluator EVALUATOR_1 = new MyPositionEvaluator(3, 0.1, 1, 10, 1);
 
     private double squaresOnBoardWeight;
     private double cornersFreeWeight;
@@ -41,7 +41,7 @@ public class MyPositionEvaluator implements PositionEvaluator {
     }
 
     private int howManySquaresOnBoard (Board position, int color) {
-        return position.getPieceManager().getPiecesOnBoard(color).stream().mapToInt(PieceID::getAmountOfSquares).sum();
+        return (int) Math.pow(position.getPieceManager().getPiecesOnBoard(color).stream().mapToInt(PieceID::getAmountOfSquares).sum(), 2);
     }
 
     private int howManyCornersFree (Board position, int color) {
@@ -54,7 +54,7 @@ public class MyPositionEvaluator implements PositionEvaluator {
         double average = 0;
 
         for (var item : values) {
-            average += (double) item / (position.getDimY() * position.getDimX());
+            average += (double) Math.pow(item, 2) / Math.pow(position.getDimY() * position.getDimX(), 2);
         }
 
         return (int) (average + 0.5);
