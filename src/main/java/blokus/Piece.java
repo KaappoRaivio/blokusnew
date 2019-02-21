@@ -41,6 +41,7 @@ public class Piece implements java.io.Serializable, Texelizeable {
 
     public static final char OPAQUE = '#';
     public static final char TRANSPARENT = '.';
+    public static final char CORNER = '$';
 
     private char[][] mesh;
     private int color;
@@ -128,7 +129,6 @@ public class Piece implements java.io.Serializable, Texelizeable {
         String[] lines = text.split("\n");
         dimY = lines.length;
         dimX = lines[0].length();
-        System.out.println(dimX + ", " + dimY);
 
         initializeMesh();
 
@@ -139,9 +139,11 @@ public class Piece implements java.io.Serializable, Texelizeable {
                     case Piece.TRANSPARENT:
                         mesh[y][x] = Piece.TRANSPARENT;
                         break;
+                    case Piece.CORNER:
                     case Piece.OPAQUE:
                         mesh[y][x] = Piece.OPAQUE;
                         break;
+
                     default:
                         System.out.println("Invalid data in " + pieceID + " at " + x + ", " + y + "!" );
                         mesh[y][x] = Piece.TRANSPARENT;
@@ -414,5 +416,13 @@ public class Piece implements java.io.Serializable, Texelizeable {
 //        System.out.println(piece.getAllOrientations());
         System.out.println(piece.rotate(Orientation.DOWN, false).rotate(Orientation.DOWN, false));
         System.out.println(Arrays.deepToString(piece.texelize(new DefaultPallet(), 1, 1)));
+    }
+
+    public int getDimY () {
+        return dimY;
+    }
+
+    public int getDimX () {
+        return dimX;
     }
 }

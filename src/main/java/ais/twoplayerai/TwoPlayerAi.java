@@ -122,7 +122,7 @@ public class TwoPlayerAi extends Player {
 //        ui.updateValues(position, (color + depth + 1) % 2, moveCount + depth + 1);
 //        ui.commit();
         ui.overlay(position);
-        new Scanner(System.in).nextLine();
+//        new Scanner(System.in).nextLine();
         ui.clearOverlay();
     }
 

@@ -9,7 +9,7 @@ public class Main {
 
 
 //        Board board = new Board(14, 14, new MyPieceManager(4), true);
-        Board board = Board.ORIGINAL_BOARD;
+        Board board = Board.DUO_BOARD;
 //        Board board = Board.fromFile("/home/kaappo/git/blokusnew/src/main/resources/boards/Wed Feb 13 21:52:36 EET 2019.ser", false);
 
         UI ui = new FancyTtyUI(board.deepCopy(), 2, 2);
@@ -29,13 +29,14 @@ public class Main {
 //                new Player(board , 0, null, ui),
 //                new RandomAi(board, 0, null, ui),
 //                new Player(board, 0, null, ui),
-//                twoPlayerAi0,
-//                twoPlayerAi1,
+                twoPlayerAi0,
+                twoPlayerAi1,
 //                new Player(board, 1, null, ui)
-                new Player(board, 0, null, ui),
-                new Player(board, 1, null, ui),
-                new Player(board, 2, null, ui),
-                new Player(board, 3, null, ui),
+//                new Player(board, 0, null, ui),
+//                new Player(board, 1, null, ui),
+//                new Player(board, 2, null, ui),
+//                new Player(board, 3, null, ui),
+
         };
 
         Runner runner = new Runner(board, players, spectators, ui);

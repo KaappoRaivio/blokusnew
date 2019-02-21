@@ -2,20 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ce25beff-fdbc-46a7-a774-9d3d5b134b5f" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/misc/Pair.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/uis/fancyttyui/RemainingPieceViewer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ais/twoplayerai/MyPositionEvaluator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ais/twoplayerai/MyPositionEvaluator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ais/twoplayerai/TwoPlayerAi.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ais/twoplayerai/TwoPlayerAi.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/blokus/Board.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/blokus/Board.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/blokus/Piece.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/blokus/Piece.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/blokus/PiecePallet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/blokus/PiecePallet.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/blokus/Runner.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/blokus/Runner.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/uis/Texel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/uis/Texel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/uis/Texelizeable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/uis/Texelizeable.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/uis/fancyttyui/DefaultPallet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/uis/fancyttyui/DefaultPallet.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/uis/fancyttyui/PieceSprite.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/uis/fancyttyui/PieceSprite.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/uis/fancyttyui/Sprite.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/uis/fancyttyui/Sprite.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/pieces/piece1.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/pieces/piece1.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/pieces/piece10.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/pieces/piece10.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/pieces/piece11.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/pieces/piece11.txt" afterDir="false" />
@@ -48,7 +38,7 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="DarkyenusTimeTracker">
-    <option name="totalTimeSeconds" value="349710" />
+    <option name="totalTimeSeconds" value="350830" />
     <option name="gitIntegration" value="true" />
     <option name="naggedAbout" value="1" />
   </component>
@@ -113,104 +103,7 @@
     </system>
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/resources/pieces/piece12.txt">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="30">
-              <caret line="2" column="3" selection-start-line="2" selection-start-column="3" selection-end-line="2" selection-end-column="3" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/resources/pieces/piece13.txt">
-          <provider selected="true" editor-type-id="text-editor">
-            <state>
-              <caret column="4" selection-start-column="4" selection-end-column="4" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/resources/pieces/piece14.txt">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="30">
-              <caret line="2" column="3" selection-start-line="2" selection-start-column="3" selection-end-line="2" selection-end-column="3" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/resources/pieces/piece15.txt">
-          <provider selected="true" editor-type-id="text-editor">
-            <state>
-              <caret column="5" selection-start-column="5" selection-end-column="5" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/resources/pieces/piece16.txt">
-          <provider selected="true" editor-type-id="text-editor">
-            <state>
-              <caret column="2" selection-start-column="2" selection-end-column="2" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/resources/pieces/piece17.txt">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="30">
-              <caret line="2" column="3" selection-start-line="2" selection-start-column="3" selection-end-line="2" selection-end-column="3" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/resources/pieces/piece18.txt">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="30">
-              <caret line="2" column="2" selection-start-line="2" selection-start-column="2" selection-end-line="2" selection-end-column="2" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/resources/pieces/piece20.txt">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="30">
-              <caret line="2" column="3" lean-forward="true" selection-start-line="2" selection-start-column="3" selection-end-line="2" selection-end-column="3" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/main/java/blokus/Board.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="105">
-              <caret line="17" column="92" selection-start-line="17" selection-start-column="92" selection-end-line="17" selection-end-column="92" />
-              <folding>
-                <element signature="e#8547#8548#0" expanded="true" />
-                <element signature="e#8607#8608#0" expanded="true" />
-                <element signature="e#11546#11547#0" expanded="true" />
-                <element signature="e#11622#11623#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/resources/pieces/piece19.txt">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="30">
-              <caret line="2" column="3" selection-start-line="2" selection-start-column="3" selection-end-line="2" selection-end-column="3" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300" />
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -223,8 +116,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>System.out.println</find>
-      <find>randomize</find>
       <find>drawTe</find>
       <find>getMoveCall</find>
       <find>sear</find>
@@ -232,7 +123,6 @@
       <find>System.out</find>
       <find>float</find>
       <find>board.sa</find>
-      <find>new</find>
       <find>fits</find>
       <find>isEmp</find>
       <find>booli</find>
@@ -253,6 +143,9 @@
       <find>texelize (</find>
       <find>texelize</find>
       <find>rotate</find>
+      <find>Length:</find>
+      <find>new Scann</find>
+      <find>new</find>
     </findStrings>
     <replaceStrings>
       <replace />
@@ -291,7 +184,6 @@
         <option value="$PROJECT_DIR$/src/main/java/uis/MessageImportance.java" />
         <option value="$PROJECT_DIR$/src/main/java/uis/MessageType.java" />
         <option value="$PROJECT_DIR$/src/main/java/ais/twoplayerai/Evaluator.java" />
-        <option value="$PROJECT_DIR$/src/main/java/ais/twoplayerai/TwoPlayerAi.java" />
         <option value="$PROJECT_DIR$/src/main/java/uis/UI.java" />
         <option value="$PROJECT_DIR$/src/main/java/uis/TtyUITest.java" />
         <option value="$PROJECT_DIR$/src/main/java/uis/fancyttyui/Screen.java" />
@@ -302,17 +194,18 @@
         <option value="$PROJECT_DIR$/src/main/java/uis/fancyttyui/DefaultPallet.java" />
         <option value="$PROJECT_DIR$/src/main/java/blokus/PiecePallet.java" />
         <option value="$PROJECT_DIR$/src/main/java/blokus/Runner.java" />
-        <option value="$PROJECT_DIR$/src/main/java/Main.java" />
         <option value="$PROJECT_DIR$/src/main/java/misc/Pair.java" />
         <option value="$PROJECT_DIR$/src/main/java/misc/PairTest.groovy" />
         <option value="$PROJECT_DIR$/src/main/java/uis/Texelizeable.java" />
         <option value="$PROJECT_DIR$/src/main/java/uis/fancyttyui/RemainingPieceViewer.java" />
         <option value="$PROJECT_DIR$/src/main/java/uis/Texel.java" />
-        <option value="$PROJECT_DIR$/src/main/resources/pieces/piece21.txt" />
-        <option value="$PROJECT_DIR$/src/main/resources/pieces/piece1.txt" />
-        <option value="$PROJECT_DIR$/src/main/java/blokus/Piece.java" />
         <option value="$PROJECT_DIR$/src/main/java/uis/fancyttyui/Sprite.java" />
         <option value="$PROJECT_DIR$/src/main/java/uis/fancyttyui/PieceSprite.java" />
+        <option value="$PROJECT_DIR$/src/main/java/Main.java" />
+        <option value="$PROJECT_DIR$/src/main/java/blokus/Board.java" />
+        <option value="$PROJECT_DIR$/src/main/java/ais/twoplayerai/TwoPlayerAi.java" />
+        <option value="$PROJECT_DIR$/src/main/java/blokus/Piece.java" />
+        <option value="$PROJECT_DIR$/src/main/resources/pieces/piece1.txt" />
         <option value="$PROJECT_DIR$/src/main/resources/pieces/piece2.txt" />
         <option value="$PROJECT_DIR$/src/main/resources/pieces/piece3.txt" />
         <option value="$PROJECT_DIR$/src/main/resources/pieces/piece4.txt" />
@@ -332,7 +225,7 @@
         <option value="$PROJECT_DIR$/src/main/resources/pieces/piece18.txt" />
         <option value="$PROJECT_DIR$/src/main/resources/pieces/piece19.txt" />
         <option value="$PROJECT_DIR$/src/main/resources/pieces/piece20.txt" />
-        <option value="$PROJECT_DIR$/src/main/java/blokus/Board.java" />
+        <option value="$PROJECT_DIR$/src/main/resources/pieces/piece21.txt" />
       </list>
     </option>
   </component>
@@ -374,14 +267,6 @@
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Blokus" type="b2602c69:ProjectViewProjectNode" />
-              <item name="blokusnew" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="blokus" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="Blokus" type="b2602c69:ProjectViewProjectNode" />
@@ -622,9 +507,8 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="27" width="1920" height="1019" extended-state="6" />
-    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.226254" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.226254" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -633,7 +517,7 @@
       <window_info id="Favorites" order="6" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32655367" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.49781182" visible="true" weight="0.4032634" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49781182" weight="0.4032634" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.3986014" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -696,6 +580,12 @@
           <line>108</line>
           <properties />
           <option name="timeStamp" value="1" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/ais/twoplayerai/TwoPlayerAi.java</url>
+          <line>124</line>
+          <properties />
+          <option name="timeStamp" value="2" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
@@ -781,16 +671,6 @@
             <element signature="method#sameAmountOfPiecesOnBoard#0;class#MyPositionEvaluator#0" />
             <element signature="method#isOufOfBounds#0;class#MyPositionEvaluator#0" />
             <element signature="method#adjacents#0;class#MyPositionEvaluator#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/ais/twoplayerai/TwoPlayerAi.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="323">
-          <caret line="123" column="29" selection-start-line="123" selection-start-column="29" selection-end-line="123" selection-end-column="29" />
-          <folding>
-            <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -901,46 +781,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/blokus/Runner.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="160">
-          <caret line="36" selection-start-line="36" selection-end-line="36" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#3893#3894#0" expanded="true" />
-            <element signature="e#3927#3928#0" expanded="true" />
-            <element signature="e#3958#3959#0" expanded="true" />
-            <element signature="e#3986#3987#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/Main.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="172">
-          <caret line="43" selection-start-line="43" selection-end-line="43" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/listener/_KeyListener.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="152">
           <caret line="47" selection-start-line="47" selection-end-line="47" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/blokus/Piece.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="367">
-          <caret line="415" column="47" selection-start-line="415" selection-start-column="47" selection-end-line="415" selection-end-column="47" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#2436#2437#0" expanded="true" />
-            <element signature="e#2463#2464#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -987,10 +831,64 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/pieces/piece21.txt">
+    <entry file="file://$PROJECT_DIR$/src/main/java/Main.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret column="4" selection-start-column="4" selection-end-column="4" />
+        <state relative-caret-position="495">
+          <caret line="33" column="12" selection-start-line="33" selection-start-column="12" selection-end-line="33" selection-end-column="12" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/blokus/Board.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="182">
+          <caret line="149" column="47" selection-start-line="149" selection-start-column="47" selection-end-line="149" selection-end-column="47" />
+          <folding>
+            <element signature="e#8547#8548#0" expanded="true" />
+            <element signature="e#8607#8608#0" expanded="true" />
+            <element signature="e#11546#11547#0" expanded="true" />
+            <element signature="e#11622#11623#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/blokus/Runner.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="142">
+          <caret line="60" column="25" selection-start-line="60" selection-start-column="22" selection-end-line="60" selection-end-column="25" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#3893#3894#0" expanded="true" />
+            <element signature="e#3927#3928#0" expanded="true" />
+            <element signature="e#3958#3959#0" expanded="true" />
+            <element signature="e#3986#3987#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ais/twoplayerai/TwoPlayerAi.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="175">
+          <caret line="125" column="10" selection-start-line="125" selection-start-column="10" selection-end-line="125" selection-end-column="10" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/blokus/Piece.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="210">
+          <caret line="141" column="24" selection-start-line="141" selection-start-column="24" selection-end-line="141" selection-end-column="24" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#11741#11742#0" expanded="true" />
+            <element signature="e#11765#11766#0" expanded="true" />
+            <element signature="e#11798#11799#0" expanded="true" />
+            <element signature="e#11825#11826#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1010,15 +908,15 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/resources/pieces/piece3.txt">
       <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret column="2" selection-start-column="2" selection-end-column="2" />
+        <state relative-caret-position="15">
+          <caret line="1" column="2" selection-start-line="1" selection-start-column="2" selection-end-line="1" selection-end-column="2" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/resources/pieces/piece4.txt">
       <provider selected="true" editor-type-id="text-editor">
         <state>
-          <caret column="3" selection-start-column="3" selection-end-column="3" />
+          <caret column="1" selection-start-column="1" selection-end-column="1" />
         </state>
       </provider>
     </entry>
@@ -1031,75 +929,68 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/resources/pieces/piece6.txt">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="15">
-          <caret line="1" column="3" selection-start-line="1" selection-start-column="3" selection-end-line="1" selection-end-column="3" />
+        <state>
+          <caret column="2" selection-start-column="2" selection-end-column="2" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/resources/pieces/piece7.txt">
       <provider selected="true" editor-type-id="text-editor">
         <state>
-          <caret column="4" selection-start-column="4" selection-end-column="4" />
+          <caret column="1" selection-start-column="1" selection-end-column="1" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/resources/pieces/piece8.txt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="15">
-          <caret line="1" column="3" selection-start-line="1" selection-start-column="3" selection-end-line="1" selection-end-column="3" />
+          <caret line="1" column="1" selection-start-line="1" selection-start-column="1" selection-end-line="1" selection-end-column="1" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/resources/pieces/piece9.txt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="15">
-          <caret line="1" column="3" selection-start-line="1" selection-start-column="3" selection-end-line="1" selection-end-column="3" />
+          <caret line="1" column="2" selection-start-line="1" selection-start-column="2" selection-end-line="1" selection-end-column="2" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/resources/pieces/piece10.txt">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="15">
-          <caret line="1" column="4" selection-start-line="1" selection-start-column="4" selection-end-line="1" selection-end-column="4" />
+        <state>
+          <caret column="1" selection-start-column="1" selection-end-column="1" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/resources/pieces/piece11.txt">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="30">
-          <caret line="2" column="3" selection-start-line="2" selection-start-column="3" selection-end-line="2" selection-end-column="3" />
+        <state>
+          <caret column="2" selection-start-column="2" selection-end-column="2" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/pieces/piece12.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="30">
-          <caret line="2" column="3" selection-start-line="2" selection-start-column="3" selection-end-line="2" selection-end-column="3" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/pieces/piece13.txt">
+    <entry file="file://$PROJECT_DIR$/src/main/resources/pieces/piece21.txt">
       <provider selected="true" editor-type-id="text-editor">
         <state>
-          <caret column="4" selection-start-column="4" selection-end-column="4" />
+          <caret column="2" selection-start-column="2" selection-end-column="2" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/pieces/piece14.txt">
+    <entry file="file://$PROJECT_DIR$/src/main/resources/pieces/piece20.txt">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="30">
-          <caret line="2" column="3" selection-start-line="2" selection-start-column="3" selection-end-line="2" selection-end-column="3" />
+        <state relative-caret-position="15">
+          <caret line="1" column="3" selection-start-line="1" selection-start-column="3" selection-end-line="1" selection-end-column="3" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/pieces/piece15.txt">
+    <entry file="file://$PROJECT_DIR$/src/main/resources/pieces/piece19.txt">
       <provider selected="true" editor-type-id="text-editor">
         <state>
-          <caret column="5" selection-start-column="5" selection-end-column="5" />
+          <caret column="3" selection-start-column="3" selection-end-column="3" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/pieces/piece16.txt">
+    <entry file="file://$PROJECT_DIR$/src/main/resources/pieces/piece18.txt">
       <provider selected="true" editor-type-id="text-editor">
         <state>
           <caret column="2" selection-start-column="2" selection-end-column="2" />
@@ -1108,42 +999,43 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/resources/pieces/piece17.txt">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="30">
-          <caret line="2" column="3" selection-start-line="2" selection-start-column="3" selection-end-line="2" selection-end-column="3" />
+        <state>
+          <caret column="3" selection-start-column="3" selection-end-column="3" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/pieces/piece18.txt">
+    <entry file="file://$PROJECT_DIR$/src/main/resources/pieces/piece16.txt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="30">
-          <caret line="2" column="2" selection-start-line="2" selection-start-column="2" selection-end-line="2" selection-end-column="2" />
+          <caret line="2" column="1" selection-start-line="2" selection-start-column="1" selection-end-line="2" selection-end-column="1" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/pieces/piece19.txt">
+    <entry file="file://$PROJECT_DIR$/src/main/resources/pieces/piece15.txt">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="30">
-          <caret line="2" column="3" selection-start-line="2" selection-start-column="3" selection-end-line="2" selection-end-column="3" />
+        <state>
+          <caret column="1" selection-start-column="1" selection-end-column="1" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/pieces/piece20.txt">
+    <entry file="file://$PROJECT_DIR$/src/main/resources/pieces/piece14.txt">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="30">
-          <caret line="2" column="3" lean-forward="true" selection-start-line="2" selection-start-column="3" selection-end-line="2" selection-end-column="3" />
+        <state>
+          <caret column="3" selection-start-column="3" selection-end-column="3" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/blokus/Board.java">
+    <entry file="file://$PROJECT_DIR$/src/main/resources/pieces/piece13.txt">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="105">
-          <caret line="17" column="92" selection-start-line="17" selection-start-column="92" selection-end-line="17" selection-end-column="92" />
-          <folding>
-            <element signature="e#8547#8548#0" expanded="true" />
-            <element signature="e#8607#8608#0" expanded="true" />
-            <element signature="e#11546#11547#0" expanded="true" />
-            <element signature="e#11622#11623#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="15">
+          <caret line="1" column="2" selection-start-line="1" selection-start-column="2" selection-end-line="1" selection-end-column="2" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/pieces/piece12.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="1" selection-start-column="1" selection-end-column="1" />
         </state>
       </provider>
     </entry>

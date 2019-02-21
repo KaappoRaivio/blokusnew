@@ -145,12 +145,9 @@ public class Board implements Serializable, Texelizeable {
         boolean fits = true;
         boolean touchesCorner = false;
 
-        if (!(mesh.length == 5 && mesh[0].length == 5)) {
-            System.out.println("Length: " + mesh.length + " " + mesh[0].length);
-        }
 
-        for (int y = 0; y < mesh.length; y++) {
-            for (int x = 0; x < mesh[y].length; x++) {
+        for (int y = 0; y < piece.getDimY(); y++) {
+            for (int x = 0; x < piece.getDimX(); x++) {
                 char current = mesh[y][x];
                 if (current == Piece.TRANSPARENT) {
                     continue;
