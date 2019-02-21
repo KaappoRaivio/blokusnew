@@ -14,6 +14,10 @@ import java.util.stream.Collectors;
 
 
 public class Board implements Serializable, Texelizeable {
+    public static final Board DUO_BOARD = new Board(14, 14, new MyPieceManager(2));
+    public static final Board ORIGINAL_BOARD = new Board(20, 20, new MyPieceManager(4), true);
+
+
 
     private static final int NO_PIECE = -1;
     private static final int EDGE = -2;
@@ -28,17 +32,23 @@ public class Board implements Serializable, Texelizeable {
 
 
     private PieceManager pieceManager;
+    private boolean startFromCorners;
 
     private List<int[][]> moveHistory = new Vector<>();
 
     private Saver<Board> saver;
 
     public Board(int dimX, int dimY, PieceManager pieceManager) {
+        this(dimX, dimY, pieceManager, false);
+    }
+
+    public Board (int dimX, int dimY, PieceManager pieceManager, boolean startFromCorners) {
         this.dimX = dimX;
         this.dimY = dimY;
         this.amountOfPlayers = pieceManager.getAmountOfPlayers();
 
         this.pieceManager = pieceManager;
+        this.startFromCorners = startFromCorners;
         this.saver = new Saver<>();
 
 
@@ -424,8 +434,12 @@ public class Board implements Serializable, Texelizeable {
     }
 
     private boolean isCorner (int x, int y) {
-//        return (x == 0 || x == dimX - 1) && (y == 0 || y == dimY - 1);
-        return (x == 4 && y == 4) || (x == dimX - 5 && y == dimY - 5);
+        if (startFromCorners) {
+            return (x == 0 || x == dimX - 1) && (y == 0 || y == dimY - 1);
+        } else {
+            return (x == 4 && y == 4) || (x == dimX - 5 && y == dimY - 5);
+        }
+
     }
 
     private boolean isEligibleCorner (int color, int x, int y) {
@@ -569,19 +583,9 @@ public class Board implements Serializable, Texelizeable {
 
     @Override
     public Texel[][] texelize (ColorPallet pallet, int scaleX, int scaleY) {
-        Texel[][] newBuffer = new Texel[scaleY * getDimY() + 2][scaleX * getDimX() * 2 + 4];
 
-        for (int y = 0; y < newBuffer.length; y++) {
-            for (int x = 0; x < newBuffer[y].length; x++) {
-                newBuffer[y][x] = pallet.getBackgroundTexel();
-            }
-        }
+        Texel[][] newBuffer = Texel.getBlankTexelMatrix(scaleX * getDimX() * 2 + 4, scaleY * getDimY() + 2, pallet.getBackgroundTexel());
 
-//        for (int y = 0; y < getDimY(); y++) {
-//            for (int x = 0; x < getDimX() * 2; x += 2) {
-//                newBuffer[y + 1][x + 3] = newBuffer[y + 1][x + 2] = pallet.getTexel(board[y][x / 2]);
-//            }
-//        }
         for (int y = 0; y < newBuffer.length - 2; y++) {
             for (int x = 0; x < newBuffer[y].length - 4; x++) {
 //                System.out.println(x + ", " + y);

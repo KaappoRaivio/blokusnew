@@ -71,4 +71,16 @@ public class Texel implements Serializable {
                 ", value=" + value +
                 '}';
     }
+
+    public static Texel[][] getBlankTexelMatrix (int dimX, int dimY, Texel fill) {
+        var matrix = new Texel[dimY][dimX];
+
+        for (int y = 0; y < matrix.length; y++) {
+            for (int x = 0; x < matrix[y].length; x++) {
+                matrix[y][x] = fill;
+            }
+        }
+
+        return matrix;
+    }
 }

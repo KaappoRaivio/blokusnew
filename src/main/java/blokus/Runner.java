@@ -18,7 +18,7 @@ public class Runner {
     public Runner (Board board, CapableOfPlaying[] players, Spectator[] spectators, UI ui) {
         this.spectators = spectators;
         if (board.getAmountOfPlayers() != players.length) {
-            throw new RuntimeException("Board is initialized with " + board.getAmountOfPlayers() + " players but there are only " + players.length + " players!");
+            throw new RuntimeException("Board is initialized with " + board.getAmountOfPlayers() + " players but there are " + players.length + " players!");
         }
 
         this.board = board;
@@ -57,6 +57,9 @@ public class Runner {
             updateAllPlayerValues(board, turn, moveCount);
 
             CapableOfPlaying current = players[turn];
+            if (current.getColor() != turn) {
+                throw new RuntimeException("Wrong color " + current.getColor() + " in place of a " + turn + "!");
+            }
             System.out.println(Arrays.toString(lost));
 //            System.out.println("N is currently "0,0 + current.getEvaluator().getN());
             ui.updateValues(board.deepCopy(), turn, moveCount);

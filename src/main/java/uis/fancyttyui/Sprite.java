@@ -23,8 +23,8 @@ public class Sprite implements Serializable, Texelizeable {
     private volatile int posY = -1;  // to ensure
     private volatile boolean drawn;  // multi-thread safety.
 
-    private int dimX;
-    private int dimY;
+    protected int dimX;
+    protected int dimY;
 
 
     private int ID;
@@ -180,19 +180,14 @@ public class Sprite implements Serializable, Texelizeable {
             return mesh[y][x];
         } catch (ArrayIndexOutOfBoundsException e) {
             System.out.println(this);
+            System.out.println("x = [" + x + "], y = [" + y + "]");
             throw new RuntimeException(e);
         }
     }
 
     @Override
     public Texel[][] texelize (ColorPallet colorPallet, int scaleX, int scaleY) {
-        Texel[][] newBuffer = new Texel[getDimY() * scaleY][getDimX() * scaleX * 2];
-
-        for (int y = 0; y < newBuffer.length; y++) {
-            for (int x = 0; x < newBuffer[y].length; x++) {
-                newBuffer[y][x] = colorPallet.getBackgroundTexel();
-            }
-        }
+        Texel[][] newBuffer = Texel.getBlankTexelMatrix(getDimX() * scaleX * 2, getDimY() * scaleY, colorPallet.getBackgroundTexel());
 
         for (int y = 0; y < newBuffer.length; y++) {
             for (int x = 0; x < newBuffer[y].length; x++) {

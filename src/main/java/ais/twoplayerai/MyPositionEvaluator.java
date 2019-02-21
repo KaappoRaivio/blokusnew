@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class MyPositionEvaluator implements PositionEvaluator {
-    public static final MyPositionEvaluator EVALUATOR_0 = new MyPositionEvaluator(3, 0.1, 1, <1000,4);
+    public static final MyPositionEvaluator EVALUATOR_0 = new MyPositionEvaluator(3, 0.1, 1, 1000, 4);
     public static final MyPositionEvaluator EVALUATOR_1 = new MyPositionEvaluator(3, 0.1, 1, 10, 1);
 
     private double squaresOnBoardWeight;

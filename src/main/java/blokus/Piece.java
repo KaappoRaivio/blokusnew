@@ -1,5 +1,11 @@
 package blokus;
 
+import uis.Texel;
+import uis.Texelizeable;
+import uis.fancyttyui.ColorPallet;
+import uis.fancyttyui.DefaultPallet;
+import uis.fancyttyui.Terminal;
+
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
@@ -7,7 +13,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Vector;
 
-public class Piece implements java.io.Serializable {
+public class Piece implements java.io.Serializable, Texelizeable {
     private static final List<String> paths = Arrays.asList(
             "../pieces/piece1.txt",
             "../pieces/piece2.txt",
@@ -36,7 +42,7 @@ public class Piece implements java.io.Serializable {
     public static final char OPAQUE = '#';
     public static final char TRANSPARENT = '.';
 
-    private char[][] mesh = new char[5][5];
+    private char[][] mesh;
     private int color;
 
     private int posX = -1;
@@ -87,10 +93,12 @@ public class Piece implements java.io.Serializable {
 
 
     private static boolean isValid (int color) {
-        return true;
+        return color > -1;
     }
 
     private void initializeMesh () {
+        mesh = new char[dimY][dimX];
+
         for (int y = 0; y < mesh.length; y++) {
             for (int x = 0; x < mesh[y].length; x++) {
                 this.mesh[y][x] = Piece.TRANSPARENT;
@@ -109,7 +117,6 @@ public class Piece implements java.io.Serializable {
             throw new RuntimeException("Invalid color " + color + "!");
         }
 
-        initializeMesh();
 
         String text;
         try {
@@ -121,8 +128,9 @@ public class Piece implements java.io.Serializable {
         String[] lines = text.split("\n");
         dimY = lines.length;
         dimX = lines[0].length();
+        System.out.println(dimX + ", " + dimY);
 
-
+        initializeMesh();
 
         for (int y = 0; y < dimY; y++) {
             for (int x = 0; x < dimX; x++) {
@@ -242,15 +250,13 @@ public class Piece implements java.io.Serializable {
 
         switch (orientation) {
             case UP:
-                newList = new char[dimY][dimX];
-
                 newList = mesh;
                 break;
             case DOWN:
                 newList = new char[dimY][dimX];
 
-                for (int y = 0; y < mesh.length; y++) {
-                    for (int x = 0; x < mesh[y].length; x++) {
+                for (int y = 0; y < dimY; y++) {
+                    for (int x = 0; x < dimX; x++) {
                         newList[dimY - y - 1][dimX - x - 1] = mesh[y][x];
                     }
                 }
@@ -258,8 +264,8 @@ public class Piece implements java.io.Serializable {
             case LEFT:
                 newList = new char[dimX][dimY];
 
-                for (int y = 0; y < mesh.length; y++) {
-                    for (int x = 0; x < mesh[y].length; x++) {
+                for (int y = 0; y < dimY; y++) {
+                    for (int x = 0; x < dimX; x++) {
                         newList[dimX - x - 1][y] = mesh[y][x];
                     }
                 }
@@ -267,8 +273,8 @@ public class Piece implements java.io.Serializable {
             case RIGHT:
                 newList = new char[dimX][dimY];
 
-                for (int y = 0; y < mesh.length; y++) {
-                    for (int x = 0; x < mesh[y].length; x++) {
+                for (int y = 0; y < dimY; y++) {
+                    for (int x = 0; x < dimX; x++) {
                         newList[x][dimY - y - 1] = mesh[y][x];
                     }
                 }
@@ -278,11 +284,16 @@ public class Piece implements java.io.Serializable {
                 throw new RuntimeException("Shouln't get here");
         }
 
+
+        int dimY = newList.length;
+        int dimX = newList[0].length;
+
         char[][] afterFlip = new char[dimY][dimX];
 
+
         if (flip) {
-            for (int y = 0; y < mesh.length; y++) {
-                for (int x = 0; x < mesh[y].length; x++) {
+            for (int y = 0; y < dimY; y++) {
+                for (int x = 0; x < dimX; x++) {
                     afterFlip[y][dimX - x - 1] = newList[y][x];
                 }
             }
@@ -339,10 +350,10 @@ public class Piece implements java.io.Serializable {
     }
 
     public String toString () {
-        StringBuilder builder = new StringBuilder("Color: " + this.color + "\n");
-        for (int y = 0; y < this.mesh.length; y++) {
-            for (int x = 0; x < this.mesh[y].length; x++) {
-                builder.append(this.mesh[x][y] == Piece.TRANSPARENT ? " " : this.mesh[x][y]);
+        StringBuilder builder = new StringBuilder("Color: " + color + "\n");
+        for (int y = 0; y < dimY; y++) {
+            for (int x = 0; x < dimX; x++) {
+                builder.append(mesh[y][x] == Piece.TRANSPARENT ? "." : mesh[y][x]);
             }
             builder.append("\n");
         }
@@ -354,7 +365,7 @@ public class Piece implements java.io.Serializable {
         StringBuilder builder = new StringBuilder();
         for (int y = 0; y < this.mesh.length; y++) {
             for (int x = 0; x < this.mesh[y].length; x++) {
-                builder.append(this.mesh[x][y] == Piece.TRANSPARENT ? " " : this.mesh[x][y]);
+                builder.append(mesh[y][x] == Piece.TRANSPARENT ? " " : mesh[y][x]);
             }
             builder.append("\n");
         }
@@ -374,4 +385,34 @@ public class Piece implements java.io.Serializable {
         return 21;
     }
 
+    @Override
+    public Texel[][] texelize (ColorPallet colorPallet, int scaleX, int scaleY) {
+        char[][] pieceMesh = mesh;
+        Texel[][] mesh = new Texel[this.mesh.length * scaleY][2 * scaleX * this.mesh[0].length];
+
+        for (int y = 0; y < mesh.length; y++) {
+            for (int x = 0; x < mesh[y].length; x++) {
+                mesh[y][x] = new Texel(Terminal.TRANSPARENT);
+            }
+        }
+
+        for (int y = 0; y < mesh.length; y++) {
+            for (int x = 0; x < mesh[y].length; x++) {
+                if (pieceMesh[y / scaleY][x / scaleX / 2] == Piece.OPAQUE) {
+                    mesh[y][x] = colorPallet.getTexel(color);
+                }
+
+            }
+        }
+
+        return mesh;
+    }
+
+    public static void main(String[] args) {
+        Piece piece = new Piece(PieceID.PIECE_21, 0);
+//        System.out.println(piece.rotate(Orientation.LEFT, false));
+//        System.out.println(piece.getAllOrientations());
+        System.out.println(piece.rotate(Orientation.DOWN, false).rotate(Orientation.DOWN, false));
+        System.out.println(Arrays.deepToString(piece.texelize(new DefaultPallet(), 1, 1)));
+    }
 }

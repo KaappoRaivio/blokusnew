@@ -17,16 +17,16 @@ public class PieceSprite extends Sprite {
     private int pieceIDPointer;
 
     public PieceSprite (int color, ColorPallet pallet, Board currentPosition, int scaleX, int scaleY) {
-        super(texelize(new Piece(currentPosition.getPieceManager().getPiecesNotOnBoard(color).get(currentPosition.getPieceManager().getPiecesNotOnBoard(color).size() - 1), color), pallet, scaleX, scaleY), Terminal.TRANSPARENT);
+        super(new Piece(currentPosition.getPieceManager().getPiecesNotOnBoard(color).get(currentPosition.getPieceManager().getPiecesNotOnBoard(color).size() - 1), color).texelize(pallet, scaleX, scaleY), Terminal.TRANSPARENT);
 
-        this.pallet = pallet;
-        this.color = color;
-        this.scaleX = scaleX;
-        this.scaleY = scaleY;
-        orientation = Orientation.UP;
-        flip = false;
-        allPieceIDs = currentPosition.getPieceManager().getPiecesNotOnBoard(color);
-        pieceIDPointer = allPieceIDs.size() - 1;
+        this.pallet     = pallet;
+        this.color      = color;
+        this.scaleX     = scaleX;
+        this.scaleY     = scaleY;
+        orientation     = Orientation.UP;
+        flip            = false;
+        allPieceIDs     = currentPosition.getPieceManager().getPiecesNotOnBoard(color);
+        pieceIDPointer  = allPieceIDs.size() - 1;
     }
 
     public Move getCurrentMove () {
@@ -43,7 +43,11 @@ public class PieceSprite extends Sprite {
     }
 
     private void refreshData () {
-        super.mesh = texelize(new Piece(getCurrentPieceID(), color).rotate(orientation, flip), pallet, scaleX, scaleY);
+        Piece piece = new Piece(getCurrentPieceID(), color).rotate(orientation, flip);
+        var mesh = piece.texelize(pallet, scaleX, scaleY);
+        super.mesh = mesh;
+        dimY = mesh.length;
+        dimX = mesh[0].length;
     }
 
     public void changePieceIDPointer (int change) {
@@ -119,32 +123,5 @@ public class PieceSprite extends Sprite {
         refreshData();
 
     }
-
-    private static Texel[][] texelize (Piece piece, ColorPallet pallet, int scaleX, int scaleY) {
-        char[][] pieceMesh = piece.getMesh();
-        Texel[][] mesh = new Texel[piece.getMesh().length * scaleY][2 * scaleX * piece.getMesh()[0].length];
-
-        for (int y = 0; y < mesh.length; y++) {
-            for (int x = 0; x < mesh[y].length; x++) {
-                mesh[y][x] = new Texel(Terminal.TRANSPARENT);
-            }
-        }
-
-        for (int y = 0; y < mesh.length; y++) {
-            for (int x = 0; x < mesh[y].length; x++) {
-                if (pieceMesh[y / scaleY][x / scaleX / 2] == Piece.OPAQUE) {
-                    mesh[y][x] = pallet.getTexel(piece.getColor());
-                }
-
-            }
-        }
-
-        return mesh;
-    }
-
-//    @Override
-//    public Texel[][] texelize (ColorPallet pallet, int scaleX, int scaleY) {
-//
-//    }
 
 }

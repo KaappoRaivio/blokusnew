@@ -12,6 +12,10 @@ public class DefaultPallet implements ColorPallet {
                 return new Texel(new TextColor.RGB(0, 0, 255), '█');
             case 1:
                 return new Texel(new TextColor.RGB(255, 127, 0), '█');
+            case 2:
+                return new Texel(new TextColor.RGB(0, 255, 0), '█');
+            case 3:
+                return new Texel(new TextColor.RGB(255, 0, 0), '█');
             case -1:
                 return new Texel(new TextColor.RGB(200, 200, 200), '█');
             default:
