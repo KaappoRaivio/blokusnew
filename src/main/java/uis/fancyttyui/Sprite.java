@@ -98,7 +98,7 @@ public class Sprite implements Serializable, Texelizeable {
         screen.addSprite(boardSprite);
         boardSprite.draw(0, 0);
 
-        PieceSprite sprite = new PieceSprite(1, new DefaultPallet(), board, 1, 1);
+        PieceSpriteSymbol sprite = new PieceSpriteSymbol(1, new DefaultPallet(), board, 1, 1);
         screen.addSprite(sprite);
         sprite.draw(1, 1);
 
@@ -106,41 +106,38 @@ public class Sprite implements Serializable, Texelizeable {
 
 
         KeyListener keyListener = new KeyListener();
-        keyListener.addKeyEventListener(new KeyEventListener() {
-            @Override
-            public void reportKey(NativeKeyEvent event) {
-                switch (event.getKeyCode()) {
-                    case NativeKeyEvent.VC_LEFT:
-                        sprite.jump(-2, 0);
-                        break;
-                    case NativeKeyEvent.VC_RIGHT:
-                        sprite.jump(2, 0);
-                        break;
-                    case NativeKeyEvent.VC_DOWN:
-                        sprite.jump(0, 1);
-                        break;
-                    case NativeKeyEvent.VC_UP:
-                        sprite.jump(0, -1);
-                        break;
-                    case NativeKeyEvent.VC_A:
-                        sprite.rotateAntiClockwise();
-                        break;
-                    case NativeKeyEvent.VC_D:
-                        sprite.rotateClockwise();
-                        break;
-                    case NativeKeyEvent.VC_F:
-                        sprite.flip();
-                        break;
-                    case NativeKeyEvent.VC_W:
-                        sprite.changePieceIDPointer(1);
-                        break;
-                    case NativeKeyEvent.VC_S:
-                        sprite.changePieceIDPointer(-1);
-                        break;
-                }
-
-                screen.commit();
+        keyListener.addKeyEventListener(event -> {
+            switch (event.getKeyCode()) {
+                case NativeKeyEvent.VC_LEFT:
+                    sprite.jump(-2, 0);
+                    break;
+                case NativeKeyEvent.VC_RIGHT:
+                    sprite.jump(2, 0);
+                    break;
+                case NativeKeyEvent.VC_DOWN:
+                    sprite.jump(0, 1);
+                    break;
+                case NativeKeyEvent.VC_UP:
+                    sprite.jump(0, -1);
+                    break;
+                case NativeKeyEvent.VC_A:
+                    sprite.rotateAntiClockwise();
+                    break;
+                case NativeKeyEvent.VC_D:
+                    sprite.rotateClockwise();
+                    break;
+                case NativeKeyEvent.VC_F:
+                    sprite.flip();
+                    break;
+                case NativeKeyEvent.VC_W:
+                    sprite.changePieceIDPointer(1);
+                    break;
+                case NativeKeyEvent.VC_S:
+                    sprite.changePieceIDPointer(-1);
+                    break;
             }
+
+            screen.commit();
         });
         keyListener.run();
         try {

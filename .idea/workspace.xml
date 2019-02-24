@@ -2,31 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ce25beff-fdbc-46a7-a774-9d3d5b134b5f" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/java/uis/fancyttyui/PieceSpriteSymbol.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ais/twoplayerai/TwoPlayerAi.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ais/twoplayerai/TwoPlayerAi.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/blokus/Board.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/blokus/Board.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/blokus/Piece.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/blokus/Piece.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/pieces/piece1.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/pieces/piece1.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/pieces/piece10.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/pieces/piece10.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/pieces/piece11.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/pieces/piece11.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/pieces/piece12.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/pieces/piece12.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/pieces/piece13.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/pieces/piece13.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/pieces/piece14.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/pieces/piece14.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/pieces/piece15.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/pieces/piece15.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/pieces/piece16.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/pieces/piece16.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/pieces/piece17.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/pieces/piece17.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/pieces/piece18.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/pieces/piece18.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/pieces/piece19.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/pieces/piece19.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/pieces/piece2.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/pieces/piece2.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/pieces/piece20.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/pieces/piece20.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/pieces/piece21.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/pieces/piece21.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/pieces/piece3.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/pieces/piece3.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/pieces/piece4.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/pieces/piece4.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/pieces/piece5.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/pieces/piece5.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/pieces/piece6.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/pieces/piece6.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/pieces/piece7.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/pieces/piece7.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/pieces/piece8.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/pieces/piece8.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/pieces/piece9.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/pieces/piece9.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/uis/fancyttyui/FancyTtyUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/uis/fancyttyui/FancyTtyUI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/uis/fancyttyui/PieceSprite.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/uis/fancyttyui/PieceSprite.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/uis/fancyttyui/Sprite.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/uis/fancyttyui/Sprite.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/.gradle/" />
@@ -38,7 +19,7 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="DarkyenusTimeTracker">
-    <option name="totalTimeSeconds" value="350830" />
+    <option name="totalTimeSeconds" value="352360" />
     <option name="gitIntegration" value="true" />
     <option name="naggedAbout" value="1" />
   </component>
@@ -103,7 +84,65 @@
     </system>
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300" />
+    <leaf>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/uis/fancyttyui/Sprite.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="817">
+              <caret line="108" column="40" selection-start-line="108" selection-start-column="40" selection-end-line="108" selection-end-column="40" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/java/uis/fancyttyui/PieceSpriteSymbol.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="273">
+              <caret line="33" column="38" selection-start-line="33" selection-start-column="38" selection-end-line="33" selection-end-column="38" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/uis/fancyttyui/PieceSprite.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1097">
+              <caret line="98" selection-start-line="98" selection-end-line="98" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/uis/fancyttyui/FancyTtyUI.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="284">
+              <caret line="169" column="58" selection-start-line="169" selection-start-column="58" selection-end-line="169" selection-end-column="58" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/Main.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="333">
+              <caret line="34" column="12" selection-start-line="33" selection-start-column="12" selection-end-line="34" selection-end-column="12" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -116,7 +155,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>drawTe</find>
       <find>getMoveCall</find>
       <find>sear</find>
       <find>getFirst</find>
@@ -146,6 +184,7 @@
       <find>Length:</find>
       <find>new Scann</find>
       <find>new</find>
+      <find>rot</find>
     </findStrings>
     <replaceStrings>
       <replace />
@@ -175,7 +214,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/main/java/misc/MoveAndScore.java" />
         <option value="$PROJECT_DIR$/src/main/java/listener/KeyListener.java" />
         <option value="$PROJECT_DIR$/src/main/java/misc/Saver.java" />
         <option value="$PROJECT_DIR$/src/main/java/ais/twoplayerai/BoardEvaluator.java" />
@@ -187,7 +225,6 @@
         <option value="$PROJECT_DIR$/src/main/java/uis/UI.java" />
         <option value="$PROJECT_DIR$/src/main/java/uis/TtyUITest.java" />
         <option value="$PROJECT_DIR$/src/main/java/uis/fancyttyui/Screen.java" />
-        <option value="$PROJECT_DIR$/src/main/java/uis/fancyttyui/FancyTtyUI.java" />
         <option value="$PROJECT_DIR$/src/main/java/uis/fancyttyui/Terminal.java" />
         <option value="$PROJECT_DIR$/src/main/java/uis/fancyttyui/OverlayPallet.java" />
         <option value="$PROJECT_DIR$/src/main/java/ais/twoplayerai/MyPositionEvaluator.java" />
@@ -199,9 +236,6 @@
         <option value="$PROJECT_DIR$/src/main/java/uis/Texelizeable.java" />
         <option value="$PROJECT_DIR$/src/main/java/uis/fancyttyui/RemainingPieceViewer.java" />
         <option value="$PROJECT_DIR$/src/main/java/uis/Texel.java" />
-        <option value="$PROJECT_DIR$/src/main/java/uis/fancyttyui/Sprite.java" />
-        <option value="$PROJECT_DIR$/src/main/java/uis/fancyttyui/PieceSprite.java" />
-        <option value="$PROJECT_DIR$/src/main/java/Main.java" />
         <option value="$PROJECT_DIR$/src/main/java/blokus/Board.java" />
         <option value="$PROJECT_DIR$/src/main/java/ais/twoplayerai/TwoPlayerAi.java" />
         <option value="$PROJECT_DIR$/src/main/java/blokus/Piece.java" />
@@ -226,6 +260,11 @@
         <option value="$PROJECT_DIR$/src/main/resources/pieces/piece19.txt" />
         <option value="$PROJECT_DIR$/src/main/resources/pieces/piece20.txt" />
         <option value="$PROJECT_DIR$/src/main/resources/pieces/piece21.txt" />
+        <option value="$PROJECT_DIR$/src/main/java/uis/fancyttyui/Sprite.java" />
+        <option value="$PROJECT_DIR$/src/main/java/Main.java" />
+        <option value="$PROJECT_DIR$/src/main/java/uis/fancyttyui/FancyTtyUI.java" />
+        <option value="$PROJECT_DIR$/src/main/java/uis/fancyttyui/PieceSprite.java" />
+        <option value="$PROJECT_DIR$/src/main/java/uis/fancyttyui/PieceSpriteSymbol.java" />
       </list>
     </option>
   </component>
@@ -242,7 +281,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
+      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -267,6 +306,38 @@
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Blokus" type="b2602c69:ProjectViewProjectNode" />
+              <item name="blokusnew" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="ais" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Blokus" type="b2602c69:ProjectViewProjectNode" />
+              <item name="blokusnew" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="blokus" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Blokus" type="b2602c69:ProjectViewProjectNode" />
+              <item name="blokusnew" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="listener" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Blokus" type="b2602c69:ProjectViewProjectNode" />
+              <item name="blokusnew" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="misc" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="Blokus" type="b2602c69:ProjectViewProjectNode" />
@@ -308,11 +379,11 @@
           <select />
         </subPane>
       </pane>
-      <pane id="PackagesPane" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1549568157398" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1551005946927" />
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary" value="Groovy JUnit" />
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.Groovy JUnit" value="groovy.util.GroovyTestCase" />
     <property name="create.test.in.the.same.root" value="true" />
@@ -506,9 +577,10 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="27" width="1920" height="1019" extended-state="6" />
+    <frame x="70" y="27" width="1850" height="1053" extended-state="6" />
+    <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.226254" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.2284292" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -516,8 +588,8 @@
       <window_info id="Capture Tool" order="5" />
       <window_info id="Favorites" order="6" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Find" order="1" weight="0.32655367" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49781182" weight="0.4032634" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.32628062" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.49781182" visible="true" weight="0.40311804" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.3986014" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -577,13 +649,13 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/ais/twoplayerai/TwoPlayerAi.java</url>
-          <line>108</line>
+          <line>107</line>
           <properties />
           <option name="timeStamp" value="1" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/ais/twoplayerai/TwoPlayerAi.java</url>
-          <line>124</line>
+          <line>116</line>
           <properties />
           <option name="timeStamp" value="2" />
         </line-breakpoint>
@@ -591,13 +663,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/java/ais/twoplayerai/PositionEvaluator.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="6" column="73" selection-start-line="6" selection-start-column="73" selection-end-line="6" selection-end-column="73" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/misc/MoveAndScore.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="100">
@@ -661,20 +726,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/ais/twoplayerai/MyPositionEvaluator.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="17" column="99" lean-forward="true" selection-start-line="17" selection-start-column="99" selection-end-line="17" selection-end-column="99" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="method#getAverage#0;class#MyPositionEvaluator#0" />
-            <element signature="method#sameAmountOfPiecesOnBoard#0;class#MyPositionEvaluator#0" />
-            <element signature="method#isOufOfBounds#0;class#MyPositionEvaluator#0" />
-            <element signature="method#adjacents#0;class#MyPositionEvaluator#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ais/twoplayerai/MyPositionEvaluator.java" />
     <entry file="file://$PROJECT_DIR$/src/main/java/uis/fancyttyui/Screen.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="225">
@@ -702,13 +754,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/misc/PairTest.groovy">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="75">
-          <caret line="5" column="17" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/misc/PairTest.groovy" />
     <entry file="file://$PROJECT_DIR$/src/main/java/blokus/PiecePallet.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="180">
@@ -716,30 +762,8 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/uis/fancyttyui/DefaultPallet.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="17" column="57" selection-start-line="17" selection-start-column="57" selection-end-line="17" selection-end-column="57" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/misc/Pair.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="217">
-          <caret line="26" column="41" lean-forward="true" selection-start-line="26" selection-start-column="41" selection-end-line="26" selection-end-column="41" />
-          <folding>
-            <element signature="e#251#252#0" expanded="true" />
-            <element signature="e#279#280#0" expanded="true" />
-            <element signature="e#307#308#0" expanded="true" />
-            <element signature="e#336#337#0" expanded="true" />
-            <element signature="e#720#721#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/uis/fancyttyui/DefaultPallet.java" />
+    <entry file="file://$PROJECT_DIR$/src/main/java/misc/Pair.java" />
     <entry file="file://$PROJECT_DIR$/src/main/java/uis/Texelizeable.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="75">
@@ -747,16 +771,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/uis/fancyttyui/OverlayPallet.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="135">
-          <caret line="9" column="19" selection-start-line="9" selection-start-column="19" selection-end-line="9" selection-end-column="19" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/uis/fancyttyui/OverlayPallet.java" />
     <entry file="file://$PROJECT_DIR$/src/main/java/uis/Texel.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="352">
@@ -769,29 +784,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/uis/fancyttyui/RemainingPieceViewer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="307">
-          <caret line="48" lean-forward="true" selection-start-line="48" selection-end-line="48" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#525#526#0" expanded="true" />
-            <element signature="e#547#548#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/uis/fancyttyui/RemainingPieceViewer.java" />
     <entry file="file://$PROJECT_DIR$/src/main/java/listener/_KeyListener.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="152">
           <caret line="47" selection-start-line="47" selection-end-line="47" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/uis/fancyttyui/FancyTtyUI.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="152">
-          <caret line="168" selection-start-line="168" selection-end-line="168" />
         </state>
       </provider>
     </entry>
@@ -803,40 +800,6 @@
             <element signature="imports" expanded="true" />
             <element signature="e#3228#3229#0" expanded="true" />
             <element signature="e#3268#3269#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/uis/fancyttyui/Sprite.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="152">
-          <caret line="169" column="15" selection-start-line="169" selection-start-column="15" selection-end-line="169" selection-end-column="15" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#4612#4613#0" expanded="true" />
-            <element signature="e#4639#4640#0" expanded="true" />
-            <element signature="e#4667#4668#0" expanded="true" />
-            <element signature="e#4694#4695#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/uis/fancyttyui/PieceSprite.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="156">
-          <caret line="46" column="12" lean-forward="true" selection-start-line="46" selection-start-column="12" selection-end-line="46" selection-end-column="12" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/Main.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="495">
-          <caret line="33" column="12" selection-start-line="33" selection-start-column="12" selection-end-line="33" selection-end-column="12" />
-          <folding>
-            <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1036,6 +999,53 @@
       <provider selected="true" editor-type-id="text-editor">
         <state>
           <caret column="1" selection-start-column="1" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/uis/fancyttyui/Sprite.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="817">
+          <caret line="108" column="40" selection-start-line="108" selection-start-column="40" selection-end-line="108" selection-end-column="40" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/Main.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="333">
+          <caret line="34" column="12" selection-start-line="33" selection-start-column="12" selection-end-line="34" selection-end-column="12" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/uis/fancyttyui/FancyTtyUI.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="284">
+          <caret line="169" column="58" selection-start-line="169" selection-start-column="58" selection-end-line="169" selection-end-column="58" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/uis/fancyttyui/PieceSprite.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1097">
+          <caret line="98" selection-start-line="98" selection-end-line="98" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/uis/fancyttyui/PieceSpriteSymbol.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="273">
+          <caret line="33" column="38" selection-start-line="33" selection-start-column="38" selection-end-line="33" selection-end-column="38" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

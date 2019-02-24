@@ -112,7 +112,7 @@ public class FancyTtyUI implements UI, Serializable {
     @Override
     public Move getMove (int color) {
         KeyListener keyListener = new KeyListener();
-        PieceSprite sprite = new PieceSprite(turn, new PiecePallet(), board, scaleX, scaleY);
+        PieceSpriteSymbol sprite = new PieceSpriteSymbol(turn, new PiecePallet(), board, scaleX, scaleY);
         screen.addSprite(sprite);
         sprite.draw(2, 1);
         screen.commit();
@@ -167,6 +167,7 @@ public class FancyTtyUI implements UI, Serializable {
                         break;
                 }
                 screen.commit();
+                System.out.println(sprite.getCurrentMove());
             }
         });
         keyListener.run();

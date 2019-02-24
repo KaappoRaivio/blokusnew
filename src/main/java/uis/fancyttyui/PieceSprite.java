@@ -1,11 +1,13 @@
 package uis.fancyttyui;
 
-import blokus.*;
+import blokus.Orientation;
+import blokus.Piece;
+import blokus.PieceID;
+import uis.Color;
 import uis.Texel;
 
-import java.util.List;
-
 public class PieceSprite extends Sprite {
+    private PieceID pieceID;
     private ColorPallet pallet;
     private Orientation orientation;
     private boolean flip;
@@ -13,46 +15,20 @@ public class PieceSprite extends Sprite {
     private final int scaleX;
     private final int scaleY;
 
-    private List<PieceID> allPieceIDs;
-    private int pieceIDPointer;
+    public PieceSprite (PieceID pieceID, int color, int scaleX, int scaleY, ColorPallet pallet, char transparent) {
+        this(pieceID, color, Orientation.UP, false, scaleX, scaleY, pallet, transparent);
 
-    public PieceSprite (int color, ColorPallet pallet, Board currentPosition, int scaleX, int scaleY) {
-        super(new Piece(currentPosition.getPieceManager().getPiecesNotOnBoard(color).get(currentPosition.getPieceManager().getPiecesNotOnBoard(color).size() - 1), color).texelize(pallet, scaleX, scaleY), Terminal.TRANSPARENT);
-
-        this.pallet     = pallet;
-        this.color      = color;
-        this.scaleX     = scaleX;
-        this.scaleY     = scaleY;
-        orientation     = Orientation.UP;
-        flip            = false;
-        allPieceIDs     = currentPosition.getPieceManager().getPiecesNotOnBoard(color);
-        pieceIDPointer  = allPieceIDs.size() - 1;
     }
 
-    public Move getCurrentMove () {
-        return new Move((super.getPosX() - 1) / 2 / scaleX, (super.getPosY() - 1) / scaleY, getCurrentPieceID(), color, orientation, flip);
-    }
+    public PieceSprite (PieceID pieceID, int color, Orientation orientation, boolean flip, int scaleX, int scaleY, ColorPallet pallet, char transparent) {
+        super(new Piece(pieceID, color).rotate(orientation, flip).texelize(pallet, scaleX, scaleY), transparent);
 
-    private PieceID getCurrentPieceID() {
-        if (pieceIDPointer < 0) {
-            pieceIDPointer += allPieceIDs.size();
-            return getCurrentPieceID();
-        }
-
-        return allPieceIDs.get(pieceIDPointer % allPieceIDs.size());
-    }
-
-    private void refreshData () {
-        Piece piece = new Piece(getCurrentPieceID(), color).rotate(orientation, flip);
-        var mesh = piece.texelize(pallet, scaleX, scaleY);
-        super.mesh = mesh;
-        dimY = mesh.length;
-        dimX = mesh[0].length;
-    }
-
-    public void changePieceIDPointer (int change) {
-        pieceIDPointer += change;
-        refreshData();
+        this.scaleX = scaleX;
+        this.scaleY = scaleY;
+        this.color = color;
+        this.pieceID = pieceID;
+        this.pallet = pallet;
+        this.orientation = orientation;
     }
 
     public void flip () {
@@ -84,7 +60,7 @@ public class PieceSprite extends Sprite {
                 newOrientation = Orientation.UP;
                 break;
             default:
-                throw new RuntimeException("Shouln't get here!");
+                throw new RuntimeException("Shouldn't get here!");
         }
 
         orientation = newOrientation;
@@ -100,7 +76,7 @@ public class PieceSprite extends Sprite {
             rotateClockwise(false);
             return;
         }
-        
+
         Orientation newOrientation;
         switch (orientation) {
             case UP:
@@ -120,8 +96,16 @@ public class PieceSprite extends Sprite {
         }
 
         orientation = newOrientation;
+
         refreshData();
 
     }
 
+    protected void refreshData () {
+        Piece piece = new Piece(pieceID, color).rotate(orientation, flip);
+        Texel[][] mesh = piece.texelize(pallet, scaleX, scaleY);
+        super.mesh = mesh;
+        dimY = mesh.length;
+        dimX = mesh[0].length;
+    }
 }
