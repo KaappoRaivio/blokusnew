@@ -9,7 +9,7 @@ import uis.Texel;
 public class PieceSprite extends Sprite {
     protected PieceID pieceID;
     private ColorPallet pallet;
-    protected volatile Orientation orientation;
+    protected Orientation orientation;
     protected boolean flip;
     protected int color;
     protected final int scaleX;
