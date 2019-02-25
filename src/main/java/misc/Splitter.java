@@ -1,10 +1,8 @@
 package misc;
 
 import blokus.Move;
-import blokus.Position;
-import blokus.Span;
 
-import java.util.ArrayList;
+
 import java.util.List;
 import java.util.Vector;
 

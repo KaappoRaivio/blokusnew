@@ -1,5 +1,6 @@
 package blokus;
 
+import misc.Pair;
 import misc.Saver;
 import org.apache.commons.lang3.ObjectUtils;
 import uis.Texel;
@@ -45,11 +46,11 @@ public class Board implements Serializable, Texelizeable {
     public Board (int dimX, int dimY, PieceManager pieceManager, boolean startFromCorners) {
         this.dimX = dimX;
         this.dimY = dimY;
-        this.amountOfPlayers = pieceManager.getAmountOfPlayers();
+        amountOfPlayers = pieceManager.getAmountOfPlayers();
 
         this.pieceManager = pieceManager;
         this.startFromCorners = startFromCorners;
-        this.saver = new Saver<>();
+        saver = new Saver<>();
 
 
         board = new int[dimY][dimX];
@@ -74,7 +75,7 @@ public class Board implements Serializable, Texelizeable {
         if (moveHistory.size() - 1 - depth >= 0) {
             int[][] oldBoard = moveHistory.get(moveHistory.size() - depth - 1);
             moveHistory.remove(moveHistory.size() - 1 - depth);
-            this.board = oldBoard;
+            board = oldBoard;
             pieceManager.undo(depth + 1);
 
         } else {
@@ -92,7 +93,7 @@ public class Board implements Serializable, Texelizeable {
         }
     }
 
-    public boolean putOnBoard(int baseX, int baseY, PieceID pieceID, int color, Orientation orientation, boolean flip) {
+    private boolean putOnBoard(int baseX, int baseY, PieceID pieceID, int color, Orientation orientation, boolean flip) {
         if (pieceManager.isOnBoard(pieceID, color)) {
             throw new RuntimeException("blokus.Piece " + pieceID + "already on board");
         }
@@ -122,7 +123,7 @@ public class Board implements Serializable, Texelizeable {
         }
     }
 
-    public boolean fits(int baseX, int baseY, PieceID pieceID, int color, Orientation orientation, boolean flip) {
+    private boolean fits(int baseX, int baseY, PieceID pieceID, int color, Orientation orientation, boolean flip) {
         return fits(baseX, baseY, pieceID, color, orientation, flip, true);
     }
 
@@ -186,12 +187,12 @@ public class Board implements Serializable, Texelizeable {
             }
         }
 
-        if (fits && !isColorOnBoard(piece.getColor()) && touchesCorner) {
+        if (!isColorOnBoard(piece.getColor()) && touchesCorner) {
             isConnected = true;
         }
 
 
-        return fits && isConnected;
+        return isConnected;
 
     }
 
@@ -241,7 +242,7 @@ public class Board implements Serializable, Texelizeable {
                         board[baseY + y][baseX + x] = piece.getColor();
                         break;
                     default:
-                        throw new RuntimeException("Invalid piece " + piece.toString() + ", " + current);
+                        throw new RuntimeException("Invalid piece " + piece + ", " + current);
                 }
 
             }
@@ -266,7 +267,7 @@ public class Board implements Serializable, Texelizeable {
                     case Piece.TRANSPARENT:
                         break;
                     default:
-                        throw new RuntimeException("Invalid piece " + piece.toString());
+                        throw new RuntimeException("Invalid piece " + piece);
                 }
 
             }
@@ -352,7 +353,7 @@ public class Board implements Serializable, Texelizeable {
 
 
 
-    public String save (String name) {
+    private String save(String name) {
         String path = System.getProperty("user.dir") + "/src/main/resources/boards/" + name + ".ser";
         saver.save(this, path, false);
         return path;
@@ -384,11 +385,11 @@ public class Board implements Serializable, Texelizeable {
         return pieceManager.getPiecesNotOnBoard(color);
     }
 
-    public List<Move> getAllFittingMoves(int color) {
+    public List<Move> getAllFittingMoves (int color) {
         return getAllFittingMoves(color, getPiecesNotOnBoard(color));
     }
 
-    public List<Move> getAllFittingMoves (int color, List<PieceID> pieces) {
+    private List<Move> getAllFittingMoves (int color, List<PieceID> pieces) {
         List<Move> moves = new ArrayList<>();
         for (Position boardPosition : getEligibleCorners(color)) {
             moves.addAll(getAllFittingMoves(color, boardPosition.x, boardPosition.y, pieces));
@@ -409,20 +410,20 @@ public class Board implements Serializable, Texelizeable {
     }
 
 
-    public List<Move> getAllFittingMoves (int color, int x, int y, PieceID pieceID) {
+    private List<Move> getAllFittingMoves (int color, int x, int y, PieceID pieceID) {
         List<Move> moves = new ArrayList<>();
         Piece piece = pieceManager.getCachedPiece(pieceID, color);
 
 //        if (pieceID == PieceID.fromStandardNotation("L4")) {
 
 
-        for (PieceID.OrientationAndFlip orientationAndFlip: pieceID.getAllOrientations()) {
+        for (Pair<Orientation, Boolean> orientationAndFlip: pieceID.getAllOrientations()) {
             for (Position position : piece.getSquares()) {
                 int baseX = x - position.x;
                 int baseY = y - position.y;
 
-                if (fits(baseX, baseY, piece.rotate(orientationAndFlip.getOrientation(), orientationAndFlip.isFlip()))) {
-                    moves.add(new Move(baseX, baseY, pieceID, color, orientationAndFlip.getOrientation(), orientationAndFlip.isFlip()));
+                if (fits(baseX, baseY, piece.rotate(orientationAndFlip.getFirst(), orientationAndFlip.getSecond()))) {
+                    moves.add(new Move(baseX, baseY, pieceID, color, orientationAndFlip.getFirst(), orientationAndFlip.getSecond()));
                 }
             }
         }
@@ -511,19 +512,16 @@ public class Board implements Serializable, Texelizeable {
     public List<Move> getFirstNFittingMoves (int n, int color) {
         List<PieceID> pieceIDs = getPiecesNotOnBoard(color);
 
-        pieceIDs.sort(new Comparator<PieceID>() {
-            @Override
-            public int compare(PieceID pieceID, PieceID t1) {
-                int result = t1.getAmountOfSquares() - pieceID.getAmountOfSquares();
+        pieceIDs.sort((pieceID, t1) -> {
+            int result = t1.getAmountOfSquares() - pieceID.getAmountOfSquares();
 
-                if (result > 0) {
-                    return 1;
-                } else if (result < 0) {
-                    return -1;
-                } else {
-                    int corners = t1.getAmountOfCorners() - pieceID.getAmountOfCorners();
-                    return Integer.compare(corners, 0);
-                }
+            if (result > 0) {
+                return 1;
+            } else if (result < 0) {
+                return -1;
+            } else {
+                int corners = t1.getAmountOfCorners() - pieceID.getAmountOfCorners();
+                return Integer.compare(corners, 0);
             }
         });
 

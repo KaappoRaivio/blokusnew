@@ -24,7 +24,7 @@ public class TwoPlayerAi extends Player {
         this.depth = depth;
         this.randomize = randomize;
 
-        this.evaluator = new Evaluator(color, positionEvaluator, n);
+        evaluator = new Evaluator(color, positionEvaluator, n);
     }
 
     public PositionEvaluator getPositionEvaluator() {
@@ -61,16 +61,13 @@ public class TwoPlayerAi extends Player {
                 throw new NullPointerException();
 
             } else {
-                System.out.println(Collections.max(thread.getResult(), new Comparator<Pair<Move, Double>>() {
-                    @Override
-                    public int compare(Pair<Move, Double> moveAndScore, Pair<Move, Double> t1) {
-                        if (moveAndScore.getSecond() - t1.getSecond() < 0) {
-                            return -1;
-                        } else if (moveAndScore.getSecond() - t1.getSecond() > 0) {
-                            return 1;
-                        } else {
-                            return 0;
-                        }
+                System.out.println(Collections.max(thread.getResult(), (moveAndScore, t1) -> {
+                    if (moveAndScore.getSecond() - t1.getSecond() < 0) {
+                        return -1;
+                    } else if (moveAndScore.getSecond() - t1.getSecond() > 0) {
+                        return 1;
+                    } else {
+                        return 0;
                     }
                 }));
                 moveScores.addAll(thread.getResult());
@@ -78,12 +75,8 @@ public class TwoPlayerAi extends Player {
             }
         }
 
-        moveScores.sort(new Comparator<Pair<Move, Double>>() {
-            @Override
-            public int compare(Pair<Move, Double> moveDoublePair, Pair<Move, Double> t1) {
-                return moveDoublePair.getSecond() - t1.getSecond() < 0 ? 1 : moveDoublePair.getSecond() - t1.getSecond() == 0 ? 0 : -1;
-            }
-        });
+        moveScores.sort((moveDoublePair, t1) -> moveDoublePair.getSecond() - t1.getSecond() < 0 ? 1 : moveDoublePair.getSecond() - t1.getSecond() == 0 ? 0 : -1
+        );
 
 
 
@@ -110,7 +103,6 @@ public class TwoPlayerAi extends Player {
 
         showChainOfDeduction(bestMove.getFirst());
         return  bestMove.getFirst();
-
     }
 
     private void showChainOfDeduction (Move move) {
@@ -126,7 +118,7 @@ public class TwoPlayerAi extends Player {
         return evaluator;
     }
 
-    protected List<Pair<Move, Double>> getMoveCallBack(List<Move> possibleMoves, Board board, int depth) {
+    List<Pair<Move, Double>> getMoveCallBack(List<Move> possibleMoves, Board board, int depth) {
 //        Map<double, Move> moveScores = new HashMap<>();
         List<Pair<Move, Double>> moveScores = new Vector<>();
 
@@ -135,7 +127,7 @@ public class TwoPlayerAi extends Player {
             double score = evaluator.evaluateMove(board, depth, move);
             board.undo(0);
 //            moveScores.put(score, move);
-            moveScores.add(new Pair<Move, Double>(move, score));
+            moveScores.add(new Pair<>(move, score));
         }
 
         return moveScores;

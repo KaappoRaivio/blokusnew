@@ -11,19 +11,18 @@ public class TtyUITest implements UI {
     private Board board;
     private int turn = -1;
     private int amountOfPlayers;
-    private int moveCounter = 0;
-    private Board errorBoard;
+    private int moveCounter;
 
     public TtyUITest (Board board) {
         this.board = board;
-        this.amountOfPlayers = board.getAmountOfPlayers();
+        amountOfPlayers = board.getAmountOfPlayers();
     }
 
     @Override
     public void updateValues(Board board, int turn, int moveCount) {
         this.board = board;
         this.turn = turn;
-        this.moveCounter = moveCount;
+        moveCounter = moveCount;
     }
 
     @Override
@@ -34,7 +33,7 @@ public class TtyUITest implements UI {
 
     @Override
     public void showMessage(MessageType messageType, String message) {
-        System.out.println(messageType.toString() + ": " + message);
+        System.out.println(messageType + ": " + message);
     }
 
     @Override
@@ -70,7 +69,7 @@ public class TtyUITest implements UI {
             try {
                 Move move = Move.parseMove(input, color);
 
-                errorBoard = board.deepCopy();
+                Board errorBoard = board.deepCopy();
                 errorBoard.putOnBoard(move);
                 System.out.print("Like this? [Y/n]");
                 Arrays.stream(errorBoard.toString().split("\n")).forEach((row) -> System.out.println("\t" + row));

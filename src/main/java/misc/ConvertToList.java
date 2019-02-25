@@ -8,11 +8,9 @@ import java.util.*;
 
 public class ConvertToList {
     public static Texel[][] convertToList (String original, String verticalDelimiter, String horizontalDelimiter, char transparentChar) {
-        int dimX, dimY;
 
         String[] split = original.split(verticalDelimiter);
 
-        dimY = split.length;
 
         List<List<Character>> notNormalized = new Vector<>();
         for (String row : split) {
@@ -49,13 +47,8 @@ public class ConvertToList {
         return normalizedArray;
     }
 
-    public static int getLongestRowLen (List<List<Character>> notNormalized) {
-        return Collections.max(notNormalized, new Comparator<List<Character>> () {
-            @Override
-            public int compare(List<Character> characters, List<Character> t1) {
-                return characters.size() - t1.size();
-            }
-        }).size();
+    private static int getLongestRowLen(List<List<Character>> notNormalized) {
+        return Collections.max(notNormalized, (characters, t1) -> characters.size() - t1.size()).size();
     }
 
     public static void main (String[] arghs) {

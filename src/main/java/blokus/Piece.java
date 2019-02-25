@@ -48,7 +48,7 @@ public class Piece implements java.io.Serializable, Texelizeable {
 
     private int posX = -1;
     private int posY = -1;
-    private boolean onBoard = false;
+    private boolean onBoard;
     private final PieceID id;
     private final Orientation orientation;
     private final boolean flipped;
@@ -68,7 +68,7 @@ public class Piece implements java.io.Serializable, Texelizeable {
 
     public void placeOnBoard (int posX, int posY) {
         if (onBoard) {
-            throw new RuntimeException("blokus.Piece " + this.toString() + " is already on board at coordnates " + this.posX + ", " + this.posY + "!");
+            throw new RuntimeException("blokus.Piece " + toString() + " is already on board at coordnates " + this.posX + ", " + this.posY + "!");
         }
 
         onBoard = true;
@@ -85,7 +85,7 @@ public class Piece implements java.io.Serializable, Texelizeable {
     }
 
     public boolean isFlipped() {
-        return this.flipped;
+        return flipped;
     }
 
     public char[][] getMesh() {
@@ -102,7 +102,7 @@ public class Piece implements java.io.Serializable, Texelizeable {
 
         for (int y = 0; y < mesh.length; y++) {
             for (int x = 0; x < mesh[y].length; x++) {
-                this.mesh[y][x] = Piece.TRANSPARENT;
+                mesh[y][x] = TRANSPARENT;
             }
         }
     }
@@ -121,7 +121,7 @@ public class Piece implements java.io.Serializable, Texelizeable {
 
         String text;
         try {
-            text = new String(this.getClass().getResourceAsStream(paths.get(pieceID.getOrdinal())).readAllBytes(), StandardCharsets.UTF_8);
+            text = new String(getClass().getResourceAsStream(paths.get(pieceID.getOrdinal())).readAllBytes(), StandardCharsets.UTF_8);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -136,26 +136,26 @@ public class Piece implements java.io.Serializable, Texelizeable {
             for (int x = 0; x < dimX; x++) {
                 char current = lines[y].charAt(x);
                 switch (current) {
-                    case Piece.TRANSPARENT:
-                        mesh[y][x] = Piece.TRANSPARENT;
+                    case TRANSPARENT:
+                        mesh[y][x] = TRANSPARENT;
                         break;
-                    case Piece.CORNER:
-                    case Piece.OPAQUE:
-                        mesh[y][x] = Piece.OPAQUE;
+                    case CORNER:
+                    case OPAQUE:
+                        mesh[y][x] = OPAQUE;
                         break;
 
                     default:
                         System.out.println("Invalid data in " + pieceID + " at " + x + ", " + y + "!" );
-                        mesh[y][x] = Piece.TRANSPARENT;
+                        mesh[y][x] = TRANSPARENT;
                         break;
 
                 }
             }
         }
 
-        this.id = pieceID;
-        this.orientation = Orientation.UP;
-        this.flipped = false;
+        id = pieceID;
+        orientation = Orientation.UP;
+        flipped = false;
         refreshSquares();
 
         if (amountOfSquares != pieceID.getAmountOfSquares()) {
@@ -199,16 +199,16 @@ public class Piece implements java.io.Serializable, Texelizeable {
         this.mesh = mesh;
         refreshSquares();
 
-        this.id = pieceID;
+        id = pieceID;
         this.orientation = orientation;
         this.flipped = flipped;
-        this.onBoard = isOnBoard;
+        onBoard = isOnBoard;
         this.amountOfSquares = amountOfSquares;
     }
 
     private void moveLeft () {
         for (int y = 0; y < dimY; y++) {
-            if (mesh[y][0] == Piece.OPAQUE) {
+            if (mesh[y][0] == OPAQUE) {
                 return;
             }
         }
@@ -216,7 +216,7 @@ public class Piece implements java.io.Serializable, Texelizeable {
         for (int y = 0; y < dimY; y++) {
             for (int x = 0; x < dimX; x++) {
                 if (x + 1 >= dimX) {
-                    mesh[y][x] = Piece.TRANSPARENT;
+                    mesh[y][x] = TRANSPARENT;
                 } else {
                     mesh[y][x] = mesh[y][x + 1];
                 }
@@ -228,7 +228,7 @@ public class Piece implements java.io.Serializable, Texelizeable {
 
     private void moveUp () {
         for (int x = 0; x < 5; x++) {
-            if (mesh[0][x] == Piece.OPAQUE) {
+            if (mesh[0][x] == OPAQUE) {
                 return;
             }
         }
@@ -236,7 +236,7 @@ public class Piece implements java.io.Serializable, Texelizeable {
         for (int y = 0; y < 5; y++) {
             for (int x = 0; x < 5; x++) {
                 if (y + 1 >= dimY) {
-                    mesh[y][x] = Piece.TRANSPARENT;
+                    mesh[y][x] = TRANSPARENT;
                 } else {
                     mesh[y][x] = mesh[y + 1][x];
                 }
@@ -302,7 +302,7 @@ public class Piece implements java.io.Serializable, Texelizeable {
         } else {
             afterFlip = newList;
         }
-        Piece piece = new Piece(afterFlip, this.color, this.getID(), orientation, flip, this.isOnBoard(), this.getAmountOfSquares());
+        Piece piece = new Piece(afterFlip, color, getID(), orientation, flip, isOnBoard(), getAmountOfSquares());
         piece.moveLeft();
         piece.moveUp();
 
@@ -348,14 +348,14 @@ public class Piece implements java.io.Serializable, Texelizeable {
     }
 
     public int getColor() {
-        return this.color;
+        return color;
     }
 
     public String toString () {
         StringBuilder builder = new StringBuilder("Color: " + color + "\n");
         for (int y = 0; y < dimY; y++) {
             for (int x = 0; x < dimX; x++) {
-                builder.append(mesh[y][x] == Piece.TRANSPARENT ? "." : mesh[y][x]);
+                builder.append(mesh[y][x] == TRANSPARENT ? "." : mesh[y][x]);
             }
             builder.append("\n");
         }
@@ -365,9 +365,9 @@ public class Piece implements java.io.Serializable, Texelizeable {
 
     public String bareToString () {
         StringBuilder builder = new StringBuilder();
-        for (int y = 0; y < this.mesh.length; y++) {
-            for (int x = 0; x < this.mesh[y].length; x++) {
-                builder.append(mesh[y][x] == Piece.TRANSPARENT ? " " : mesh[y][x]);
+        for (int y = 0; y < mesh.length; y++) {
+            for (int x = 0; x < mesh[y].length; x++) {
+                builder.append(mesh[y][x] == TRANSPARENT ? " " : mesh[y][x]);
             }
             builder.append("\n");
         }
@@ -400,7 +400,7 @@ public class Piece implements java.io.Serializable, Texelizeable {
 
         for (int y = 0; y < mesh.length; y++) {
             for (int x = 0; x < mesh[y].length; x++) {
-                if (pieceMesh[y / scaleY][x / scaleX / 2] == Piece.OPAQUE) {
+                if (pieceMesh[y / scaleY][x / scaleX / 2] == OPAQUE) {
                     mesh[y][x] = colorPallet.getTexel(color);
                 }
 

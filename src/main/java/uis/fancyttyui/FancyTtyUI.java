@@ -23,8 +23,8 @@ public class FancyTtyUI implements UI, Serializable {
     private Board board;
     private final int scaleX;
     private final int scaleY;
-    private int turn = 0;
-    private int moveCount = 0;
+    private int turn;
+    private int moveCount;
 
     private Sprite boardSprite;
 
@@ -41,7 +41,7 @@ public class FancyTtyUI implements UI, Serializable {
 
         Texel[][] texelMesh = board.texelize(new DefaultPallet(), scaleX, scaleY);
 
-        this.screen = new Terminal(texelMesh[0].length, texelMesh.length);
+        screen = new Terminal(texelMesh[0].length, texelMesh.length);
 
 //        boardSprite = new Sprite(board.texelize(new DefaultPallet(), scaleX, scaleY), Terminal.TRANSPARENT);
 //        screen.addSprite(boardSprite);

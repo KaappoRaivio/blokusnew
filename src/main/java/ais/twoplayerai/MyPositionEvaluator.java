@@ -54,7 +54,7 @@ public class MyPositionEvaluator implements PositionEvaluator {
         double average = 0;
 
         for (var item : values) {
-            average += (double) Math.pow(item, 2) / Math.pow(position.getDimY() * position.getDimX(), 2);
+            average += Math.pow(item, 2) / Math.pow(position.getDimY() * position.getDimX(), 2);
         }
 
         return (int) (average + 0.5);
@@ -62,7 +62,8 @@ public class MyPositionEvaluator implements PositionEvaluator {
 
     private int howMuchSpread (Board position, int color) {
         Position average = getAverage(position, color);
-        int tempX = 0, tempY = 0;
+        int tempX = 0;
+        int tempY = 0;
 
         for (int y = 0; y < position.getDimY(); y++) {
             for (int x = 0; x < position.getDimX(); x++) {
@@ -134,7 +135,7 @@ public class MyPositionEvaluator implements PositionEvaluator {
     private boolean isOufOfBounds(int x, int y, int dimX, int dimY) {
 //        System.out.println("x = [" + x + "], y = [" + y + "], dimX = [" + dimX + "], dimY = [" + dimY + "]");
 
-        return 0 > x || x >= dimX || 0 > y || y >= dimY;
+        return x < 0 || x >= dimX || y < 0 || y >= dimY;
     }
 
     private boolean[][] boolify (Board board, int color) {

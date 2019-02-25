@@ -43,7 +43,7 @@ public class Terminal implements Screen, Serializable {
 
 
         try {
-            this.terminal = new DefaultTerminalFactory().createTerminal();
+            terminal = new DefaultTerminalFactory().createTerminal();
             terminal.setCursorVisible(false);
 
             int pixDimX = dimX / 2 * 16;
@@ -59,8 +59,7 @@ public class Terminal implements Screen, Serializable {
         }
 
 
-
-        this.buffer = new Texel[dimY][dimX];
+        buffer = new Texel[dimY][dimX];
 
 
         initializeBuffer();
@@ -214,9 +213,7 @@ public class Terminal implements Screen, Serializable {
     @Override
     public void updateBuffer(Texel[][] newBuffer) {
         for (int y = 0; y < newBuffer.length; y++) {
-            for (int x = 0; x < newBuffer[y].length; x++) {
-                buffer[y][x] = newBuffer[y][x];
-            }
+            if (newBuffer[y].length >= 0) System.arraycopy(newBuffer[y], 0, buffer[y], 0, newBuffer[y].length);
         }
     }
 

@@ -15,7 +15,7 @@ public class Sprite implements Serializable, Texelizeable {
 
     private final transient Object lock = new Object();
 
-    private static int spriteID = 0;
+    private static int spriteID;
 
     protected Texel[][] mesh;
 
@@ -38,10 +38,10 @@ public class Sprite implements Serializable, Texelizeable {
     public Sprite(Texel[][] mesh, char transparent) {
         this.mesh = mesh;
 
-        this.dimX = mesh[0].length;
-        this.dimY = mesh.length;
+        dimX = mesh[0].length;
+        dimY = mesh.length;
 
-        this.ID = Sprite.spriteID++;
+        ID = ++spriteID;
         this.transparent = transparent;
     }
 
@@ -58,7 +58,7 @@ public class Sprite implements Serializable, Texelizeable {
     public void draw (int posX, int posY) {
         this.posX = posX;
         this.posY = posY;
-        this.drawn = true;
+        drawn = true;
     }
 
 
@@ -73,8 +73,8 @@ public class Sprite implements Serializable, Texelizeable {
 
     public void jump (int deltaX, int deltaY) {
         synchronized (lock) {
-            this.posX = this.posX + deltaX;
-            this.posY = this.posY + deltaY;
+            posX = posX + deltaX;
+            posY = posY + deltaY;
         }
     }
 

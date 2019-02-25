@@ -1,5 +1,5 @@
 package uis;
 
 public enum MessageType {
-    DEBUG, GAMEPLAY, MISCELLANEOUS;
+    DEBUG, GAMEPLAY, MISCELLANEOUS
 }

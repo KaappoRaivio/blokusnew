@@ -57,6 +57,7 @@ public class Saver<T extends Serializable> implements Serializable {
 
             ObjectInputStream in = new ObjectInputStream(fileIn);
             try {
+                Object obj = in.readObject();
                 t = (T) in.readObject();
             } catch (ClassCastException | ClassNotFoundException e) {
                 throw new RuntimeException("No valid object found!");
@@ -85,7 +86,7 @@ public class Saver<T extends Serializable> implements Serializable {
             try {
                 newObject = (T) objectInputStream.readObject();
             } catch (ClassNotFoundException | ClassCastException e) {
-                throw new RuntimeException("Exception in deepcopying " + object.toString());
+                throw new RuntimeException("Exception in deepcopying " + object);
             }
 
         } catch (IOException e) {

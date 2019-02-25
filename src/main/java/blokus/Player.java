@@ -3,6 +3,7 @@ package blokus;
 import uis.UI;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 public class Player implements CapableOfPlaying, Serializable {
 
@@ -11,7 +12,6 @@ public class Player implements CapableOfPlaying, Serializable {
     protected Board board;
     protected int turn = -1;
     protected int moveCount;
-    private Board errorBoard;
     protected String id;
 
     public Player (Board board, int color, String id, UI ui) {
@@ -19,13 +19,7 @@ public class Player implements CapableOfPlaying, Serializable {
         this.color = color;
         this.ui = ui;
 
-        this.errorBoard = this.board.deepCopy();
-
-        if (id != null) {
-            this.id = id;
-        } else {
-            this.id = String.valueOf(color);
-        }
+        this.id = Objects.requireNonNullElseGet(id, () -> String.valueOf(color));
     }
 
     @Override

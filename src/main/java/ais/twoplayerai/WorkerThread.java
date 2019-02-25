@@ -13,7 +13,7 @@ public class WorkerThread extends Thread {
     private int depth;
     private List<Pair<Move, Double>> result;
 
-        public WorkerThread(List<Move> movesToTest, Board board, TwoPlayerAi callback, int depth) {
+        WorkerThread(List<Move> movesToTest, Board board, TwoPlayerAi callback, int depth) {
             super();
 
             this.movesToTest = movesToTest;

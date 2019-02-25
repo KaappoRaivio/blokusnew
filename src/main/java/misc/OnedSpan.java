@@ -21,7 +21,7 @@ public class OnedSpan implements Iterable<Integer>{
 
     @Override
     public Iterator<Integer> iterator() {
-        return new Iterator<Integer>() {
+        return new Iterator<>() {
             int current = start - 1;
 
             @Override

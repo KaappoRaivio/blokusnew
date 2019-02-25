@@ -20,7 +20,7 @@ public class PieceSpriteSymbol extends PieceSprite {
     }
 
     public Move getCurrentMove () {
-        return new Move((super.getPosX() - 1) / 2 / scaleX, (super.getPosY() - 1) / scaleY, getCurrentPieceID(), color, orientation, flip);
+        return new Move((getPosX() - 1) / 2 / scaleX, (super.getPosY() - 1) / scaleY, getCurrentPieceID(), color, orientation, flip);
     }
 
     private PieceID getCurrentPieceID() {

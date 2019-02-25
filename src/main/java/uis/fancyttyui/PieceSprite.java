@@ -20,7 +20,7 @@ public class PieceSprite extends Sprite {
 
     }
 
-    public PieceSprite (PieceID pieceID, int color, Orientation orientation, boolean flip, int scaleX, int scaleY, ColorPallet pallet, char transparent) {
+    PieceSprite (PieceID pieceID, int color, Orientation orientation, boolean flip, int scaleX, int scaleY, ColorPallet pallet, char transparent) {
         super(new Piece(pieceID, color).rotate(orientation, flip).texelize(pallet, scaleX, scaleY), transparent);
 
         this.scaleX = scaleX;
@@ -32,7 +32,7 @@ public class PieceSprite extends Sprite {
     }
 
     public void flip () {
-        this.flip = !flip;
+        flip = !flip;
         refreshData();
     }
 

@@ -23,8 +23,8 @@ public class RandomAi implements CapableOfPlaying {
         this.color = color;
         this.id = id;
         this.ui = ui;
-        this.turn = -1;
-        this.moveCount = -1;
+        turn = -1;
+        moveCount = -1;
     }
 
     @Override

@@ -2,7 +2,7 @@ package uis.fancyttyui;
 
 import com.googlecode.lanterna.TextColor;
 import uis.Texel;
-import uis.fancyttyui.ColorPallet;
+
 
 public class DefaultPallet implements ColorPallet {
     @Override

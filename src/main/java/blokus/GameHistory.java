@@ -25,7 +25,7 @@ public class GameHistory implements Serializable {
 
         for (Move move : moves) {
             if (!newBoard.putOnBoard(move)) {
-                throw new RuntimeException("Move " + move.toString() + "doen't fit on " + newBoard.toString() + "!");
+                throw new RuntimeException("Move " + move + "doen't fit on " + newBoard + "!");
             }
         }
 
@@ -102,7 +102,7 @@ public class GameHistory implements Serializable {
         StringBuilder stringBuilder = new StringBuilder("Initial move count: " + initialMoveCounter + "\n");
 
         for (Move move : moves) {
-            stringBuilder.append(move.toString());
+            stringBuilder.append(move);
             stringBuilder.append("\n");
         }
 

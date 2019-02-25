@@ -24,7 +24,7 @@ public class Runner {
         this.board = board;
         this.players = players;
         this.ui = ui;
-        this.gameHistory = new GameHistory(board, 0);
+        gameHistory = new GameHistory(board, 0);
     }
 
     public void play () {

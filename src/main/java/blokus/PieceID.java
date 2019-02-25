@@ -1,5 +1,7 @@
 package blokus;
 
+import misc.Pair;
+
 import java.util.*;
 
 public enum PieceID {
@@ -64,47 +66,47 @@ public enum PieceID {
         return /*super.toString().substring(6) + " " +*/ term;
     }
 
-    public List<OrientationAndFlip> getAllOrientations () {
-        List<OrientationAndFlip> orientations = new Vector<>();
+    public List<Pair<Orientation, Boolean>> getAllOrientations () {
+        List<Pair<Orientation, Boolean>> orientations = new Vector<>();
 
         for (Orientation orientation : Orientation.values()) {
             if (relevantOrientations.isRelevant(orientation, true)) {
-                orientations.add(new OrientationAndFlip(orientation, true));
+                orientations.add(new Pair<>(orientation, true));
             }
 
             if (relevantOrientations.isRelevant(orientation, false)) {
-                orientations.add(new OrientationAndFlip(orientation, false));
+                orientations.add(new Pair<>(orientation, false));
             }
         }
 
         return orientations;
     }
 
-    public static class OrientationAndFlip {
-        private Orientation orientation;
-        private boolean flip;
-
-        public Orientation getOrientation() {
-            return orientation;
-        }
-
-        public boolean isFlip() {
-            return flip;
-        }
-
-        public OrientationAndFlip(Orientation orientation, boolean flip) {
-            this.orientation = orientation;
-            this.flip = flip;
-        }
-
-        @Override
-        public String toString() {
-            return "OrientationAndFlip{" +
-                    "orientation=" + orientation +
-                    ", flip=" + flip +
-                    '}';
-        }
-    }
+//    public static class OrientationAndFlip {
+//        private Orientation orientation;
+//        private boolean flip;
+//
+//        public Orientation getOrientation() {
+//            return orientation;
+//        }
+//
+//        public boolean isFlip() {
+//            return flip;
+//        }
+//
+//        public OrientationAndFlip(Orientation orientation, boolean flip) {
+//            this.orientation = orientation;
+//            this.flip = flip;
+//        }
+//
+//        @Override
+//        public String toString() {
+//            return "OrientationAndFlip{" +
+//                    "orientation=" + orientation +
+//                    ", flip=" + flip +
+//                    '}';
+//        }
+//    }
 
     public static PieceID fromStandardNotation (String notation) {
         if (dict.containsKey(notation)) {
