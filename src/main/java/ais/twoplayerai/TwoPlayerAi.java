@@ -3,8 +3,8 @@ package ais.twoplayerai;
 import blokus.Board;
 import blokus.Move;
 import blokus.Player;
-import misc.MoveAndScore;
 import misc.OnedSpan;
+import misc.Pair;
 import misc.Splitter;
 import uis.UI;
 
@@ -37,7 +37,7 @@ public class TwoPlayerAi extends Player {
         System.out.println(moves);
 
 
-        List<MoveAndScore> moveScores = new Vector<>();
+        List<Pair<Move, Double>> moveScores = new Vector<>();
         System.out.println("Found " + moves.size() + " moves as " + id);
 
         List<WorkerThread> threads = new Vector<>();
@@ -61,12 +61,12 @@ public class TwoPlayerAi extends Player {
                 throw new NullPointerException();
 
             } else {
-                System.out.println(Collections.max(thread.getResult(), new Comparator<MoveAndScore>() {
+                System.out.println(Collections.max(thread.getResult(), new Comparator<Pair<Move, Double>>() {
                     @Override
-                    public int compare(MoveAndScore moveAndScore, MoveAndScore t1) {
-                        if (moveAndScore.getScore() - t1.getScore() < 0) {
+                    public int compare(Pair<Move, Double> moveAndScore, Pair<Move, Double> t1) {
+                        if (moveAndScore.getSecond() - t1.getSecond() < 0) {
                             return -1;
-                        } else if (moveAndScore.getScore() - t1.getScore() > 0) {
+                        } else if (moveAndScore.getSecond() - t1.getSecond() > 0) {
                             return 1;
                         } else {
                             return 0;
@@ -78,14 +78,10 @@ public class TwoPlayerAi extends Player {
             }
         }
 
-        moveScores.sort(new Comparator<MoveAndScore>() {
+        moveScores.sort(new Comparator<Pair<Move, Double>>() {
             @Override
-            public int compare (MoveAndScore moveAndScore, MoveAndScore t1) {
-                if (!(moveAndScore.isScorePresent() && t1.isScorePresent())) {
-                    return 0;
-                } else {
-                    return moveAndScore.getScore() - t1.getScore() < 0 ? 1 : moveAndScore.getScore() - t1.getScore() == 0 ? 0 : -1;
-                }
+            public int compare(Pair<Move, Double> moveDoublePair, Pair<Move, Double> t1) {
+                return moveDoublePair.getSecond() - t1.getSecond() < 0 ? 1 : moveDoublePair.getSecond() - t1.getSecond() == 0 ? 0 : -1;
             }
         });
 
@@ -95,7 +91,7 @@ public class TwoPlayerAi extends Player {
 
 
 
-        MoveAndScore bestMove;
+        Pair<Move, Double> bestMove;
 
         if (randomize) {
             try {
@@ -104,7 +100,7 @@ public class TwoPlayerAi extends Player {
                 bestMove = moveScores.get(0);
             }
         } else {
-            System.out.println(moveScores.get(0).getMove() + ", " + moveScores.get(0).getScore());
+            System.out.println(moveScores.get(0).getFirst() + ", " + moveScores.get(0).getSecond());
             bestMove = moveScores.get(0);
         }
 
@@ -112,8 +108,8 @@ public class TwoPlayerAi extends Player {
 
         System.out.println("Parameters: " + evaluator.getPositionEvaluator().evaluatePosition(board, color, true));
 
-        showChainOfDeduction(bestMove.getMove());
-        return  bestMove.getMove();
+        showChainOfDeduction(bestMove.getFirst());
+        return  bestMove.getFirst();
 
     }
 
@@ -130,16 +126,16 @@ public class TwoPlayerAi extends Player {
         return evaluator;
     }
 
-    protected List<MoveAndScore> getMoveCallBack(List<Move> possibleMoves, Board board, int depth) {
+    protected List<Pair<Move, Double>> getMoveCallBack(List<Move> possibleMoves, Board board, int depth) {
 //        Map<double, Move> moveScores = new HashMap<>();
-        List<MoveAndScore> moveScores = new Vector<>();
+        List<Pair<Move, Double>> moveScores = new Vector<>();
 
         for (Move move : possibleMoves) {
             board.putOnBoard(move);
             double score = evaluator.evaluateMove(board, depth, move);
             board.undo(0);
 //            moveScores.put(score, move);
-            moveScores.add(new MoveAndScore(move, true, true, score));
+            moveScores.add(new Pair<Move, Double>(move, score));
         }
 
         return moveScores;

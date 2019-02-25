@@ -108,4 +108,16 @@ public class PieceSprite extends Sprite {
         dimY = mesh.length;
         dimX = mesh[0].length;
     }
+
+    public Orientation getOrientation() {
+        return orientation;
+    }
+
+    public boolean isFlip() {
+        return flip;
+    }
+
+    public PieceID getPieceID() {
+        return pieceID;
+    }
 }

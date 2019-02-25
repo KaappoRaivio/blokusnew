@@ -2,7 +2,7 @@ package ais.twoplayerai;
 
 import blokus.Board;
 import blokus.Move;
-import misc.MoveAndScore;
+import misc.Pair;
 
 import java.util.List;
 
@@ -11,7 +11,7 @@ public class WorkerThread extends Thread {
     private Board board;
     private TwoPlayerAi callback;
     private int depth;
-    private List<MoveAndScore> result;
+    private List<Pair<Move, Double>> result;
 
         public WorkerThread(List<Move> movesToTest, Board board, TwoPlayerAi callback, int depth) {
             super();
@@ -28,7 +28,7 @@ public class WorkerThread extends Thread {
             result = callback.getMoveCallBack(movesToTest, board, depth);
         }
 
-        public List<MoveAndScore> getResult () {
+        public List<Pair<Move, Double>> getResult () {
             return result;
         }
 }
