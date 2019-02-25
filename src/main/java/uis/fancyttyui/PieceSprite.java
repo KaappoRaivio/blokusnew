@@ -7,13 +7,13 @@ import uis.Color;
 import uis.Texel;
 
 public class PieceSprite extends Sprite {
-    private PieceID pieceID;
+    protected PieceID pieceID;
     private ColorPallet pallet;
-    private Orientation orientation;
-    private boolean flip;
-    private int color;
-    private final int scaleX;
-    private final int scaleY;
+    protected volatile Orientation orientation;
+    protected boolean flip;
+    protected int color;
+    protected final int scaleX;
+    protected final int scaleY;
 
     public PieceSprite (PieceID pieceID, int color, int scaleX, int scaleY, ColorPallet pallet, char transparent) {
         this(pieceID, color, Orientation.UP, false, scaleX, scaleY, pallet, transparent);

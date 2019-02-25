@@ -119,59 +119,55 @@ public class FancyTtyUI implements UI, Serializable {
 
         final boolean[] wait = {true, false};
 
-        keyListener.addKeyEventListener(new KeyEventListener() {
-            @Override
-            public void reportKey(NativeKeyEvent event) {
-                switch (event.getKeyCode()) {
-                    case NativeKeyEvent.VC_LEFT:
-                        sprite.jump(-2 * scaleX, 0);
-                        break;
-                    case NativeKeyEvent.VC_RIGHT:
-                        sprite.jump(2 * scaleX, 0);
-                        break;
-                    case NativeKeyEvent.VC_DOWN:
-                        sprite.jump(0, scaleY);
-                        break;
-                    case NativeKeyEvent.VC_UP:
-                        sprite.jump(0, -scaleY);
-                        break;
-                    case NativeKeyEvent.VC_A:
-                        sprite.rotateAntiClockwise();
-                        break;
-                    case NativeKeyEvent.VC_D:
-                        sprite.rotateClockwise();
-                        break;
-                    case NativeKeyEvent.VC_F:
-                        sprite.flip();
-                        break;
-                    case NativeKeyEvent.VC_W:
-                        sprite.changePieceIDPointer(1);
-                        break;
-                    case NativeKeyEvent.VC_S:
-                        sprite.changePieceIDPointer(-1);
-                        break;
-                    case NativeKeyEvent.VC_ENTER:
-                        synchronized (lock) {
-                            wait[0] = false;
-                            lock.notifyAll();
-                        }
+        keyListener.addKeyEventListener(event -> {
+            switch (event.getKeyCode()) {
+                case NativeKeyEvent.VC_LEFT:
+                    sprite.jump(-2 * scaleX, 0);
+                    break;
+                case NativeKeyEvent.VC_RIGHT:
+                    sprite.jump(2 * scaleX, 0);
+                    break;
+                case NativeKeyEvent.VC_DOWN:
+                    sprite.jump(0, scaleY);
+                    break;
+                case NativeKeyEvent.VC_UP:
+                    sprite.jump(0, -scaleY);
+                    break;
+                case NativeKeyEvent.VC_A:
+                    sprite.rotateAntiClockwise();
+                    break;
+                case NativeKeyEvent.VC_D:
+                    sprite.rotateClockwise();
+                    break;
+                case NativeKeyEvent.VC_F:
+                    sprite.flip();
+                    break;
+                case NativeKeyEvent.VC_W:
+                    sprite.changePieceIDPointer(1);
+                    break;
+                case NativeKeyEvent.VC_S:
+                    sprite.changePieceIDPointer(-1);
+                    break;
+                case NativeKeyEvent.VC_ENTER:
+                    synchronized (lock) {
+                        wait[0] = false;
+                        lock.notifyAll();
+                    }
 
-                        break;
-                    case NativeKeyEvent.VC_ESCAPE:
-                        keyListener.close();
-                        synchronized (lock) {
-                            wait[0] = false;
-                            wait[1] = true;
-                            lock.notifyAll();
-                        }
-                        break;
-                }
-                screen.commit();
-                System.out.println(sprite.getCurrentMove());
+                    break;
+                case NativeKeyEvent.VC_ESCAPE:
+                    keyListener.close();
+                    synchronized (lock) {
+                        wait[0] = false;
+                        wait[1] = true;
+                        lock.notifyAll();
+                    }
+                    break;
             }
+            screen.commit();
         });
-        keyListener.run();
 
+        keyListener.run();
         synchronized (lock) {
             while (wait[0]) {
                 try {
