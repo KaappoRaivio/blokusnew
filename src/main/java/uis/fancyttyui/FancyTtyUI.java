@@ -28,7 +28,7 @@ public class FancyTtyUI implements UI, Serializable {
 
     private Sprite boardSprite;
 
-    private final transient Object lock = new Object();
+
 
     private List<Sprite> overlaidSprites = new Vector<>();
 
@@ -75,11 +75,11 @@ public class FancyTtyUI implements UI, Serializable {
             }
 
         }
-        Sprite overlaySprite = new Sprite(mesh, '$');
+        Sprite overlaySprite = new Sprite(mesh, '$', false);
 
         screen.addSprite(overlaySprite, false);
         overlaySprite.draw(0, 0);
-        screen.commit();
+        screen.update();
 
         overlaidSprites.add(overlaySprite);
     }
@@ -89,7 +89,7 @@ public class FancyTtyUI implements UI, Serializable {
         for (var sprite : overlaidSprites) {
             screen.removeSprite(sprite);
         }
-        screen.commit();
+        screen.update();
 
     }
 
@@ -100,7 +100,7 @@ public class FancyTtyUI implements UI, Serializable {
 
     @Override
     public void commit () {
-        screen.commit();
+        screen.update();
     }
 
     @Override
@@ -114,75 +114,19 @@ public class FancyTtyUI implements UI, Serializable {
         KeyListener keyListener = new KeyListener();
         PieceSpriteSymbol sprite = new PieceSpriteSymbol(turn, new PiecePallet(), board, scaleX, scaleY);
         screen.addSprite(sprite);
-        sprite.draw(2, 1);
-        screen.commit();
+        sprite.draw(1, 1);
+        screen.update();
 
-        final boolean[] wait = {true, false};
+        UIKeyEventListener listener = new UIKeyEventListener(sprite, screen, scaleX, scaleY, board.getDimX(), board.getDimY(), 1, 1);
 
-        keyListener.addKeyEventListener(event -> {
-            switch (event.getKeyCode()) {
-                case NativeKeyEvent.VC_LEFT:
-                    sprite.jump(-2 * scaleX, 0);
-                    break;
-                case NativeKeyEvent.VC_RIGHT:
-                    sprite.jump(2 * scaleX, 0);
-                    break;
-                case NativeKeyEvent.VC_DOWN:
-                    sprite.jump(0, scaleY);
-                    break;
-                case NativeKeyEvent.VC_UP:
-                    sprite.jump(0, -scaleY);
-                    break;
-                case NativeKeyEvent.VC_A:
-                    sprite.rotateAntiClockwise();
-                    break;
-                case NativeKeyEvent.VC_D:
-                    sprite.rotateClockwise();
-                    break;
-                case NativeKeyEvent.VC_F:
-                    sprite.flip();
-                    break;
-                case NativeKeyEvent.VC_W:
-                    sprite.changePieceIDPointer(1);
-                    break;
-                case NativeKeyEvent.VC_S:
-                    sprite.changePieceIDPointer(-1);
-                    break;
-                case NativeKeyEvent.VC_ENTER:
-                    synchronized (lock) {
-                        wait[0] = false;
-                        lock.notifyAll();
-                    }
-
-                    break;
-                case NativeKeyEvent.VC_ESCAPE:
-                    keyListener.close();
-                    synchronized (lock) {
-                        wait[0] = false;
-                        wait[1] = true;
-                        lock.notifyAll();
-                    }
-                    break;
-            }
-            screen.commit();
-        });
-
+        keyListener.addKeyEventListener(listener);
         keyListener.run();
-        synchronized (lock) {
-            while (wait[0]) {
-                try {
-                    lock.wait();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-        if (wait[1]) {
-            throw new RuntimeException("Quit!");
-        }
 
+        Move move = listener.waitForMove();
+
+        keyListener.clearAllListeners();
         keyListener.close();
-        Move move = sprite.getCurrentMove();
+
         sprite.unDraw();
         screen.removeSprite(sprite);
 

@@ -59,13 +59,6 @@ public class PieceArranger {
                 case NativeKeyEvent.VC_S:
                     spritePointer.addAndGet(-1);
                     break;
-                case NativeKeyEvent.VC_ENTER:
-                    synchronized (lock) {
-                        wait[0] = false;
-                        lock.notifyAll();
-                    }
-
-                    break;
                 case NativeKeyEvent.VC_ESCAPE:
                     keyListener.close();
                     synchronized (lock) {
@@ -76,10 +69,11 @@ public class PieceArranger {
                     break;
             }
             currentSprite.set(sprites.get(spritePointer.get() % sprites.size()));
-            screen.commit();
+            screen.update();
         });
 
         try {
+            screen.update();
             keyListener.run();
             synchronized (lock) {
                 while (wait[0]) {

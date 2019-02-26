@@ -2,16 +2,12 @@ package blokus;
 
 import misc.Pair;
 import misc.Saver;
-import org.apache.commons.lang3.ObjectUtils;
 import uis.Texel;
 import uis.Texelizeable;
-import uis.fancyttyui.ColorPallet;
-import uis.fancyttyui.Terminal;
+import uis.fancyttyui.*;
 
 import java.io.*;
 import java.util.*;
-import java.util.function.BinaryOperator;
-import java.util.stream.Collectors;
 
 
 public class Board implements Serializable, Texelizeable {
@@ -422,8 +418,8 @@ public class Board implements Serializable, Texelizeable {
                 int baseX = x - position.x;
                 int baseY = y - position.y;
 
-                if (fits(baseX, baseY, piece.rotate(orientationAndFlip.getFirst(), orientationAndFlip.getSecond()))) {
-                    moves.add(new Move(baseX, baseY, pieceID, color, orientationAndFlip.getFirst(), orientationAndFlip.getSecond()));
+                if (fits(baseX, baseY, piece.rotate(orientationAndFlip.getK(), orientationAndFlip.getV()))) {
+                    moves.add(new Move(baseX, baseY, pieceID, color, orientationAndFlip.getK(), orientationAndFlip.getV()));
                 }
             }
         }
@@ -584,29 +580,32 @@ public class Board implements Serializable, Texelizeable {
         for (int y = 0; y < newBuffer.length - 2; y++) {
             for (int x = 0; x < newBuffer[y].length - 4; x++) {
 //                System.out.println(x + ", " + y);
-                newBuffer[y + 1][x + 2] = pallet.getTexel(board[y / scaleY][x / scaleX / 2]);
+                newBuffer[y + 1][x + 2] = pallet.getTexel(safeOffset(x / scaleX / 2,y / scaleY, 0, 0));
+
+//                newBuffer[y + 1][2 * x + 3] = pallet.getTexel(board[y / scaleX][x / scaleX / 2]);
             }
         }
 
         if (pallet.drawCoordinates()) {
-            for (int x = 1; x < getDimX() + 1; x++) {
-                newBuffer[newBuffer.length - 1][2 * x * scaleX] = new Texel(pallet.getCoordinateForegroundColor(), pallet.getCoordinateBackgroundColor(), Character.forDigit((x - 1) % 10, 10));
-                newBuffer[0][2 * x * scaleX] = new Texel(pallet.getCoordinateForegroundColor(), pallet.getCoordinateBackgroundColor(), Character.forDigit((x - 1) % 10, 10));
+            for (int x = 0; x < getDimX(); x++) {
+                newBuffer[newBuffer.length - 1][2 * x * scaleX + scaleX] = new Texel(pallet.getCoordinateForegroundColor(), pallet.getCoordinateBackgroundColor(), Character.forDigit(x % 10, 10));
+                newBuffer[0][2 * x * scaleX + scaleX] = new Texel(pallet.getCoordinateForegroundColor(), pallet.getCoordinateBackgroundColor(), Character.forDigit(x % 10, 10));
             }
 
-            for (int y = 1; y < getDimY() + 1; y++) {
-                newBuffer[y * scaleY][newBuffer[0].length - 1] = new Texel(pallet.getCoordinateForegroundColor(), pallet.getCoordinateBackgroundColor(), Character.forDigit((y - 1) % 10, 10));
-                newBuffer[y * scaleY][0] = new Texel(pallet.getCoordinateForegroundColor(), pallet.getCoordinateBackgroundColor(), Character.forDigit((y - 1) % 10, 10));
+            for (int y = 0; y < getDimY(); y++) {
+                newBuffer[y * scaleY + scaleY - 1][newBuffer[0].length - 2] = new Texel(pallet.getCoordinateForegroundColor(), pallet.getCoordinateBackgroundColor(), Character.forDigit(y  % 10, 10));
+                newBuffer[y * scaleY + scaleY - 1][1] = new Texel(pallet.getCoordinateForegroundColor(), pallet.getCoordinateBackgroundColor(), Character.forDigit(y % 10, 10));
             }
         }
 
         return newBuffer;
     }
 
-    public static void main (String[] arghs) {
-        Board board = new Board(14, 14, new MyPieceManager(2));
-        System.out.println(board.getFirstNFittingMoves(100, 0).size());
+    @Override
+    public boolean isStretched() {
+        return false;
     }
+
 
 }
 

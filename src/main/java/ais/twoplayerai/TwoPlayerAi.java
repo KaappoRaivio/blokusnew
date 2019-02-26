@@ -62,9 +62,9 @@ public class TwoPlayerAi extends Player {
 
             } else {
                 System.out.println(Collections.max(thread.getResult(), (moveAndScore, t1) -> {
-                    if (moveAndScore.getSecond() - t1.getSecond() < 0) {
+                    if (moveAndScore.getV() - t1.getV() < 0) {
                         return -1;
-                    } else if (moveAndScore.getSecond() - t1.getSecond() > 0) {
+                    } else if (moveAndScore.getV() - t1.getV() > 0) {
                         return 1;
                     } else {
                         return 0;
@@ -75,7 +75,7 @@ public class TwoPlayerAi extends Player {
             }
         }
 
-        moveScores.sort((moveDoublePair, t1) -> moveDoublePair.getSecond() - t1.getSecond() < 0 ? 1 : moveDoublePair.getSecond() - t1.getSecond() == 0 ? 0 : -1
+        moveScores.sort((moveDoublePair, t1) -> moveDoublePair.getV() - t1.getV() < 0 ? 1 : moveDoublePair.getV() - t1.getV() == 0 ? 0 : -1
         );
 
 
@@ -93,7 +93,7 @@ public class TwoPlayerAi extends Player {
                 bestMove = moveScores.get(0);
             }
         } else {
-            System.out.println(moveScores.get(0).getFirst() + ", " + moveScores.get(0).getSecond());
+            System.out.println(moveScores.get(0).getK() + ", " + moveScores.get(0).getV());
             bestMove = moveScores.get(0);
         }
 
@@ -101,14 +101,14 @@ public class TwoPlayerAi extends Player {
 
         System.out.println("Parameters: " + evaluator.getPositionEvaluator().evaluatePosition(board, color, true));
 
-        showChainOfDeduction(bestMove.getFirst());
-        return  bestMove.getFirst();
+        showChainOfDeduction(bestMove.getK());
+        return  bestMove.getK();
     }
 
     private void showChainOfDeduction (Move move) {
         Board position = evaluator.getFinalPosition(move);
 //        ui.updateValues(position, (color + depth + 1) % 2, moveCount + depth + 1);
-//        ui.commit();
+//        ui.update();
         ui.overlay(position);
 //        new Scanner(System.in).nextLine();
         ui.clearOverlay();

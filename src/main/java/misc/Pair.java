@@ -7,21 +7,21 @@ public class Pair<K, V> {
 
     private final V second;
 
-    public Pair(K first, V second) {
+    public Pair (K first, V second) {
         this.first = first;
         this.second = second;
     }
 
-    public K getFirst() {
+    public K getK () {
         return first;
     }
 
-    public V getSecond() {
+    public V getV () {
         return second;
     }
 
     @Override
-    public boolean equals(Object o) {
+    public boolean equals (Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Pair<?, ?> pair = (Pair<?, ?>) o;
@@ -30,7 +30,7 @@ public class Pair<K, V> {
     }
 
     @Override
-    public int hashCode() {
+    public int hashCode () {
         return Objects.hash(first, second);
     }
 }

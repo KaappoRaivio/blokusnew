@@ -1,7 +1,6 @@
 package uis.fancyttyui;
 
 import blokus.*;
-import listener.KeyEventListener;
 import listener.KeyListener;
 import org.jnativehook.keyboard.NativeKeyEvent;
 import uis.Texel;
@@ -27,32 +26,42 @@ public class Sprite implements Serializable, Texelizeable {
     protected int dimY;
 
 
+
+    private boolean stretch;
+
+
     private int ID;
 
     private char transparent;
 
-    public int getID() {
+    public int getID () {
         return ID;
     }
 
-    public Sprite(Texel[][] mesh, char transparent) {
+    @Override
+    public boolean isStretched () {
+        return stretch;
+    }
+
+    public Sprite (Texel[][] mesh, final char transparent, boolean stretch) {
         this.mesh = mesh;
 
         dimX = mesh[0].length;
         dimY = mesh.length;
+        this.stretch = stretch;
 
         ID = ++spriteID;
         this.transparent = transparent;
     }
 
-    public char getTransparent() {
+    public char getTransparent () {
         return transparent;
     }
 
-    public static Sprite fromString (String string, String verticalDelimiter, String horizontalDelimiter, char transparent, int scaleX, int scaleY) {
+    public static Sprite fromString (String string, String verticalDelimiter, String horizontalDelimiter, char transparent, boolean stretch) {
         Texel[][] mesh = misc.ConvertToList.convertToList(string, verticalDelimiter, horizontalDelimiter, transparent);
 
-        return new Sprite(mesh, transparent);
+        return new Sprite(mesh, transparent, stretch);
     }
 
     public void draw (int posX, int posY) {
@@ -78,6 +87,11 @@ public class Sprite implements Serializable, Texelizeable {
         }
     }
 
+    public void move (int newX, int newY) {
+        posX = newX;
+        posY = newY;
+    }
+
     @Override
     public String toString() {
         return "Sprite{" +
@@ -94,7 +108,7 @@ public class Sprite implements Serializable, Texelizeable {
         Screen screen = new Terminal(16, 16);
 
         Board board = Board.fromFile("/home/kaappo/git/blokus/src/main/resources/boards/Sat Feb 02 20:04:00 EET 2019.ser", false);
-        Sprite boardSprite = new Sprite(board.texelize(new DefaultPallet(), 1, 1), '$');
+        Sprite boardSprite = new Sprite(board.texelize(new DefaultPallet(), 1, 1), '$', false);
         screen.addSprite(boardSprite);
         boardSprite.draw(0, 0);
 
@@ -102,7 +116,7 @@ public class Sprite implements Serializable, Texelizeable {
         screen.addSprite(sprite);
         sprite.draw(1, 1);
 
-        screen.commit();
+        screen.update();
 
 
         KeyListener keyListener = new KeyListener();
@@ -137,7 +151,7 @@ public class Sprite implements Serializable, Texelizeable {
                     break;
             }
 
-            screen.commit();
+            screen.update();
         });
         keyListener.run();
         try {

@@ -1,5 +1,6 @@
 package blokus;
 
+import misc.Pair;
 import uis.Texel;
 import uis.Texelizeable;
 import uis.fancyttyui.ColorPallet;
@@ -8,7 +9,6 @@ import uis.fancyttyui.Terminal;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Vector;
@@ -313,8 +313,8 @@ public class Piece implements java.io.Serializable, Texelizeable {
     public List<Piece> getAllOrientations () {
         List<Piece> pieces = new Vector<>();
 
-        for (PieceID.OrientationAndFlip orientationAndFlip : id.getAllOrientations()) {
-            pieces.add(rotate(orientationAndFlip.getOrientation(), orientationAndFlip.isFlip()));
+        for (Pair<Orientation, Boolean> orientationAndFlip : id.getAllOrientations()) {
+            pieces.add(rotate(orientationAndFlip.getK(), orientationAndFlip.getV()));
         }
 
         return pieces;
@@ -390,7 +390,7 @@ public class Piece implements java.io.Serializable, Texelizeable {
     @Override
     public Texel[][] texelize (ColorPallet colorPallet, int scaleX, int scaleY) {
         char[][] pieceMesh = mesh;
-        Texel[][] mesh = new Texel[this.mesh.length * scaleY][2 * scaleX * this.mesh[0].length];
+        Texel[][] mesh = new Texel[this.mesh.length * scaleY][scaleX * this.mesh[0].length];
 
         for (int y = 0; y < mesh.length; y++) {
             for (int x = 0; x < mesh[y].length; x++) {
@@ -400,14 +400,18 @@ public class Piece implements java.io.Serializable, Texelizeable {
 
         for (int y = 0; y < mesh.length; y++) {
             for (int x = 0; x < mesh[y].length; x++) {
-                if (pieceMesh[y / scaleY][x / scaleX / 2] == OPAQUE) {
+                if (pieceMesh[y / scaleY][x / scaleX] == OPAQUE) {
                     mesh[y][x] = colorPallet.getTexel(color);
                 }
-
             }
         }
 
         return mesh;
+    }
+
+    @Override
+    public boolean isStretched() {
+        return true;
     }
 
     public static void main(String[] args) {

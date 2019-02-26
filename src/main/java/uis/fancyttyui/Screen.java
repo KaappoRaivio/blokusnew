@@ -7,7 +7,7 @@ import uis.Texelizeable;
 import java.io.IOException;
 
 public interface Screen {
-    void commit ();
+    void update();
     void setPixel (int x, int y, Texel newTexel);
     Texel getPixel (int x, int y);
     void updateBuffer (Texel[][] buffer);

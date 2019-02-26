@@ -36,7 +36,7 @@ class _KeyListener implements NativeKeyListener {
         this.verbose = verbose;
     }
 
-    private void broadcastKeyEvent (NativeKeyEvent e) {
+    private synchronized void broadcastKeyEvent (NativeKeyEvent e) {
         for (KeyEventListener keyEventListener : keyEventListeners) {
             keyEventListener.reportKey(e);
         }

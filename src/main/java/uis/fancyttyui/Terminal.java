@@ -1,14 +1,7 @@
 package uis.fancyttyui;
 
-import com.googlecode.lanterna.SGR;
-import com.googlecode.lanterna.TerminalSize;
 import com.googlecode.lanterna.TextColor;
-import com.googlecode.lanterna.gui2.Panel;
 import com.googlecode.lanterna.terminal.DefaultTerminalFactory;
-import com.googlecode.lanterna.terminal.ResizeListener;
-import com.googlecode.lanterna.terminal.SimpleTerminalResizeListener;
-import com.googlecode.lanterna.terminal.TerminalResizeListener;
-import com.googlecode.lanterna.terminal.swing.SwingTerminal;
 import com.googlecode.lanterna.terminal.swing.SwingTerminalFrame;
 import uis.Texel;
 import uis.Texelizeable;
@@ -16,9 +9,9 @@ import uis.Texelizeable;
 import java.awt.*;
 import java.io.IOException;
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
+import java.util.logging.Logger;
 
 public class Terminal implements Screen, Serializable {
     private final transient Object lock = new Object();
@@ -81,8 +74,8 @@ public class Terminal implements Screen, Serializable {
             }
         }
         buffer = newBuffer;
-        System.out.println("Trying to commit!");
-        commit();
+        System.out.println("Trying to update!");
+        update();
     }
 
     private void initializeBuffer () {
@@ -127,16 +120,36 @@ public class Terminal implements Screen, Serializable {
     public void drawTexelizeable (Texelizeable texelizeable, ColorPallet colorPallet, int posX, int posY, int scaleX, int scaleY) {
 
         Texel[][] buffer = texelizeable.texelize(colorPallet, scaleX, scaleY);
-        if (buffer.length > this.buffer.length || buffer[0].length > this.buffer[0].length) {
+        if (buffer.length + posY > this.buffer.length || buffer[0].length + posX > this.buffer[0].length) {
             reinitializeBuffer(buffer[0].length, buffer.length);
+            System.out.println("moi");
         }
 
         for (int y = 0; y < buffer.length; y++) {
             for (int x = 0; x < buffer[y].length; x++) {
                 try {
-                    this.buffer[y + posY][x + posX] = buffer[y][x];
-                } catch (ArrayIndexOutOfBoundsException ignored) {}
+//                    this.buffer[y + posY][2 * x + posX] = buffer[y][x];
+//                    this.buffer[y + posY][2 * x + 1 + posX] = buffer[y][x];
+                    Texel current = buffer[y][x];
+                    setBuffer(x + posX, y + posY, current, texelizeable.isStretched());
+                } catch (ArrayIndexOutOfBoundsException e) {
+                    e.printStackTrace();
+
+                }
             }
+        }
+    }
+
+    private void setBuffer (int posX, int posY, Texel texel, boolean stretch) {
+        try {
+            if (stretch) {
+                buffer[posY][2 * posX] = texel;
+                buffer[posY][2 * posX + 1] = texel;
+            } else {
+                buffer[posY][posX] = texel;
+            }
+        } catch (ArrayIndexOutOfBoundsException e) {
+            e.printStackTrace();
         }
     }
 
@@ -151,25 +164,35 @@ public class Terminal implements Screen, Serializable {
                             continue;
                         }
 
-
-                        try {
-
-                            terminal.setCursorPosition(x, y);
-                            terminal.setForegroundColor(current.getForegroundColor());
-                            terminal.setBackgroundColor(current.getBackgroundColor());
-                            terminal.putCharacter(current.getValue());
-
-                        } catch (IOException e) {
-                            throw new RuntimeException(e);
-                        }
+                        setCharacter(x, y, current, sprite.isStretched());
                     }
                 }
             }
         }
     }
 
+    private synchronized void setCharacter (int posX, int posY, Texel texel, boolean stretch) {
+        if (stretch) {
+            setCharacter(2 * posX, posY, texel);
+            setCharacter(2 * posX + 1, posY, texel);
+        } else {
+            setCharacter(posX, posY, texel);
+        }
+    }
+
+    private synchronized void setCharacter (int posX, int posY, Texel texel) {
+        try {
+            terminal.setCursorPosition(posX, posY);
+            terminal.setForegroundColor(texel.getForegroundColor());
+            terminal.setBackgroundColor(texel.getBackgroundColor());
+            terminal.putCharacter(texel.getValue());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     @Override
-    public void commit () {
+    public void update() {
         synchronized (lock) {
             for (int y = 0; y < getDimY(); y++) {
                 for (int x = 0; x < getDimX(); x++) {

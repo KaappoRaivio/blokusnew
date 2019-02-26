@@ -21,7 +21,7 @@ public class PieceSprite extends Sprite {
     }
 
     PieceSprite (PieceID pieceID, int color, Orientation orientation, boolean flip, int scaleX, int scaleY, ColorPallet pallet, char transparent) {
-        super(new Piece(pieceID, color).rotate(orientation, flip).texelize(pallet, scaleX, scaleY), transparent);
+        super(new Piece(pieceID, color).rotate(orientation, flip).texelize(pallet, scaleX, scaleY), transparent, true);
 
         this.scaleX = scaleX;
         this.scaleY = scaleY;
