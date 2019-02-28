@@ -19,10 +19,7 @@ public class Terminal implements Screen, Serializable {
     private static final TextColor.RGB foregroundColor = new TextColor.RGB(255, 255, 255);
     private static final TextColor.RGB backgroundColor = new TextColor.RGB(0, 0, 0);
 
-
-
     private com.googlecode.lanterna.terminal.Terminal terminal;
-//    private TerminalResizeListener resizeListener;
 
     private volatile Texel[][] buffer;
     private List<Sprite> sprites = new ArrayList<>();
@@ -38,6 +35,7 @@ public class Terminal implements Screen, Serializable {
 
             try {
                 Insets insets = ((SwingTerminalFrame) terminal).getInsets();
+
                 ((SwingTerminalFrame) terminal).setSize(new Dimension(insets.left + insets.right + pixDimX + 1, insets.top + insets.bottom + pixDimY + 1));
                 ((SwingTerminalFrame) terminal).setAlwaysOnTop(true);
             } catch (ClassCastException e) {
@@ -127,8 +125,6 @@ public class Terminal implements Screen, Serializable {
         for (int y = 0; y < buffer.length; y++) {
             for (int x = 0; x < buffer[y].length; x++) {
                 try {
-//                    this.buffer[y + posY][2 * x + posX] = buffer[y][x];
-//                    this.buffer[y + posY][2 * x + 1 + posX] = buffer[y][x];
                     Texel current = buffer[y][x];
                     setBuffer(x + posX, y + posY, current, texelizeable.isStretched());
                 } catch (ArrayIndexOutOfBoundsException e) {

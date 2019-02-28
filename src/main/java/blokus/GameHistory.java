@@ -1,5 +1,7 @@
 package blokus;
 
+import misc.Saver;
+
 import java.io.*;
 import java.util.Date;
 import java.util.List;
@@ -35,36 +37,7 @@ public class GameHistory implements Serializable {
     public String save (String filename) {
         String path = System.getProperty("user.dir") + "/src/main/resources/games/" + filename + ".ser";
 
-        File file = new File(path);
-
-        try {
-            if (file.createNewFile()) {
-                System.out.println("Creating new file " + path);
-
-            } else {
-                System.out.println("File " + path + " already exists");
-            }
-        } catch (IOException e) {
-            System.out.println(path);
-            throw new RuntimeException(e);
-        }
-
-
-        try {
-            FileOutputStream fileOut = new FileOutputStream(path);
-
-            ObjectOutputStream out = new ObjectOutputStream(fileOut);
-            out.writeObject(this);
-            out.close();
-
-            fileOut.close();
-
-            System.out.println("Saved board to: " + path);
-      } catch (IOException e) {
-            throw new RuntimeException(e);
-      }
-
-      return path;
+        return new Saver<GameHistory>().save(this, path, false);
     }
 
     public String save () {

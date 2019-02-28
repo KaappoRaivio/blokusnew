@@ -349,7 +349,7 @@ public class Board implements Serializable, Texelizeable {
 
 
 
-    private String save(String name) {
+    private String save (String name) {
         String path = System.getProperty("user.dir") + "/src/main/resources/boards/" + name + ".ser";
         saver.save(this, path, false);
         return path;
