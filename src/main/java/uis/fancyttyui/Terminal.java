@@ -9,32 +9,25 @@ import uis.Texelizeable;
 import java.awt.*;
 import java.io.IOException;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
-import java.util.logging.Logger;
 
 public class Terminal implements Screen, Serializable {
     private final transient Object lock = new Object();
     public static final char TRANSPARENT = ' ';
     private static final TextColor.RGB foregroundColor = new TextColor.RGB(255, 255, 255);
     private static final TextColor.RGB backgroundColor = new TextColor.RGB(0, 0, 0);
-    private final int dimX;
-    private final int dimY;
+
 
 
     private com.googlecode.lanterna.terminal.Terminal terminal;
 //    private TerminalResizeListener resizeListener;
 
     private volatile Texel[][] buffer;
-    private List<Sprite> sprites = new Vector<>();
+    private List<Sprite> sprites = new ArrayList<>();
 
     public Terminal (int dimX, int dimY) {
-        this.dimX = dimX;
-        this.dimY = dimY;
-
-        System.out.println(dimX + ", " + dimY);
-
-
         try {
             terminal = new DefaultTerminalFactory().createTerminal();
             terminal.setCursorVisible(false);
@@ -42,11 +35,17 @@ public class Terminal implements Screen, Serializable {
             int pixDimX = dimX / 2 * 16;
             int pixDimY = dimY * 16;
 
-            Insets insets = ((SwingTerminalFrame) terminal).getInsets();
 
-             ((SwingTerminalFrame) terminal).setSize(new Dimension(insets.left + insets.right + pixDimX + 1, insets.top + insets.bottom + pixDimY + 1));
+            try {
+                Insets insets = ((SwingTerminalFrame) terminal).getInsets();
+                ((SwingTerminalFrame) terminal).setSize(new Dimension(insets.left + insets.right + pixDimX + 1, insets.top + insets.bottom + pixDimY + 1));
+                ((SwingTerminalFrame) terminal).setAlwaysOnTop(true);
+            } catch (ClassCastException e) {
+                System.out.println("Couldn't set terminal dimensions for " + terminal.getClass());
+            }
 
-            ((SwingTerminalFrame) terminal).setAlwaysOnTop(true);
+
+
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -60,21 +59,22 @@ public class Terminal implements Screen, Serializable {
 
     private void reinitializeBuffer (int newDimX, int newDimY) {
         Texel[][] newBuffer = new Texel[newDimY][newDimX];
+
         for (int y = 0; y < newBuffer.length; y++) {
             for (int x = 0; x < newBuffer[y].length; x++) {
                 newBuffer[y][x] = new Texel(foregroundColor, backgroundColor, TRANSPARENT);
             }
         }
 
-        for (int y = 0; y < buffer.length; y++) {
-            for (int x = 0; x < buffer[y].length; x++) {
+        for (int y = 0; y < newBuffer.length; y++) {
+            for (int x = 0; x < newBuffer[y].length; x++) {
                 try {
                     newBuffer[y][x] = buffer[y][x];
                 } catch (ArrayIndexOutOfBoundsException ignored) {}
             }
         }
+
         buffer = newBuffer;
-        System.out.println("Trying to update!");
         update();
     }
 
@@ -92,7 +92,6 @@ public class Terminal implements Screen, Serializable {
 
     @Override
     public void addSprite (Sprite sprite, boolean tuck) {
-
         synchronized (lock) {
             if (tuck) {
                 sprites.add(0, sprite);
