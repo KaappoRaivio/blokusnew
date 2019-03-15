@@ -1,6 +1,7 @@
 package blokus;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.Objects;
 
 public class Move implements java.io.Serializable {
@@ -14,7 +15,16 @@ public class Move implements java.io.Serializable {
 //                ", orientation=" + orientation +
 //                ", flip=" + flip +
 //                '}';
-        return "(" + x + ", " + y + ") " + color + " " + pieceID + " " + orientation + " " + flip + ".";
+        return "(" + x + ", " + y + ") " + color + " " + pieceID + " " + orientation + " " + flip + ". ||" + toStringHelper(new Piece(pieceID, color).rotate(orientation, flip).getSquares(), x, y);
+    }
+
+    private String toStringHelper (List<Position> positions, int x, int y) {
+        StringBuilder stringBuilder = new StringBuilder("<");
+        for (var a : positions) {
+            stringBuilder.append(" ").append(a.x + x).append(",").append(a.y + y);
+        }
+
+        return stringBuilder.append(">").toString();
     }
 
     private int x;
