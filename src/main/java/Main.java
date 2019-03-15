@@ -7,7 +7,7 @@ import uis.fancyttyui.FancyTtyUI;
 public class Main {
     public static void main(String[] args) {
         Board board = Board.DUO_BOARD;
-
+        
         UI ui = new FancyTtyUI(board.deepCopy(), 2, 2);
         ui.commit();
 

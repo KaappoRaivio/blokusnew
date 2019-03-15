@@ -51,14 +51,18 @@ public class Saver<T extends Serializable> implements Serializable {
             absolutePath = path;
         }
 
-        T t;
+
+        T recovered;
         try {
             FileInputStream fileIn = new FileInputStream(absolutePath);
 
             ObjectInputStream in = new ObjectInputStream(fileIn);
             try {
                 Object obj = in.readObject();
-                t = (T) in.readObject();
+
+                //noinspection unchecked
+                recovered = (T) obj;
+
             } catch (ClassCastException | ClassNotFoundException e) {
                 throw new RuntimeException("No valid object found!");
             }
@@ -69,7 +73,7 @@ public class Saver<T extends Serializable> implements Serializable {
             throw new RuntimeException(e);
         }
 
-        return t;
+        return recovered;
     }
 
     public T deepCopy (T object) {
