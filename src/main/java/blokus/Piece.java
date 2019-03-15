@@ -1,11 +1,6 @@
 package blokus;
 
 import misc.Pair;
-import uis.Texel;
-import uis.Texelizeable;
-import uis.fancyttyui.ColorPallet;
-import uis.fancyttyui.DefaultPallet;
-import uis.fancyttyui.Terminal;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
@@ -13,7 +8,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Vector;
 
-public class Piece implements java.io.Serializable, Texelizeable {
+public class Piece implements java.io.Serializable {
     private static final List<String> paths = Arrays.asList(
             "../pieces/piece1.txt",
             "../pieces/piece2.txt",
@@ -387,40 +382,6 @@ public class Piece implements java.io.Serializable, Texelizeable {
         return 21;
     }
 
-    @Override
-    public Texel[][] texelize (ColorPallet colorPallet, int scaleX, int scaleY) {
-        char[][] pieceMesh = mesh;
-        Texel[][] mesh = new Texel[this.mesh.length * scaleY][scaleX * this.mesh[0].length];
-
-        for (int y = 0; y < mesh.length; y++) {
-            for (int x = 0; x < mesh[y].length; x++) {
-                mesh[y][x] = new Texel(Terminal.TRANSPARENT);
-            }
-        }
-
-        for (int y = 0; y < mesh.length; y++) {
-            for (int x = 0; x < mesh[y].length; x++) {
-                if (pieceMesh[y / scaleY][x / scaleX] == OPAQUE) {
-                    mesh[y][x] = colorPallet.getTexel(color);
-                }
-            }
-        }
-
-        return mesh;
-    }
-
-    @Override
-    public boolean isStretched() {
-        return true;
-    }
-
-    public static void main(String[] args) {
-        Piece piece = new Piece(PieceID.PIECE_21, 0);
-//        System.out.println(piece.rotate(Orientation.LEFT, false));
-//        System.out.println(piece.getAllOrientations());
-        System.out.println(piece.rotate(Orientation.DOWN, false).rotate(Orientation.DOWN, false));
-        System.out.println(Arrays.deepToString(piece.texelize(new DefaultPallet(), 1, 1)));
-    }
 
     public int getDimY () {
         return dimY;

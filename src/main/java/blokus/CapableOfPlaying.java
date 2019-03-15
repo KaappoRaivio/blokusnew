@@ -1,6 +1,6 @@
 package blokus;
 
-import ais.twoplayerai.Evaluator;
+
 
 public interface CapableOfPlaying {
     Move getMove();

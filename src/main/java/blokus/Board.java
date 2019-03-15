@@ -2,15 +2,13 @@ package blokus;
 
 import misc.Pair;
 import misc.Saver;
-import uis.Texel;
-import uis.Texelizeable;
-import uis.fancyttyui.*;
+
 
 import java.io.*;
 import java.util.*;
 
 
-public class Board implements Serializable, Texelizeable {
+public class Board implements Serializable {
     public static final Board DUO_BOARD = new Board(14, 14, new MyPieceManager(2));
     public static final Board ORIGINAL_BOARD = new Board(20, 20, new MyPieceManager(4), true);
 
@@ -571,41 +569,6 @@ public class Board implements Serializable, Texelizeable {
 //        }
 
     }
-
-    @Override
-    public Texel[][] texelize (ColorPallet pallet, int scaleX, int scaleY) {
-
-        Texel[][] newBuffer = Texel.getBlankTexelMatrix(scaleX * getDimX() * 2 + 4, scaleY * getDimY() + 2, pallet.getBackgroundTexel());
-
-        for (int y = 0; y < newBuffer.length - 2; y++) {
-            for (int x = 0; x < newBuffer[y].length - 4; x++) {
-//                System.out.println(x + ", " + y);
-                newBuffer[y + 1][x + 2] = pallet.getTexel(safeOffset(x / scaleX / 2,y / scaleY, 0, 0));
-
-//                newBuffer[y + 1][2 * x + 3] = pallet.getTexel(board[y / scaleX][x / scaleX / 2]);
-            }
-        }
-
-        if (pallet.drawCoordinates()) {
-            for (int x = 0; x < getDimX(); x++) {
-                newBuffer[newBuffer.length - 1][2 * x * scaleX + scaleX] = new Texel(pallet.getCoordinateForegroundColor(), pallet.getCoordinateBackgroundColor(), Character.forDigit(x % 10, 10));
-                newBuffer[0][2 * x * scaleX + scaleX] = new Texel(pallet.getCoordinateForegroundColor(), pallet.getCoordinateBackgroundColor(), Character.forDigit(x % 10, 10));
-            }
-
-            for (int y = 0; y < getDimY(); y++) {
-                newBuffer[y * scaleY + scaleY - 1][newBuffer[0].length - 2] = new Texel(pallet.getCoordinateForegroundColor(), pallet.getCoordinateBackgroundColor(), Character.forDigit(y  % 10, 10));
-                newBuffer[y * scaleY + scaleY - 1][1] = new Texel(pallet.getCoordinateForegroundColor(), pallet.getCoordinateBackgroundColor(), Character.forDigit(y % 10, 10));
-            }
-        }
-
-        return newBuffer;
-    }
-
-    @Override
-    public boolean isStretched() {
-        return false;
-    }
-
 
 }
 
