@@ -1,6 +1,7 @@
 package blokus;
 
 import misc.Pair;
+import org.apache.commons.lang3.StringUtils;
 import uis.Texel;
 import uis.Texelizeable;
 import uis.fancyttyui.ColorPallet;
@@ -9,33 +10,37 @@ import uis.fancyttyui.Terminal;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Vector;
+import java.util.stream.Collectors;
 
 public class Piece implements java.io.Serializable, Texelizeable {
     private static final List<String> paths = Arrays.asList(
-            "../pieces/piece1.txt",
-            "../pieces/piece2.txt",
-            "../pieces/piece3.txt",
-            "../pieces/piece4.txt",
-            "../pieces/piece5.txt",
-            "../pieces/piece6.txt",
-            "../pieces/piece7.txt",
-            "../pieces/piece8.txt",
-            "../pieces/piece9.txt",
-            "../pieces/piece10.txt",
-            "../pieces/piece11.txt",
-            "../pieces/piece12.txt",
-            "../pieces/piece13.txt",
-            "../pieces/piece14.txt",
-            "../pieces/piece15.txt",
-            "../pieces/piece16.txt",
-            "../pieces/piece17.txt",
-            "../pieces/piece18.txt",
-            "../pieces/piece19.txt",
-            "../pieces/piece20.txt",
-            "../pieces/piece21.txt"
+            
+            "/home/kaappo/git/blokusnew/src/main/resources/pieces/piece1.txt",
+            "/home/kaappo/git/blokusnew/src/main/resources/pieces/piece2.txt",
+            "/home/kaappo/git/blokusnew/src/main/resources/pieces/piece3.txt",
+            "/home/kaappo/git/blokusnew/src/main/resources/pieces/piece4.txt",
+            "/home/kaappo/git/blokusnew/src/main/resources/pieces/piece5.txt",
+            "/home/kaappo/git/blokusnew/src/main/resources/pieces/piece6.txt",
+            "/home/kaappo/git/blokusnew/src/main/resources/pieces/piece7.txt",
+            "/home/kaappo/git/blokusnew/src/main/resources/pieces/piece8.txt",
+            "/home/kaappo/git/blokusnew/src/main/resources/pieces/piece9.txt",
+            "/home/kaappo/git/blokusnew/src/main/resources/pieces/piece10.txt",
+            "/home/kaappo/git/blokusnew/src/main/resources/pieces/piece11.txt",
+            "/home/kaappo/git/blokusnew/src/main/resources/pieces/piece12.txt",
+            "/home/kaappo/git/blokusnew/src/main/resources/pieces/piece13.txt",
+            "/home/kaappo/git/blokusnew/src/main/resources/pieces/piece14.txt",
+            "/home/kaappo/git/blokusnew/src/main/resources/pieces/piece15.txt",
+            "/home/kaappo/git/blokusnew/src/main/resources/pieces/piece16.txt",
+            "/home/kaappo/git/blokusnew/src/main/resources/pieces/piece17.txt",
+            "/home/kaappo/git/blokusnew/src/main/resources/pieces/piece18.txt",
+            "/home/kaappo/git/blokusnew/src/main/resources/pieces/piece19.txt",
+            "/home/kaappo/git/blokusnew/src/main/resources/pieces/piece20.txt",
+            "/home/kaappo/git/blokusnew/src/main/resources/pieces/piece21.txt"
     );
 
 
@@ -111,6 +116,10 @@ public class Piece implements java.io.Serializable, Texelizeable {
         return squares;
     }
 
+    private static String readFile (String path) throws IOException {
+            return StringUtils.join(Files.lines(Paths.get(path), StandardCharsets.UTF_8).collect(Collectors.toList()), '\n');
+    }
+
     public Piece (PieceID pieceID, int color) {
         if (isValid(color)) {
             this.color = color;
@@ -121,7 +130,7 @@ public class Piece implements java.io.Serializable, Texelizeable {
 
         String text;
         try {
-            text = new String(getClass().getResourceAsStream(paths.get(pieceID.getOrdinal())).readAllBytes(), StandardCharsets.UTF_8);
+            text = readFile(paths.get(pieceID.getOrdinal()));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
