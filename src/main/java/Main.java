@@ -24,10 +24,10 @@ public class Main {
 //                new Player(board , 0, null, ui),
 //                new RandomAi(board, 0, null, ui),
 //                new Player(board, 0, null, ui),
-//                twoPlayerAi0,
-//                twoPlayerAi1,
-                new Player(board, 0, null, ui),
-                new Player(board, 1, null, ui)
+                twoPlayerAi0,
+                twoPlayerAi1,
+//                new Player(board, 0, null, ui),
+//                new Player(board, 1, null, ui)
 //                new Player(board, 1, null, ui),
 //                new Player(board, 2, null, ui),
 //                new Player(board, 3, null, ui),

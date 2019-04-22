@@ -1,8 +1,8 @@
 package ais.server;
 
-import blokus.Board;
-import blokus.Player;
+import blokus.*;
 import uis.UI;
+import uis.fancyttyui.FancyTtyUI;
 
 import java.io.IOException;
 import java.io.ObjectOutputStream;
@@ -38,5 +38,13 @@ public class Dispatcher extends Player {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public static void main(String[] args) {
+        Board board = Board.DUO_BOARD;
+
+        board.putOnBoard(new Move(4, 4, PieceID.PIECE_1, 0, Orientation.UP, false));
+
+        new Dispatcher(board, 0, null, new FancyTtyUI(board, 1, 1), "localhost", 1212).updateValues(board, 3, 2);
     }
 }

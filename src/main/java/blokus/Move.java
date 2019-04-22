@@ -2,6 +2,7 @@ package blokus;
 
 import java.util.Arrays;
 import java.util.Objects;
+import java.util.regex.Pattern;
 
 public class Move implements java.io.Serializable {
     @Override
@@ -15,6 +16,21 @@ public class Move implements java.io.Serializable {
 //                ", flip=" + flip +
 //                '}';
         return "(" + x + ", " + y + ") " + color + " " + pieceID + " " + orientation + " " + flip + ".";
+    }
+
+
+    public static Move valueOf (String move) {
+        String[] components = move.split(" ");
+
+        int posX = Integer.parseInt(components[0].substring(1, components[0].length() - 1));
+        int posY = Integer.parseInt(components[1].substring(0, components[1].length() - 1));
+
+        int color = Integer.parseInt(components[2]);
+        PieceID pieceID = PieceID.fromStandardNotation(components[3]);
+        Orientation orientation = Orientation.valueOf(components[4]);
+        boolean flip = Boolean.parseBoolean(components[5].substring(0, components[5].length() - 1));
+
+        return new Move(posX, posY, pieceID, color, orientation, flip);
     }
 
     private int x;
@@ -95,4 +111,5 @@ public class Move implements java.io.Serializable {
     public int hashCode() {
         return Objects.hash(x, y, pieceID, color, orientation, flip);
     }
+    
 }

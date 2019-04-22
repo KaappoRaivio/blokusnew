@@ -27,4 +27,12 @@ public class GameValues implements Serializable {
         this.moveCount = moveCount;
     }
 
+    @Override
+    public String toString() {
+        return "GameValues{" +
+                "board=" + board +
+                ", turn=" + turn +
+                ", moveCount=" + moveCount +
+                '}';
+    }
 }
